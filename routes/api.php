@@ -72,9 +72,10 @@ Route::middleware(config('analytics-suite.routes.middleware', ['api', 'auth:sanc
 
     // Report Builder
     Route::prefix('reports')->name('analytics.reports.')->group(function () {
-        Route::get('/',        [ReportBuilderController::class, 'index'])->name('index');
-        Route::post('/',       [ReportBuilderController::class, 'store'])->name('store');
-        Route::get('/{id}',    [ReportBuilderController::class, 'show'])->name('show');
+        Route::get('/',             [ReportBuilderController::class, 'index'])->name('index');
+        Route::post('/',            [ReportBuilderController::class, 'store'])->name('store');
+        Route::post('/run-preview', [ReportBuilderController::class, 'runPreview'])->name('run-preview');
+        Route::get('/{id}',         [ReportBuilderController::class, 'show'])->name('show');
         Route::put('/{id}',    [ReportBuilderController::class, 'update'])->name('update');
         Route::delete('/{id}', [ReportBuilderController::class, 'destroy'])->name('destroy');
         Route::post('/{id}/run',    [ReportBuilderController::class, 'run'])->name('run');

@@ -35,8 +35,11 @@ final class ReportBuilderController extends Controller
             $query->templates();
         }
 
-        $templates = $query->where('created_by', $request->user()->id)
-            ->latest()
+        if ($request->user()) {
+            $query->where('created_by', $request->user()->id);
+        }
+
+        $templates = $query->latest()
             ->paginate($request->integer('per_page', 15));
 
         return response()->json([
@@ -69,7 +72,7 @@ final class ReportBuilderController extends Controller
             'category'     => 'nullable|string',
             'tags'         => 'nullable|array',
         ]);
-        $data['created_by'] = $request->user()->id;
+        $data['created_by'] = $request->user()?->id ?? 0;
 
         $template = ReportTemplateModel::create($data);
 
@@ -114,6 +117,40 @@ final class ReportBuilderController extends Controller
         return response()->json(null, 204);
     }
 
+    public function runPreview(Request $request): JsonResponse
+    {
+        $this->security->authorizeOr403($request->user(), 'view_reports');
+
+        $dsl = $request->validate([
+            'source'       => 'nullable|string',
+            'table'        => 'required|string',
+            'columns'      => 'nullable|array',
+            'filters'      => 'nullable|array',
+            'group_by'     => 'nullable|array',
+            'order_by'     => 'nullable|array',
+            'aggregations' => 'nullable|array',
+            'joins'        => 'nullable|array',
+            'pagination'   => 'nullable|array',
+        ]);
+
+        $dsl['source']     ??= 'mysql';
+        $dsl['pagination'] ??= ['page' => 1, 'per_page' => 25];
+
+        $result = $this->engine->run($dsl, []);
+
+        return response()->json([
+            'rows'    => $result->data,
+            'total'   => $result->total,
+            'columns' => array_keys((array) ($result->data[0] ?? [])),
+            'meta'    => array_merge((array) ($result->metadata ?? []), [
+                'source'      => $dsl['source'],
+                'table'       => $dsl['table'],
+                'executed_at' => now()->toISOString(),
+                'preview'     => true,
+            ]),
+        ]);
+    }
+
     public function run(Request $request, int $id): JsonResponse
     {
         $this->security->authorizeOr403($request->user(), 'view_reports');
@@ -132,9 +169,9 @@ final class ReportBuilderController extends Controller
         $result = $this->engine->run($dsl, $request->user()->roles ?? []);
 
         return response()->json([
-            'rows'    => $result->rows,
+            'rows'    => $result->data,
             'total'   => $result->total,
-            'columns' => $result->columns,
+            'columns' => array_keys((array) ($result->data[0] ?? [])),
             'meta'    => [
                 'report_id'    => $id,
                 'source'       => $template->data_source,
@@ -151,7 +188,7 @@ final class ReportBuilderController extends Controller
         $original = ReportTemplateModel::findOrFail($id);
         $clone    = $original->replicate(['created_at', 'updated_at', 'deleted_at']);
         $clone->name       = $request->input('name', $original->name . ' (Copy)');
-        $clone->created_by = $request->user()->id;
+        $clone->created_by = $request->user()?->id ?? 0;
         $clone->is_template = false;
         $clone->save();
 
@@ -173,7 +210,7 @@ final class ReportBuilderController extends Controller
 
         $definition = $request->input('definition', []);
         unset($definition['id'], $definition['created_at'], $definition['updated_at'], $definition['deleted_at']);
-        $definition['created_by'] = $request->user()->id;
+        $definition['created_by'] = $request->user()?->id ?? 0;
 
         $template = ReportTemplateModel::create($definition);
 
