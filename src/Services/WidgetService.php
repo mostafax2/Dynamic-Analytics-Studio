@@ -27,7 +27,7 @@ final class WidgetService
         return $this->repository->listByDashboard($dashboardId);
     }
 
-    public function create(array $data, int|string $userId): WidgetDTO
+    public function create(array $data, int|string|null $userId): WidgetDTO
     {
         $data['created_by'] = $userId;
         $widget = $this->repository->create($data);

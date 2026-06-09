@@ -15,7 +15,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('slug')->unique();
             $table->text('description')->nullable();
-            $table->foreignId('created_by')->constrained('users')->cascadeOnDelete();
+            $table->foreignId('created_by')->nullable()->constrained('users')->nullOnDelete();
             $table->json('layout')->default('{}');
             $table->json('settings')->default('{}');
             $table->boolean('is_public')->default(false);

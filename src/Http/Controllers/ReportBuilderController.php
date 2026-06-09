@@ -72,7 +72,7 @@ final class ReportBuilderController extends Controller
             'category'     => 'nullable|string',
             'tags'         => 'nullable|array',
         ]);
-        $data['created_by'] = $request->user()?->id ?? 0;
+        $data['created_by'] = $request->user()?->id;
 
         $template = ReportTemplateModel::create($data);
 
@@ -188,7 +188,7 @@ final class ReportBuilderController extends Controller
         $original = ReportTemplateModel::findOrFail($id);
         $clone    = $original->replicate(['created_at', 'updated_at', 'deleted_at']);
         $clone->name       = $request->input('name', $original->name . ' (Copy)');
-        $clone->created_by = $request->user()?->id ?? 0;
+        $clone->created_by = $request->user()?->id;
         $clone->is_template = false;
         $clone->save();
 
@@ -210,7 +210,7 @@ final class ReportBuilderController extends Controller
 
         $definition = $request->input('definition', []);
         unset($definition['id'], $definition['created_at'], $definition['updated_at'], $definition['deleted_at']);
-        $definition['created_by'] = $request->user()?->id ?? 0;
+        $definition['created_by'] = $request->user()?->id;
 
         $template = ReportTemplateModel::create($definition);
 

@@ -24,7 +24,7 @@ return new class extends Migration
             $table->unsignedSmallInteger('cache_ttl')->default(300);
             $table->unsignedBigInteger('report_id')->nullable();
             $table->json('report_params')->nullable();
-            $table->foreignId('created_by')->constrained('users')->cascadeOnDelete();
+            $table->foreignId('created_by')->nullable()->constrained('users')->nullOnDelete();
             $table->unsignedBigInteger('tenant_id')->nullable()->index();
             $table->softDeletes();
             $table->timestamps();

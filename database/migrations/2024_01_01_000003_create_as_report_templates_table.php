@@ -26,7 +26,7 @@ return new class extends Migration
             $table->boolean('is_template')->default(false);
             $table->string('category')->nullable()->index();
             $table->json('tags')->nullable();
-            $table->foreignId('created_by')->constrained('users')->cascadeOnDelete();
+            $table->foreignId('created_by')->nullable()->constrained('users')->nullOnDelete();
             $table->unsignedBigInteger('tenant_id')->nullable()->index();
             $table->softDeletes();
             $table->timestamps();

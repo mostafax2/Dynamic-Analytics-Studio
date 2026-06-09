@@ -26,7 +26,7 @@ return new class extends Migration
             $table->timestamp('next_run_at')->nullable()->index();
             $table->unsignedSmallInteger('failure_count')->default(0);
             $table->text('last_error')->nullable();
-            $table->foreignId('created_by')->constrained('users')->cascadeOnDelete();
+            $table->foreignId('created_by')->nullable()->constrained('users')->nullOnDelete();
             $table->unsignedBigInteger('tenant_id')->nullable()->index();
             $table->timestamps();
 

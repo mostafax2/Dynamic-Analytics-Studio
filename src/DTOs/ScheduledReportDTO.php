@@ -20,7 +20,7 @@ final class ScheduledReportDTO
         public readonly bool        $isActive,
         public readonly ?string     $lastRunAt,
         public readonly ?string     $nextRunAt,
-        public readonly int|string  $createdBy,
+        public readonly int|string|null $createdBy,
         public readonly int|string|null $tenantId,
         public readonly string      $createdAt,
         public readonly string      $updatedAt,

@@ -24,7 +24,7 @@ return new class extends Migration
             $table->unsignedBigInteger('size_bytes')->nullable();
             $table->text('error')->nullable();
             $table->string('notify_email')->nullable();
-            $table->foreignId('created_by')->constrained('users')->cascadeOnDelete();
+            $table->foreignId('created_by')->nullable()->constrained('users')->nullOnDelete();
             $table->unsignedBigInteger('tenant_id')->nullable()->index();
             $table->timestamp('completed_at')->nullable();
             $table->timestamps();

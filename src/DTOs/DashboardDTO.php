@@ -13,7 +13,7 @@ final class DashboardDTO
         public readonly string        $name,
         public readonly string        $slug,
         public readonly ?string       $description,
-        public readonly int|string    $createdBy,
+        public readonly int|string|null $createdBy,
         public readonly array         $layout,
         public readonly array         $settings,
         public readonly bool          $isPublic,
