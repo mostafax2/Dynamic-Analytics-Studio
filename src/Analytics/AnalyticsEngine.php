@@ -51,11 +51,11 @@ final class AnalyticsEngine implements AnalyticsEngineInterface
         $widgetData = new WidgetDataDTO(
             widgetId:    $widgetId,
             type:        $widget->type,
-            data:        $result->rows,
+            data:        $result->data,
             meta:        [
                 'total'       => $result->total,
-                'columns'     => $result->columns,
-                'aggregations'=> $result->aggregations ?? [],
+                'columns'     => array_keys((array) ($result->data[0] ?? [])),
+                'aggregations'=> [],
             ],
             fromCache:   false,
             cachedAt:    null,
@@ -163,32 +163,59 @@ final class AnalyticsEngine implements AnalyticsEngineInterface
     {
         $config = array_merge($widget->config ?? [], $params);
 
-        return [
-            'source'       => $config['data_source'] ?? $config['table'] ?? null,
-            'source_type'  => $config['source_type'] ?? 'mysql',
-            'select'       => $config['columns'] ?? [],
-            'filters'      => $config['filters'] ?? [],
-            'group_by'     => isset($config['group_by']) ? [$config['group_by']] : [],
+        // 'source' in widget config is the DB driver ('mysql'|'mongodb')
+        // 'table' in widget config is the table/collection name
+        $source = $config['source'] ?? $config['source_type'] ?? 'mysql';
+        $table  = $config['table'] ?? $config['data_source'] ?? $config['collection'] ?? null;
+
+        $aggregations = !empty($config['aggregations'])
+            ? $config['aggregations']
+            : $this->buildAggregations($widget->type, $config);
+
+        $dsl = [
+            'source'       => $source,
+            'table'        => $table,
+            'aggregations' => $aggregations,
             'order_by'     => $config['order_by'] ?? [],
-            'aggregations' => $this->buildAggregations($widget->type, $config),
-            'limit'        => $config['limit'] ?? 100,
+            'pagination'   => ['page' => 1, 'per_page' => $config['limit'] ?? 500],
         ];
+
+        if (!empty($config['fields'])) {
+            $dsl['fields'] = $config['fields'];
+        }
+
+        if (!empty($config['group_by'])) {
+            $dsl['group_by'] = (array) $config['group_by'];
+        }
+
+        if (!empty($config['filters'])) {
+            $filters = $config['filters'];
+            // Already a FilterGroup shape: { operator, conditions }
+            if (isset($filters['operator'])) {
+                $dsl['filters'] = $filters;
+            } else {
+                // Flat array of conditions — wrap it
+                $dsl['filters'] = ['operator' => 'AND', 'conditions' => $filters];
+            }
+        }
+
+        return $dsl;
     }
 
     private function buildAggregations(string $widgetType, array $config): array
     {
         return match (true) {
-            in_array($widgetType, ['kpi_card', 'stats_card'], true) => [[
+            in_array($widgetType, ['kpi', 'kpi_card', 'stats_card'], true) => [[
                 'function' => $config['aggregation'] ?? 'count',
-                'column'   => $config['column'] ?? '*',
+                'column'   => $config['column'] ?? 'id',
                 'alias'    => 'value',
             ]],
-            in_array($widgetType, ['line_chart', 'bar_chart', 'area_chart'], true) => [[
+            in_array($widgetType, ['line_chart', 'bar_chart', 'area_chart', 'pie_chart', 'donut_chart'], true) => [[
                 'function' => $config['aggregation'] ?? 'count',
-                'column'   => $config['column'] ?? '*',
+                'column'   => $config['column'] ?? 'id',
                 'alias'    => 'y',
             ]],
-            default => [],
+            default => [['function' => 'count', 'column' => 'id', 'alias' => 'count']],
         };
     }
 

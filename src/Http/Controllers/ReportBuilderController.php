@@ -166,7 +166,7 @@ final class ReportBuilderController extends Controller
             $dsl['pagination'] = $request->input('pagination');
         }
 
-        $result = $this->engine->run($dsl, $request->user()->roles ?? []);
+        $result = $this->engine->run($dsl, $request->user()?->roles ?? []);
 
         return response()->json([
             'rows'    => $result->data,

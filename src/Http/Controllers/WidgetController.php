@@ -48,7 +48,7 @@ final class WidgetController extends Controller
         ]);
         $data['dashboard_id'] = $dashboardId;
 
-        $widget = $this->service->create($data, $request->user()->id);
+        $widget = $this->service->create($data, $request->user()?->id ?? 0);
 
         return response()->json(new WidgetResource($widget), 201);
     }
