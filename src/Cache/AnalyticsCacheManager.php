@@ -27,10 +27,18 @@ final class AnalyticsCacheManager
             return $callback();
         }
 
-        $key = $this->key("dashboard:{$id}");
-        $ttl = config('analytics-suite.cache.ttl.dashboard', 300);
+        $key   = $this->key("dashboard:{$id}");
+        $ttl   = config('analytics-suite.cache.ttl.dashboard', 300);
+        $raw   = $this->store->get($key);
 
-        return $this->store->remember($key, $ttl, $callback);
+        // Stored as array (safe for all cache drivers)
+        if (is_array($raw)) {
+            return DashboardDTO::fromArray($raw);
+        }
+
+        $dto = $callback();
+        $this->store->put($key, $dto->toArray(), $ttl);
+        return $dto;
     }
 
     public function rememberDashboardList(int|string $userId, callable $callback): Collection
@@ -39,10 +47,17 @@ final class AnalyticsCacheManager
             return $callback();
         }
 
-        $key = $this->key("user:{$userId}:dashboards");
-        $ttl = config('analytics-suite.cache.ttl.dashboard', 300);
+        $key  = $this->key("user:{$userId}:dashboards");
+        $ttl  = config('analytics-suite.cache.ttl.dashboard', 300);
+        $raw  = $this->store->get($key);
 
-        return $this->store->remember($key, $ttl, $callback);
+        if (is_array($raw)) {
+            return collect($raw)->map(fn (array $d) => DashboardDTO::fromArray($d));
+        }
+
+        $list = $callback();
+        $this->store->put($key, $list->map(fn (DashboardDTO $d) => $d->toArray())->values()->all(), $ttl);
+        return $list;
     }
 
     public function invalidateDashboard(int|string $id): void
