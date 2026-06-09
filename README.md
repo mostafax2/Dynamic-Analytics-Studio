@@ -4,7 +4,7 @@
 
 # Enterprise Analytics Suite
 
-**منصة تحليلات متكاملة للمشاريع Laravel Enterprise**
+**A full-stack Business Intelligence platform built as a Laravel package**
 
 [![Laravel](https://img.shields.io/badge/Laravel-12+-FF2D20?style=flat-square&logo=laravel)](https://laravel.com)
 [![PHP](https://img.shields.io/badge/PHP-8.3+-777BB4?style=flat-square&logo=php)](https://php.net)
@@ -12,61 +12,62 @@
 [![License](https://img.shields.io/badge/License-MIT-green?style=flat-square)](LICENSE)
 [![Version](https://img.shields.io/badge/Version-1.0.0-blue?style=flat-square)](CHANGELOG.md)
 
-*Power BI · Grafana · Metabase · Tableau — مُصمَّم خصيصًا لـ Laravel*
+*Power BI · Grafana · Metabase · Tableau — purpose-built for Laravel*
 
-**المؤلف:** Mostafa Elbayyar — [mostafa.m.elbiar2@gmail.com](mailto:mostafa.m.elbiar2@gmail.com)  
+**Author:** Mostafa Elbayyar — [mostafa.m.elbiar2@gmail.com](mailto:mostafa.m.elbiar2@gmail.com)  
 **GitHub:** [github.com/mostafax2/Dynamic-Analytics-Studio](https://github.com/mostafax2/Dynamic-Analytics-Studio)
 
 </div>
 
 ---
 
-## جدول المحتويات
+## Table of Contents
 
-- [نظرة عامة](#-نظرة-عامة)
-- [المتطلبات](#-المتطلبات)
-- [التثبيت السريع](#-التثبيت-السريع)
-- [الإعداد التفصيلي](#-الإعداد-التفصيلي)
-- [الاستخدام — Dashboard Builder](#-استخدام-dashboard-builder)
-- [الاستخدام — Report Builder](#-استخدام-report-builder)
-- [الاستخدام — Widget Engine](#-استخدام-widget-engine)
-- [الاستخدام — Analytics Engine](#-استخدام-analytics-engine)
-- [نظام الأمان](#-نظام-الأمان)
-- [نظام التصدير](#-نظام-التصدير)
-- [الجدولة الزمنية للتقارير](#-جدولة-التقارير)
-- [الـ Facade — AnalyticsSuite](#-the-facade)
-- [API Reference](#-api-reference-كامل)
-- [الـ Vue Frontend](#-vue-3-frontend)
-- [إضافة Widget مخصص](#-إضافة-widget-مخصص)
+- [Overview](#-overview)
+- [Requirements](#-requirements)
+- [Quick Install](#-quick-install)
+- [Detailed Setup](#-detailed-setup)
+- [Dashboard Builder](#-dashboard-builder)
+- [Report Builder](#-report-builder)
+- [Widget Engine](#-widget-engine)
+- [Analytics Engine](#-analytics-engine)
+- [Security](#-security)
+- [Export System](#-export-system)
+- [Report Scheduling](#-report-scheduling)
+- [The Facade](#-the-facade)
+- [API Reference](#-api-reference)
+- [Vue 3 Frontend](#-vue-3-frontend)
+- [Custom Widgets](#-custom-widgets)
 - [Multi-Tenancy](#-multi-tenancy)
-- [الاختبارات](#-الاختبارات)
-- [الأوامر المتاحة](#-أوامر-artisan)
-- [هيكل المجلدات](#-هيكل-المجلدات)
-- [مرجع الـ Config](#-مرجع-config-كامل)
+- [Testing](#-testing)
+- [Artisan Commands](#-artisan-commands)
+- [Folder Structure](#-folder-structure)
+- [Config Reference](#-config-reference)
+- [FAQ](#-faq)
 
 ---
 
-## 🌟 نظرة عامة
+## 🌟 Overview
 
-**Enterprise Analytics Suite** هو حزمة Laravel متكاملة تحوّل أي تطبيق Laravel إلى منصة BI (Business Intelligence) كاملة في خطوة واحدة.
+**Enterprise Analytics Suite** is a complete Laravel package that turns any Laravel application into a full BI (Business Intelligence) platform in a single step.
 
-### ما الذي يميزه؟
+### What makes it stand out?
 
-| الميزة | الوصف |
+| Feature | Description |
 |---|---|
-| 🤖 **Auto-Detection** | يكتشف تلقائيًا جميع نماذج التطبيق (`App\Models` + `Modules/*`) ويولّد لوحات ووِدجات افتراضية |
-| 📊 **Dashboard Builder** | واجهة drag & drop كاملة مدعومة بـ GridStack |
-| 📋 **Report Builder** | بنّاء تقارير بصري كامل بدون كتابة SQL |
-| 🔢 **15 Widget Type** | KPI، مخططات، جداول، مقاييس، ترتيب، تقدم، وأكثر |
-| 🔌 **Widget Marketplace** | أضف أي widget مخصص بسطر واحد |
-| 🔒 **Enterprise Security** | 14 صلاحية، Row-Level Security، Sanctum، عزل المستأجرين |
-| ⚡ **Redis Cache** | تخزين مؤقت ذكي بإبطال تلقائي لكل طبقة |
-| 📥 **Export System** | PDF، Excel، CSV، JSON مع دعم RTL والعربية |
-| ⏰ **Report Scheduling** | جدولة يومية/أسبوعية/شهرية مع تسليم بالبريد أو Webhook |
-| 🌐 **Multi-Tenant** | جاهز للمستأجرين المتعددين |
-| 🎨 **Vue 3 SPA** | واجهة حديثة، Dark Mode، RTL كامل |
+| 🤖 **Auto-Detection** | Automatically discovers all application models (`App\Models` + `Modules/*`) and generates default dashboards and widgets |
+| 📊 **Dashboard Builder** | Full drag-and-drop interface powered by GridStack |
+| 📋 **Report Builder** | Visual no-code report builder — no SQL required |
+| 🔢 **15 Widget Types** | KPI cards, charts, tables, gauges, leaderboards, progress bars, and more |
+| 🔌 **Widget Marketplace** | Register any custom widget with a single line |
+| 🔒 **Enterprise Security** | 14 permissions, Row-Level Security, Sanctum integration, tenant isolation |
+| ⚡ **Redis Cache** | Smart caching with automatic invalidation at every layer |
+| 📥 **Export System** | PDF, Excel, CSV, JSON — with full RTL and Arabic support |
+| ⏰ **Report Scheduling** | Daily/weekly/monthly delivery via Email or Webhook |
+| 🌐 **Multi-Tenant** | Ready for multi-tenant applications |
+| 🎨 **Vue 3 SPA** | Modern UI with Dark Mode and full RTL support |
 
-### المعمارية
+### Architecture
 
 ```
 ┌──────────────────────────────────────────────────────────────────┐
@@ -94,59 +95,59 @@
 
 ---
 
-## 📋 المتطلبات
+## 📋 Requirements
 
-### إلزامية
+### Required
 
-| الحزمة | الإصدار |
+| Package | Version |
 |---|---|
 | PHP | `^8.3` |
-| Laravel | `^11.0` أو `^12.0` |
-| Redis | أي إصدار حديث |
+| Laravel | `^11.0` or `^12.0` |
+| Redis | Any recent version |
 | `mostafax/dynamic-hybrid-reporting-engine` | `^1.0` |
 | `laravel/sanctum` | `^4.0` |
 
-### اختيارية (تُفعَّل حسب الحاجة)
+### Optional (enable as needed)
 
-| الحزمة | الغرض |
+| Package | Purpose |
 |---|---|
-| `phpoffice/phpspreadsheet` | تصدير Excel |
-| `barryvdh/laravel-dompdf` | تصدير PDF |
-| `league/csv` | تدفق CSV محسَّن |
-| `spatie/laravel-permission` | إدارة الأدوار والصلاحيات |
-| `mongodb/laravel-mongodb` | مصدر بيانات MongoDB |
+| `phpoffice/phpspreadsheet` | Excel export |
+| `barryvdh/laravel-dompdf` | PDF export |
+| `league/csv` | Enhanced CSV streaming |
+| `spatie/laravel-permission` | Role and permission management |
+| `mongodb/laravel-mongodb` | MongoDB data source |
 
 ---
 
-## ⚡ التثبيت السريع
+## ⚡ Quick Install
 
 ```bash
-# 1. تثبيت الحزمة
+# 1. Install the package
 composer require mostafax/enterprise-analytics-suite
 
-# 2. تشغيل المثبِّت الذكي (يفعل كل شيء تلقائيًا)
+# 2. Run the smart installer (does everything automatically)
 php artisan analytics-suite:install
 
-# 3. تشغيل queue worker (للتصدير غير المتزامن)
+# 3. Start the queue worker (for async exports)
 php artisan queue:work
 ```
 
-**انتهى!** — الـ API متاحة الآن على `/api/analytics/...`
+**Done!** — The API is now available at `/api/analytics/...`
 
 ---
 
-## 🔧 الإعداد التفصيلي
+## 🔧 Detailed Setup
 
-### الخطوة 1 — تثبيت الحزمة
+### Step 1 — Install the Package
 
 ```bash
 composer require mostafax/enterprise-analytics-suite
 ```
 
-إذا كنت تستخدم **Local Path Repository** (للتطوير المحلي):
+If you are using a **Local Path Repository** (for local development):
 
 ```json
-// composer.json للمشروع الرئيسي
+// project's composer.json
 {
     "repositories": [
         {
@@ -160,58 +161,58 @@ composer require mostafax/enterprise-analytics-suite
 }
 ```
 
-ثم:
+Then:
 ```bash
 composer update mostafax/enterprise-analytics-suite
 ```
 
 ---
 
-### الخطوة 2 — نشر الإعدادات
+### Step 2 — Publish Assets
 
 ```bash
-# نشر ملف الإعداد فقط
+# Publish only the config file
 php artisan vendor:publish --tag=analytics-suite-config
 
-# نشر الـ Migrations فقط
+# Publish only the migrations
 php artisan vendor:publish --tag=analytics-suite-migrations
 
-# نشر الـ Vue assets
+# Publish Vue assets
 php artisan vendor:publish --tag=analytics-suite-assets
 
-# أو نشر كل شيء دفعة واحدة
+# Or publish everything at once
 php artisan analytics-suite:install
 ```
 
 ---
 
-### الخطوة 3 — إعداد قاعدة البيانات
+### Step 3 — Database Setup
 
 ```bash
 php artisan migrate
 ```
 
-الجداول المنشأة (كلها بالبادئة `as_`):
+Tables created (all prefixed with `as_`):
 
-| الجدول | الوصف |
+| Table | Purpose |
 |---|---|
-| `as_dashboards` | لوحات التحكم |
-| `as_widgets` | الوِدجات |
-| `as_report_templates` | قوالب التقارير |
-| `as_scheduled_reports` | التقارير المجدولة |
-| `as_export_jobs` | مهام التصدير |
-| `as_permissions` | الصلاحيات |
-| `as_rls_policies` | سياسات Row-Level Security |
-| `as_dashboard_shares` | مشاركات اللوحات |
-| `as_widget_snapshots` | لقطات بيانات الوِدجات |
-| `as_detected_models` | النماذج المكتشفة |
-| `as_analytics_events` | سجل الأحداث |
+| `as_dashboards` | Dashboard definitions |
+| `as_widgets` | Widget definitions |
+| `as_report_templates` | Report templates |
+| `as_scheduled_reports` | Scheduled report jobs |
+| `as_export_jobs` | Export job queue |
+| `as_permissions` | Permission records |
+| `as_rls_policies` | Row-Level Security policies |
+| `as_dashboard_shares` | Dashboard sharing grants |
+| `as_widget_snapshots` | Cached widget data snapshots |
+| `as_detected_models` | Auto-detected model registry |
+| `as_analytics_events` | Event audit log |
 
 ---
 
-### الخطوة 4 — إعداد متغيرات البيئة
+### Step 4 — Environment Variables
 
-أضف هذه المتغيرات إلى ملف `.env`:
+Add the following to your `.env` file:
 
 ```env
 # Cache
@@ -240,26 +241,25 @@ ANALYTICS_SCHEDULING_ENABLED=true
 ANALYTICS_FROM_EMAIL=noreply@yourdomain.com
 ANALYTICS_FROM_NAME="Analytics Suite"
 
-# MongoDB (اختياري)
+# MongoDB (optional)
 ANALYTICS_MONGO_ENABLED=false
 ANALYTICS_MONGO_CONNECTION=mongodb
 ```
 
 ---
 
-### الخطوة 5 — Sanctum
+### Step 5 — Sanctum Setup
 
-تأكد من تثبيت Laravel Sanctum وإعداده:
+Ensure Laravel Sanctum is installed and configured:
 
 ```bash
 php artisan vendor:publish --provider="Laravel\Sanctum\SanctumServiceProvider"
 php artisan migrate
 ```
 
-في `app/Http/Kernel.php` أو `bootstrap/app.php`:
+In `bootstrap/app.php` (Laravel 12):
 
 ```php
-// Laravel 12 — bootstrap/app.php
 ->withMiddleware(function (Middleware $middleware) {
     $middleware->statefulApi();
 })
@@ -267,9 +267,9 @@ php artisan migrate
 
 ---
 
-### الخطوة 6 — إعداد Queue
+### Step 6 — Queue Setup
 
-للتصدير غير المتزامن والجدولة:
+For async exports and scheduling:
 
 ```env
 QUEUE_CONNECTION=redis
@@ -279,7 +279,7 @@ QUEUE_CONNECTION=redis
 php artisan queue:work --queue=default
 ```
 
-أو مع Supervisor:
+Or with Supervisor:
 ```ini
 [program:analytics-queue]
 command=php /var/www/html/artisan queue:work redis --queue=default --sleep=3 --tries=3
@@ -290,53 +290,53 @@ user=www-data
 
 ---
 
-## 📊 استخدام Dashboard Builder
+## 📊 Dashboard Builder
 
-### عبر API
+### Via Facade
 
 ```php
 use Mostafax\AnalyticsSuite\Support\Facades\AnalyticsSuite;
 
-// إنشاء لوحة تحكم
+// Create a dashboard
 $dashboard = AnalyticsSuite::dashboards()->create([
     'name'        => 'Sales Dashboard',
-    'description' => 'لوحة مبيعات رئيسية',
+    'description' => 'Main sales overview dashboard',
     'settings'    => ['theme' => 'dark'],
 ], auth()->id());
 
-// استرجاع لوحة
+// Retrieve a dashboard
 $dashboard = AnalyticsSuite::dashboards()->find(1);
 
-// تحديث التخطيط (بعد drag & drop)
+// Update layout (after drag & drop)
 AnalyticsSuite::dashboards()->updateLayout(1, [
     ['widget_id' => 5, 'x' => 0, 'y' => 0, 'w' => 6, 'h' => 3],
     ['widget_id' => 6, 'x' => 6, 'y' => 0, 'w' => 6, 'h' => 3],
 ]);
 
-// تفعيل الرابط العام
+// Enable public sharing
 $dashboard = AnalyticsSuite::dashboards()->enablePublicShare(1, expiryDays: 30);
-echo $dashboard->publicToken; // رمز الوصول العام
+echo $dashboard->publicToken; // public access token
 ```
 
-### عبر HTTP
+### Via HTTP
 
 ```bash
-# إنشاء لوحة
+# Create a dashboard
 curl -X POST /api/analytics/dashboards \
   -H "Authorization: Bearer {token}" \
   -H "Content-Type: application/json" \
-  -d '{"name": "My Dashboard", "description": "وصف اللوحة"}'
+  -d '{"name": "My Dashboard", "description": "Overview dashboard"}'
 
-# استرجاع قائمة اللوحات
+# List dashboards
 curl -X GET /api/analytics/dashboards \
   -H "Authorization: Bearer {token}"
 
-# نسخ لوحة
+# Clone a dashboard
 curl -X POST /api/analytics/dashboards/1/clone \
   -H "Authorization: Bearer {token}" \
-  -d '{"name": "نسخة من Dashboard"}'
+  -d '{"name": "Copy of Dashboard"}'
 
-# تحديث التخطيط
+# Update layout
 curl -X POST /api/analytics/dashboards/1/layout \
   -H "Authorization: Bearer {token}" \
   -d '{
@@ -346,20 +346,20 @@ curl -X POST /api/analytics/dashboards/1/layout \
     ]
   }'
 
-# مشاركة عامة
+# Enable public share
 curl -X POST /api/analytics/dashboards/1/share \
   -H "Authorization: Bearer {token}" \
   -d '{"expiry_days": 7}'
 ```
 
-### استيراد / تصدير
+### Import / Export
 
 ```bash
-# تصدير لوحة (JSON definition)
+# Export dashboard definition (JSON)
 curl -X GET /api/analytics/dashboards/1/export \
   -H "Authorization: Bearer {token}"
 
-# استيراد لوحة
+# Import a dashboard
 curl -X POST /api/analytics/dashboards/import \
   -H "Authorization: Bearer {token}" \
   -d '{"definition": {...}}'
@@ -367,17 +367,17 @@ curl -X POST /api/analytics/dashboards/import \
 
 ---
 
-## 📋 استخدام Report Builder
+## 📋 Report Builder
 
-### بناء تقرير برمجيًا
+### Build a Report Programmatically
 
 ```php
 use Mostafax\AnalyticsSuite\Infrastructure\Persistence\Models\ReportTemplateModel;
 
 $template = ReportTemplateModel::create([
-    'name'         => 'تقرير المبيعات الشهري',
-    'description'  => 'إجمالي المبيعات مجمَّعة شهريًا',
-    'data_source'  => 'orders',          // اسم الجدول
+    'name'         => 'Monthly Sales Report',
+    'description'  => 'Total sales aggregated by month',
+    'data_source'  => 'orders',
     'source_type'  => 'mysql',
     'columns'      => [
         ['field' => 'id'],
@@ -385,12 +385,12 @@ $template = ReportTemplateModel::create([
         ['field' => 'created_at', 'alias' => 'date'],
     ],
     'filters'      => [
-        ['column' => 'status', 'operator' => 'eq', 'value' => 'completed'],
+        ['column' => 'status', 'operator' => 'eq',  'value' => 'completed'],
         ['column' => 'total',  'operator' => 'gte', 'value' => 100],
     ],
     'aggregations' => [
-        ['function' => 'sum',   'column' => 'total',  'alias' => 'revenue'],
-        ['function' => 'count', 'column' => 'id',     'alias' => 'orders_count'],
+        ['function' => 'sum',   'column' => 'total', 'alias' => 'revenue'],
+        ['function' => 'count', 'column' => 'id',    'alias' => 'orders_count'],
     ],
     'group_by'    => ['DATE_FORMAT(created_at, "%Y-%m")'],
     'order_by'    => [['column' => 'created_at', 'direction' => 'desc']],
@@ -401,7 +401,7 @@ $template = ReportTemplateModel::create([
 ]);
 ```
 
-### تشغيل تقرير
+### Run a Report
 
 ```php
 use Mostafax\ReportingEngine\Core\Engine\ReportEngine;
@@ -419,10 +419,10 @@ foreach ($result->rows as $row) {
 }
 ```
 
-### عبر HTTP
+### Via HTTP
 
 ```bash
-# تشغيل تقرير مع فلاتر إضافية
+# Run a report with additional filters
 curl -X POST /api/analytics/reports/1/run \
   -H "Authorization: Bearer {token}" \
   -d '{
@@ -433,42 +433,42 @@ curl -X POST /api/analytics/reports/1/run \
   }'
 ```
 
-### الفلاتر المتاحة
+### Available Filter Operators
 
-| المشغّل | الوصف | مثال |
+| Operator | Description | Example |
 |---|---|---|
-| `eq` | يساوي | `"operator": "eq", "value": "active"` |
-| `neq` | لا يساوي | `"operator": "neq", "value": "deleted"` |
-| `gt` | أكبر من | `"operator": "gt", "value": 100` |
-| `gte` | أكبر من أو يساوي | `"operator": "gte", "value": 0` |
-| `lt` | أصغر من | `"operator": "lt", "value": 1000` |
-| `lte` | أصغر من أو يساوي | `"operator": "lte", "value": 50` |
-| `between` | بين قيمتين | `"operator": "between", "value": 10, "value2": 100` |
-| `in` | ضمن قائمة | `"operator": "in", "value": ["a","b","c"]` |
-| `not_in` | خارج قائمة | `"operator": "not_in", "value": ["x","y"]` |
-| `like` | يحتوي (LIKE) | `"operator": "like", "value": "%ahmed%"` |
-| `starts_with` | يبدأ بـ | `"operator": "starts_with", "value": "EMP"` |
-| `ends_with` | ينتهي بـ | `"operator": "ends_with", "value": "@gmail.com"` |
-| `contains` | يحتوي | `"operator": "contains", "value": "cairo"` |
-| `null` | فارغ | `"operator": "null"` |
-| `not_null` | غير فارغ | `"operator": "not_null"` |
+| `eq` | Equal | `"operator": "eq", "value": "active"` |
+| `neq` | Not equal | `"operator": "neq", "value": "deleted"` |
+| `gt` | Greater than | `"operator": "gt", "value": 100` |
+| `gte` | Greater than or equal | `"operator": "gte", "value": 0` |
+| `lt` | Less than | `"operator": "lt", "value": 1000` |
+| `lte` | Less than or equal | `"operator": "lte", "value": 50` |
+| `between` | Between two values | `"operator": "between", "value": 10, "value2": 100` |
+| `in` | In a list | `"operator": "in", "value": ["a","b","c"]` |
+| `not_in` | Not in a list | `"operator": "not_in", "value": ["x","y"]` |
+| `like` | Contains (LIKE) | `"operator": "like", "value": "%search%"` |
+| `starts_with` | Starts with | `"operator": "starts_with", "value": "EMP"` |
+| `ends_with` | Ends with | `"operator": "ends_with", "value": "@gmail.com"` |
+| `contains` | Contains | `"operator": "contains", "value": "cairo"` |
+| `null` | Is null | `"operator": "null"` |
+| `not_null` | Is not null | `"operator": "not_null"` |
 
-### دوال التجميع
+### Aggregation Functions
 
-| الدالة | الوصف |
+| Function | Description |
 |---|---|
-| `count` | عدد السجلات |
-| `sum` | مجموع القيم |
-| `avg` | المتوسط |
-| `min` | أصغر قيمة |
-| `max` | أكبر قيمة |
-| `count_distinct` | عدد القيم الفريدة |
+| `count` | Row count |
+| `sum` | Sum of values |
+| `avg` | Average |
+| `min` | Minimum value |
+| `max` | Maximum value |
+| `count_distinct` | Count of distinct values |
 
 ---
 
-## 🔢 استخدام Widget Engine
+## 🔢 Widget Engine
 
-### إضافة وِدجت برمجيًا
+### Create a Widget Programmatically
 
 ```php
 use Mostafax\AnalyticsSuite\Support\Facades\AnalyticsSuite;
@@ -476,22 +476,22 @@ use Mostafax\AnalyticsSuite\Support\Facades\AnalyticsSuite;
 $widget = AnalyticsSuite::widgets()->create([
     'dashboard_id'     => 1,
     'type'             => 'kpi_card',
-    'title'            => 'إجمالي المستخدمين',
+    'title'            => 'Total Users',
     'config'           => [
         'data_source' => 'users',
         'aggregation' => 'count',
         'column'      => 'id',
     ],
     'position'         => ['x' => 0, 'y' => 0, 'w' => 3, 'h' => 2],
-    'refresh_interval' => 300,     // ثانية — 0 يعني يدوي
+    'refresh_interval' => 300,   // seconds — 0 means manual
     'cache_enabled'    => true,
     'cache_ttl'        => 180,
 ], auth()->id());
 ```
 
-### أنواع الوِدجات
+### Widget Types
 
-#### 1. `kpi_card` — بطاقة مؤشر رئيسي
+#### 1. `kpi_card` — KPI Card
 ```json
 {
     "type": "kpi_card",
@@ -499,13 +499,13 @@ $widget = AnalyticsSuite::widgets()->create([
         "data_source": "orders",
         "aggregation": "sum",
         "column": "total",
-        "label": "إجمالي الإيرادات",
+        "label": "Total Revenue",
         "show_trend": true
     }
 }
 ```
 
-#### 2. `stats_card` — بطاقة إحصاءات متعددة
+#### 2. `stats_card` — Multi-Stat Card
 ```json
 {
     "type": "stats_card",
@@ -516,7 +516,7 @@ $widget = AnalyticsSuite::widgets()->create([
 }
 ```
 
-#### 3. `data_table` — جدول بيانات
+#### 3. `data_table` — Data Table
 ```json
 {
     "type": "data_table",
@@ -529,7 +529,7 @@ $widget = AnalyticsSuite::widgets()->create([
 }
 ```
 
-#### 4. `bar_chart` — مخطط أعمدة
+#### 4. `bar_chart` — Bar Chart
 ```json
 {
     "type": "bar_chart",
@@ -544,7 +544,7 @@ $widget = AnalyticsSuite::widgets()->create([
 }
 ```
 
-#### 5. `line_chart` — مخطط خطي
+#### 5. `line_chart` — Line Chart
 ```json
 {
     "type": "line_chart",
@@ -560,7 +560,7 @@ $widget = AnalyticsSuite::widgets()->create([
 }
 ```
 
-#### 6. `pie_chart` / `donut_chart` — مخطط دائري
+#### 6. `pie_chart` / `donut_chart` — Pie or Donut Chart
 ```json
 {
     "type": "pie_chart",
@@ -574,7 +574,7 @@ $widget = AnalyticsSuite::widgets()->create([
 }
 ```
 
-#### 7. `gauge_chart` — مقياس
+#### 7. `gauge_chart` — Gauge
 ```json
 {
     "type": "gauge_chart",
@@ -584,12 +584,12 @@ $widget = AnalyticsSuite::widgets()->create([
         "column": "value",
         "min": 0,
         "max": 1000000,
-        "label": "المبيعات المستهدفة"
+        "label": "Sales Target"
     }
 }
 ```
 
-#### 8. `progress` — شريط تقدم
+#### 8. `progress` — Progress Bar
 ```json
 {
     "type": "progress",
@@ -602,7 +602,7 @@ $widget = AnalyticsSuite::widgets()->create([
 }
 ```
 
-#### 9. `leaderboard` — ترتيب أفضل العناصر
+#### 9. `leaderboard` — Top Items Leaderboard
 ```json
 {
     "type": "leaderboard",
@@ -614,22 +614,101 @@ $widget = AnalyticsSuite::widgets()->create([
 }
 ```
 
-### تحديث بيانات وِدجت
+#### 10. `area_chart` — Area Chart
+```json
+{
+    "type": "area_chart",
+    "config": {
+        "data_source": "orders",
+        "label_column": "date",
+        "value_column": "revenue",
+        "aggregation": "sum",
+        "column": "total",
+        "interval": "day"
+    }
+}
+```
+
+#### 11. `scatter_chart` — Scatter Plot
+```json
+{
+    "type": "scatter_chart",
+    "config": {
+        "data_source": "products",
+        "x_column": "price",
+        "y_column": "units_sold"
+    }
+}
+```
+
+#### 12. `heatmap` — Heatmap
+```json
+{
+    "type": "heatmap",
+    "config": {
+        "data_source": "events",
+        "x_column": "hour",
+        "y_column": "day_of_week",
+        "value_column": "count"
+    }
+}
+```
+
+#### 13. `funnel` — Funnel Chart
+```json
+{
+    "type": "funnel",
+    "config": {
+        "data_source": "pipeline",
+        "label_column": "stage",
+        "value_column": "count"
+    }
+}
+```
+
+#### 14. `timeline` — Timeline
+```json
+{
+    "type": "timeline",
+    "config": {
+        "data_source": "events",
+        "date_column": "occurred_at",
+        "label_column": "description",
+        "limit": 10
+    }
+}
+```
+
+#### 15. `metric_comparison` — Period Comparison
+```json
+{
+    "type": "metric_comparison",
+    "config": {
+        "data_source": "orders",
+        "aggregation": "sum",
+        "column": "total",
+        "period_1": "current_month",
+        "period_2": "last_month"
+    }
+}
+```
+
+### Refresh Widget Data
 
 ```php
-// تحديث مباشر
+// Direct refresh
 AnalyticsSuite::engine()->executeWidget(widgetId: 5);
 
-// إبطال كاش وإعادة جلب
+// Invalidate cache and re-fetch
 AnalyticsSuite::engine()->refreshCache(widgetId: 5);
 ```
 
 ```bash
-# عبر API
+# Via API
 curl -X POST /api/analytics/dashboards/1/widgets/5/refresh \
   -H "Authorization: Bearer {token}"
 
-# جلب بيانات وِدجت مع فلاتر ديناميكية
+# Fetch widget data with dynamic filters
 curl -X GET /api/analytics/dashboards/1/widgets/5/data \
   -H "Authorization: Bearer {token}" \
   -d '{"filters": [{"column": "year", "operator": "eq", "value": 2026}]}'
@@ -637,26 +716,26 @@ curl -X GET /api/analytics/dashboards/1/widgets/5/data \
 
 ---
 
-## 🔬 استخدام Analytics Engine
+## 🔬 Analytics Engine
 
-### اكتشاف النماذج تلقائيًا
+### Auto-Detect Models
 
 ```php
-// اكتشاف جميع النماذج
+// Discover all models
 $models = AnalyticsSuite::detectModels();
 
 foreach ($models as $model) {
-    echo $model->name;          // User
-    echo $model->table;         // users
-    echo $model->module;        // App
-    echo $model->primaryKey;    // id
-    print_r($model->fillable);  // ['name', 'email', ...]
-    print_r($model->columns);   // ['id', 'name', 'email', 'created_at', ...]
+    echo $model->name;           // User
+    echo $model->table;          // users
+    echo $model->module;         // App
+    echo $model->primaryKey;     // id
+    print_r($model->fillable);   // ['name', 'email', ...]
+    print_r($model->columns);    // ['id', 'name', 'email', 'created_at', ...]
     print_r($model->relationships); // [['method'=>'posts', 'type'=>'hasMany', ...]]
 }
 ```
 
-### حساب إحصاءات نموذج
+### Compute Model Statistics
 
 ```php
 $result = AnalyticsSuite::engine()->computeStats(\App\Models\User::class, [
@@ -670,7 +749,7 @@ echo $result->fromCache;       // true
 echo $result->executionMs;     // 12.5
 ```
 
-### توليد إحصاءات لوحة كاملة
+### Execute All Dashboard Widgets
 
 ```php
 $allWidgetData = AnalyticsSuite::engine()->executeDashboard(dashboardId: 1, params: [
@@ -684,46 +763,45 @@ foreach ($allWidgetData as $widgetData) {
 
 ---
 
-## 🔒 نظام الأمان
+## 🔒 Security
 
-### الصلاحيات المتاحة (14 صلاحية)
+### Available Permissions (14 total)
 
 ```php
-// التقارير
-'view_reports'     // عرض وتشغيل التقارير
-'create_reports'   // إنشاء قوالب تقارير
-'edit_reports'     // تعديل التقارير
-'delete_reports'   // حذف التقارير
-'export_reports'   // تصدير التقارير
-'schedule_reports' // جدولة التقارير
+// Reports
+'view_reports'     // View and run reports
+'create_reports'   // Create report templates
+'edit_reports'     // Edit reports
+'delete_reports'   // Delete reports
+'export_reports'   // Export reports
+'schedule_reports' // Schedule reports
 
-// اللوحات
-'view_dashboards'    // عرض اللوحات وبيانات الوِدجات
-'create_dashboards'  // إنشاء لوحات
-'edit_dashboards'    // تعديل اللوحات والتخطيطات
-'delete_dashboards'  // حذف اللوحات
+// Dashboards
+'view_dashboards'    // View dashboards and widget data
+'create_dashboards'  // Create dashboards
+'edit_dashboards'    // Edit dashboards and layouts
+'delete_dashboards'  // Delete dashboards
 
-// الوِدجات
-'create_widgets'  // إضافة وِدجات
-'edit_widgets'    // تعديل الوِدجات
-'delete_widgets'  // حذف الوِدجات
+// Widgets
+'create_widgets'  // Add widgets
+'edit_widgets'    // Edit widgets
+'delete_widgets'  // Delete widgets
 
-// الإدارة
-'manage_analytics'  // صلاحية المسؤول الكاملة
+// Administration
+'manage_analytics'  // Full admin permission
 ```
 
-### ربط مع Spatie Permission
+### Integration with Spatie Permission
 
 ```bash
-# إنشاء الصلاحيات وتعيينها لدور معين
+# Create permissions and assign to a role
 php artisan analytics-suite:sync-permissions --role=admin
 
-# تعيين لدور محدد مع guard مختلف
+# Assign to a specific role with a different guard
 php artisan analytics-suite:sync-permissions --role=manager --guard=api
 ```
 
 ```php
-// في AppServiceProvider أو بشكل برمجي
 use Spatie\Permission\Models\Role;
 use Mostafax\AnalyticsSuite\Security\SecurityManager;
 
@@ -733,7 +811,7 @@ foreach (SecurityManager::PERMISSIONS as $permission) {
 }
 ```
 
-### فحص الصلاحيات يدويًا
+### Manual Permission Checks
 
 ```php
 use Mostafax\AnalyticsSuite\Support\Facades\AnalyticsSuite;
@@ -741,20 +819,19 @@ use Mostafax\AnalyticsSuite\Support\Facades\AnalyticsSuite;
 $security = AnalyticsSuite::security();
 
 if ($security->can(auth()->user(), 'export_reports')) {
-    // مسموح بالتصدير
+    // Export is allowed
 }
 
-// التحقق من صلاحية واحدة على الأقل
+// Check if the user has at least one permission
 $security->canAny(auth()->user(), ['edit_reports', 'create_reports']);
 
-// إلقاء 403 تلقائيًا إذا لم يكن مسموحًا
+// Automatically throw 403 if not permitted
 $security->authorizeOr403(auth()->user(), 'delete_dashboards');
 ```
 
 ### Row-Level Security
 
 ```php
-// إضافة سياسة RLS برمجيًا
 use Mostafax\AnalyticsSuite\Infrastructure\Persistence\Models\RlsPolicyModel;
 
 RlsPolicyModel::create([
@@ -763,58 +840,56 @@ RlsPolicyModel::create([
     'column'       => 'branch_id',
     'scope'        => 'branch',
     'operator'     => '=',
-    'value_source' => 'auth_user',   // يأخذ القيمة من الـ user المسجل
-    'value_key'    => 'branch_id',   // خاصية المستخدم
+    'value_source' => 'auth_user',   // reads value from the authenticated user
+    'value_key'    => 'branch_id',   // user property to read
     'is_active'    => true,
 ]);
 ```
 
-الآن عند تنفيذ أي تقرير على `orders` — سيُضاف `WHERE branch_id = {auth()->user()->branch_id}` تلقائيًا.
+Now any report query on `orders` will automatically have `WHERE branch_id = {auth()->user()->branch_id}` appended.
 
 ---
 
-## 📥 نظام التصدير
+## 📥 Export System
 
-### تصدير فوري
+### Immediate Export
 
 ```php
 use Mostafax\AnalyticsSuite\Support\Facades\AnalyticsSuite;
 
 $exporter = AnalyticsSuite::exporter();
 
-// تصدير تقرير مباشرة
 $result = $exporter->exportReport(reportId: 1, format: 'pdf', params: [
-    'title'  => 'تقرير المبيعات',
-    'rtl'    => true,
-    'locale' => 'ar',
+    'title'  => 'Sales Report',
+    'rtl'    => false,
+    'locale' => 'en',
 ]);
 
-echo $result->downloadUrl; // رابط تنزيل مؤقت
+echo $result->downloadUrl; // temporary download URL
 echo $result->rows;        // 1500
 echo $result->sizeBytes;   // 245760
 ```
 
-### تصدير غير متزامن (موصى به للبيانات الكبيرة)
+### Async Export (recommended for large data)
 
 ```php
-// إرسال مهمة للـ Queue
 $jobId = $exporter->queueExport(
     type:        'report',
     id:          1,
     format:      'excel',
     params:      ['title' => 'Sales Report'],
-    notifyEmail: 'mostafa@example.com'
+    notifyEmail: 'user@example.com'
 );
 
 echo "Job ID: {$jobId}";
 ```
 
 ```bash
-# تتبع حالة المهمة
+# Track job status
 curl -X GET /api/analytics/exports/status/42 \
   -H "Authorization: Bearer {token}"
 
-# الاستجابة
+# Response
 {
     "id": 42,
     "status": "done",
@@ -825,18 +900,18 @@ curl -X GET /api/analytics/exports/status/42 \
 }
 ```
 
-### دعم RTL والعربية
+### RTL & Arabic Support
 
 ```php
-// في config/analytics-suite.php
+// In config/analytics-suite.php
 'export' => [
     'rtl'    => true,
     'locale' => 'ar',
 ],
 
-// أو عند كل تصدير
+// Or per-export
 $result = $exporter->exportReport(1, 'pdf', [
-    'title'  => 'تقرير مالي شهري',
+    'title'  => 'Monthly Financial Report',
     'rtl'    => true,
     'locale' => 'ar',
 ]);
@@ -844,16 +919,16 @@ $result = $exporter->exportReport(1, 'pdf', [
 
 ---
 
-## ⏰ جدولة التقارير
+## ⏰ Report Scheduling
 
-### إنشاء تقرير مجدول
+### Create a Scheduled Report
 
 ```php
 use Mostafax\AnalyticsSuite\Support\Facades\AnalyticsSuite;
 
 $scheduled = AnalyticsSuite::scheduler()->schedule([
     'report_id'        => 1,
-    'name'             => 'تقرير المبيعات اليومي',
+    'name'             => 'Daily Sales Report',
     'frequency'        => 'daily',         // daily|weekly|monthly|quarterly|yearly
     'format'           => 'pdf',
     'delivery_methods' => ['email'],
@@ -870,12 +945,12 @@ $scheduled = AnalyticsSuite::scheduler()->schedule([
 echo $scheduled->nextRunAt; // 2026-06-10 08:00:00
 ```
 
-### تسليم عبر Webhook
+### Webhook Delivery
 
 ```php
 $scheduled = AnalyticsSuite::scheduler()->schedule([
     'report_id'        => 3,
-    'name'             => 'إشعار إنتهاء التقرير',
+    'name'             => 'Weekly Report Notification',
     'frequency'        => 'weekly',
     'format'           => 'json',
     'delivery_methods' => ['webhook'],
@@ -883,11 +958,11 @@ $scheduled = AnalyticsSuite::scheduler()->schedule([
 ]);
 ```
 
-Payload المُرسَل للـ Webhook:
+Webhook payload:
 ```json
 {
     "scheduled_report_id": 3,
-    "report_name": "إشعار إنتهاء التقرير",
+    "report_name": "Weekly Report Notification",
     "format": "json",
     "download_url": "https://...",
     "rows": 2340,
@@ -895,21 +970,21 @@ Payload المُرسَل للـ Webhook:
 }
 ```
 
-### إيقاف / استئناف / إلغاء
+### Pause / Resume / Cancel
 
 ```php
 $scheduler = AnalyticsSuite::scheduler();
 
-$scheduler->pause(id: 3);    // إيقاف مؤقت
-$scheduler->resume(id: 3);   // استئناف
-$scheduler->cancel(id: 3);   // إلغاء نهائي
+$scheduler->pause(id: 3);    // pause
+$scheduler->resume(id: 3);   // resume
+$scheduler->cancel(id: 3);   // permanent cancel
 ```
 
 ```bash
-# عبر API
-curl -X POST /api/analytics/schedules/3/pause  -H "Authorization: Bearer {token}"
-curl -X POST /api/analytics/schedules/3/resume -H "Authorization: Bearer {token}"
-curl -X DELETE /api/analytics/schedules/3      -H "Authorization: Bearer {token}"
+# Via API
+curl -X POST   /api/analytics/schedules/3/pause  -H "Authorization: Bearer {token}"
+curl -X POST   /api/analytics/schedules/3/resume -H "Authorization: Bearer {token}"
+curl -X DELETE /api/analytics/schedules/3        -H "Authorization: Bearer {token}"
 ```
 
 ---
@@ -919,7 +994,7 @@ curl -X DELETE /api/analytics/schedules/3      -H "Authorization: Bearer {token}
 ```php
 use Mostafax\AnalyticsSuite\Support\Facades\AnalyticsSuite;
 
-// الخدمات الرئيسية
+// Core services
 AnalyticsSuite::dashboards()   // DashboardService
 AnalyticsSuite::widgets()      // WidgetService
 AnalyticsSuite::engine()       // AnalyticsEngine
@@ -933,23 +1008,22 @@ AnalyticsSuite::cache()        // AnalyticsCacheManager
 AnalyticsSuite::registerWidget(MyCustomWidget::class);
 AnalyticsSuite::getRegisteredWidgets(); // ['MyCustomWidget', ...]
 
-// اكتشاف النماذج
+// Model detection
 AnalyticsSuite::detectModels(); // Collection<DetectedModelDTO>
 
-// معلومات الحزمة
+// Package info
 AnalyticsSuite::version(); // "1.0.0"
 ```
 
 ---
 
-## 🌐 API Reference كامل
+## 🌐 API Reference
 
 ### Authentication
 
-جميع المسارات تتطلب `Bearer Token` من Laravel Sanctum:
+All routes require a `Bearer Token` from Laravel Sanctum:
 
 ```bash
-# الحصول على token
 curl -X POST /sanctum/token \
   -d '{"email":"user@example.com","password":"secret","device_name":"api"}'
 ```
@@ -958,26 +1032,26 @@ curl -X POST /sanctum/token \
 
 ### Dashboards API
 
-| Method | Endpoint | الوصف | الصلاحية |
+| Method | Endpoint | Description | Permission |
 |---|---|---|---|
-| `GET` | `/api/analytics/dashboards` | قائمة اللوحات | `view_dashboards` |
-| `POST` | `/api/analytics/dashboards` | إنشاء لوحة | `create_dashboards` |
-| `GET` | `/api/analytics/dashboards/{id}` | تفاصيل لوحة | `view_dashboards` |
-| `PUT` | `/api/analytics/dashboards/{id}` | تحديث لوحة | `edit_dashboards` |
-| `DELETE` | `/api/analytics/dashboards/{id}` | حذف لوحة | `delete_dashboards` |
-| `POST` | `/api/analytics/dashboards/{id}/clone` | نسخ لوحة | `create_dashboards` |
-| `POST` | `/api/analytics/dashboards/{id}/layout` | تحديث التخطيط | `edit_dashboards` |
-| `POST` | `/api/analytics/dashboards/{id}/share` | تفعيل رابط عام | `edit_dashboards` |
-| `DELETE` | `/api/analytics/dashboards/{id}/share` | إلغاء الرابط العام | `edit_dashboards` |
-| `GET` | `/api/analytics/dashboards/{id}/export` | تصدير تعريف اللوحة | `export_reports` |
-| `POST` | `/api/analytics/dashboards/import` | استيراد لوحة | `create_dashboards` |
-| `GET` | `/api/analytics/public/{token}` | عرض لوحة عامة | لا يتطلب auth |
+| `GET` | `/api/analytics/dashboards` | List dashboards | `view_dashboards` |
+| `POST` | `/api/analytics/dashboards` | Create dashboard | `create_dashboards` |
+| `GET` | `/api/analytics/dashboards/{id}` | Dashboard details | `view_dashboards` |
+| `PUT` | `/api/analytics/dashboards/{id}` | Update dashboard | `edit_dashboards` |
+| `DELETE` | `/api/analytics/dashboards/{id}` | Delete dashboard | `delete_dashboards` |
+| `POST` | `/api/analytics/dashboards/{id}/clone` | Clone dashboard | `create_dashboards` |
+| `POST` | `/api/analytics/dashboards/{id}/layout` | Update layout | `edit_dashboards` |
+| `POST` | `/api/analytics/dashboards/{id}/share` | Enable public link | `edit_dashboards` |
+| `DELETE` | `/api/analytics/dashboards/{id}/share` | Disable public link | `edit_dashboards` |
+| `GET` | `/api/analytics/dashboards/{id}/export` | Export definition | `export_reports` |
+| `POST` | `/api/analytics/dashboards/import` | Import dashboard | `create_dashboards` |
+| `GET` | `/api/analytics/public/{token}` | View public dashboard | No auth required |
 
 **POST /api/analytics/dashboards** — Body:
 ```json
 {
     "name": "Sales Overview",
-    "description": "نظرة عامة على المبيعات",
+    "description": "Main sales dashboard",
     "settings": {"theme": "dark", "refresh_rate": 60},
     "is_public": false,
     "is_default": false
@@ -988,22 +1062,22 @@ curl -X POST /sanctum/token \
 
 ### Widgets API
 
-| Method | Endpoint | الوصف | الصلاحية |
+| Method | Endpoint | Description | Permission |
 |---|---|---|---|
-| `GET` | `/api/analytics/dashboards/{id}/widgets` | قائمة الوِدجات | `view_dashboards` |
-| `POST` | `/api/analytics/dashboards/{id}/widgets` | إضافة وِدجت | `create_widgets` |
-| `GET` | `/api/analytics/dashboards/{id}/widgets/{wid}` | تفاصيل وِدجت | `view_dashboards` |
-| `PUT` | `/api/analytics/dashboards/{id}/widgets/{wid}` | تحديث وِدجت | `edit_widgets` |
-| `DELETE` | `/api/analytics/dashboards/{id}/widgets/{wid}` | حذف وِدجت | `delete_widgets` |
-| `GET` | `/api/analytics/dashboards/{id}/widgets/{wid}/data` | جلب بيانات | `view_dashboards` |
-| `POST` | `/api/analytics/dashboards/{id}/widgets/{wid}/refresh` | تحديث كاش | `view_dashboards` |
-| `GET` | `/api/analytics/widget-types` | أنواع الوِدجات المتاحة | — |
+| `GET` | `/api/analytics/dashboards/{id}/widgets` | List widgets | `view_dashboards` |
+| `POST` | `/api/analytics/dashboards/{id}/widgets` | Add widget | `create_widgets` |
+| `GET` | `/api/analytics/dashboards/{id}/widgets/{wid}` | Widget details | `view_dashboards` |
+| `PUT` | `/api/analytics/dashboards/{id}/widgets/{wid}` | Update widget | `edit_widgets` |
+| `DELETE` | `/api/analytics/dashboards/{id}/widgets/{wid}` | Delete widget | `delete_widgets` |
+| `GET` | `/api/analytics/dashboards/{id}/widgets/{wid}/data` | Fetch data | `view_dashboards` |
+| `POST` | `/api/analytics/dashboards/{id}/widgets/{wid}/refresh` | Refresh cache | `view_dashboards` |
+| `GET` | `/api/analytics/widget-types` | Available widget types | — |
 
 **POST /api/analytics/dashboards/1/widgets** — Body:
 ```json
 {
     "type": "bar_chart",
-    "title": "المبيعات الشهرية",
+    "title": "Monthly Sales",
     "config": {
         "data_source": "orders",
         "aggregation": "sum",
@@ -1024,48 +1098,48 @@ curl -X POST /sanctum/token \
 
 ### Reports API
 
-| Method | Endpoint | الوصف | الصلاحية |
+| Method | Endpoint | Description | Permission |
 |---|---|---|---|
-| `GET` | `/api/analytics/reports` | قائمة التقارير | `view_reports` |
-| `POST` | `/api/analytics/reports` | إنشاء تقرير | `create_reports` |
-| `GET` | `/api/analytics/reports/{id}` | تفاصيل تقرير | `view_reports` |
-| `PUT` | `/api/analytics/reports/{id}` | تحديث تقرير | `edit_reports` |
-| `DELETE` | `/api/analytics/reports/{id}` | حذف تقرير | `delete_reports` |
-| `POST` | `/api/analytics/reports/{id}/run` | تشغيل تقرير | `view_reports` |
-| `POST` | `/api/analytics/reports/{id}/clone` | نسخ تقرير | `create_reports` |
-| `GET` | `/api/analytics/reports/{id}/export` | تصدير تعريف JSON | `export_reports` |
-| `POST` | `/api/analytics/reports/import` | استيراد تقرير | `create_reports` |
+| `GET` | `/api/analytics/reports` | List reports | `view_reports` |
+| `POST` | `/api/analytics/reports` | Create report | `create_reports` |
+| `GET` | `/api/analytics/reports/{id}` | Report details | `view_reports` |
+| `PUT` | `/api/analytics/reports/{id}` | Update report | `edit_reports` |
+| `DELETE` | `/api/analytics/reports/{id}` | Delete report | `delete_reports` |
+| `POST` | `/api/analytics/reports/{id}/run` | Run report | `view_reports` |
+| `POST` | `/api/analytics/reports/{id}/clone` | Clone report | `create_reports` |
+| `GET` | `/api/analytics/reports/{id}/export` | Export JSON definition | `export_reports` |
+| `POST` | `/api/analytics/reports/import` | Import report | `create_reports` |
 
-**Query Parameters لـ GET /api/analytics/reports:**
+**Query parameters for GET /api/analytics/reports:**
 ```
-?search=مبيعات         البحث بالاسم
-?category=sales        فلترة بالتصنيف
-?templates_only=true   القوالب فقط
-?per_page=20           عدد النتائج
+?search=sales          Search by name
+?category=sales        Filter by category
+?templates_only=true   Templates only
+?per_page=20           Results per page
 ```
 
 ---
 
 ### Analytics API
 
-| Method | Endpoint | الوصف |
+| Method | Endpoint | Description |
 |---|---|---|
-| `GET` | `/api/analytics/analytics/modules` | النماذج المكتشفة |
-| `GET` | `/api/analytics/analytics/stats?model=App\Models\User` | إحصاءات نموذج |
-| `GET` | `/api/analytics/analytics/summary/{module}` | ملخص وحدة |
-| `GET` | `/api/analytics/analytics/dashboard/{id}/data` | بيانات كل وِدجات لوحة |
-| `POST` | `/api/analytics/analytics/cache/invalidate` | إبطال كاش |
+| `GET` | `/api/analytics/analytics/modules` | Detected models |
+| `GET` | `/api/analytics/analytics/stats?model=App\Models\User` | Model statistics |
+| `GET` | `/api/analytics/analytics/summary/{module}` | Module summary |
+| `GET` | `/api/analytics/analytics/dashboard/{id}/data` | All widget data for a dashboard |
+| `POST` | `/api/analytics/analytics/cache/invalidate` | Invalidate cache |
 
 ---
 
 ### Export API
 
-| Method | Endpoint | الوصف |
+| Method | Endpoint | Description |
 |---|---|---|
-| `POST` | `/api/analytics/exports/queue` | إضافة مهمة تصدير للقائمة |
-| `GET` | `/api/analytics/exports/status/{id}` | حالة مهمة التصدير |
-| `GET` | `/api/analytics/exports/formats` | صيغ التصدير المتاحة |
-| `GET` | `/api/analytics/exports/history` | سجل التصديرات |
+| `POST` | `/api/analytics/exports/queue` | Queue an export job |
+| `GET` | `/api/analytics/exports/status/{id}` | Export job status |
+| `GET` | `/api/analytics/exports/formats` | Available export formats |
+| `GET` | `/api/analytics/exports/history` | Export history |
 
 **POST /api/analytics/exports/queue** — Body:
 ```json
@@ -1085,15 +1159,15 @@ curl -X POST /sanctum/token \
 
 ### Schedule API
 
-| Method | Endpoint | الوصف |
+| Method | Endpoint | Description |
 |---|---|---|
-| `GET` | `/api/analytics/schedules` | قائمة الجداول |
-| `POST` | `/api/analytics/schedules` | إنشاء جدول |
-| `GET` | `/api/analytics/schedules/{id}` | تفاصيل جدول |
-| `PUT` | `/api/analytics/schedules/{id}` | تحديث جدول |
-| `DELETE` | `/api/analytics/schedules/{id}` | إلغاء جدول |
-| `POST` | `/api/analytics/schedules/{id}/pause` | إيقاف مؤقت |
-| `POST` | `/api/analytics/schedules/{id}/resume` | استئناف |
+| `GET` | `/api/analytics/schedules` | List schedules |
+| `POST` | `/api/analytics/schedules` | Create schedule |
+| `GET` | `/api/analytics/schedules/{id}` | Schedule details |
+| `PUT` | `/api/analytics/schedules/{id}` | Update schedule |
+| `DELETE` | `/api/analytics/schedules/{id}` | Cancel schedule |
+| `POST` | `/api/analytics/schedules/{id}/pause` | Pause schedule |
+| `POST` | `/api/analytics/schedules/{id}/resume` | Resume schedule |
 
 **POST /api/analytics/schedules** — Body:
 ```json
@@ -1105,7 +1179,7 @@ curl -X POST /sanctum/token \
     "delivery_methods": ["email", "webhook"],
     "recipients": ["manager@company.com"],
     "webhook_url": "https://your-app.com/webhooks/reports",
-    "params": {"rtl": true, "title": "تقرير أسبوعي"}
+    "params": {"rtl": false, "title": "Weekly Report"}
 }
 ```
 
@@ -1113,9 +1187,9 @@ curl -X POST /sanctum/token \
 
 ## 🎨 Vue 3 Frontend
 
-### التثبيت السريع
+### Quick Setup
 
-أضف لـ `resources/js/app.js`:
+Add to `resources/js/app.js`:
 
 ```javascript
 import { createApp }   from 'vue'
@@ -1127,10 +1201,10 @@ app.use(createPinia())
 app.mount('#analytics-app')
 ```
 
-أضف لـ Blade view:
+Add to your Blade view:
 ```html
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <!-- GridStack -->
@@ -1146,14 +1220,12 @@ app.mount('#analytics-app')
 </html>
 ```
 
-### استخدام Component منفرد
+### Using a Single Component
 
 ```vue
 <script setup>
 import DashboardBuilder from './analytics-suite/components/dashboard/DashboardBuilder.vue'
-import { createPinia }  from 'pinia'
-
-// يجب تهيئة Pinia في جذر التطبيق
+// Pinia must be initialized at the application root
 </script>
 
 <template>
@@ -1161,27 +1233,26 @@ import { createPinia }  from 'pinia'
 </template>
 ```
 
-### Pinia Store — استخدام مباشر
+### Pinia Store — Direct Usage
 
 ```typescript
 import { useDashboardStore } from './analytics-suite/store/analytics'
 import { useReportStore }    from './analytics-suite/store/analytics'
 import { useAnalyticsStore } from './analytics-suite/store/analytics'
 
-// في setup()
-const dashStore     = useDashboardStore()
-const reportStore   = useReportStore()
+const dashStore      = useDashboardStore()
+const reportStore    = useReportStore()
 const analyticsStore = useAnalyticsStore()
 
-// جلب اللوحات
+// Fetch dashboards
 await dashStore.fetchAll()
-console.log(dashStore.items)       // Dashboard[]
+console.log(dashStore.items)        // Dashboard[]
 
-// تشغيل تقرير
+// Run a report
 const result = await reportStore.run(1, { filters: [] })
-console.log(result.rows)           // Record[]
+console.log(result.rows)            // Record[]
 
-// اكتشاف النماذج
+// Detect models
 await analyticsStore.fetchModules()
 console.log(analyticsStore.modules) // DetectedModel[]
 ```
@@ -1207,19 +1278,19 @@ import type {
 ### Dark Mode & RTL
 
 ```typescript
-// تفعيل Dark Mode
+// Enable Dark Mode
 document.documentElement.classList.add('dark')
 
-// تفعيل RTL
+// Enable RTL
 document.documentElement.setAttribute('dir', 'rtl')
 document.documentElement.setAttribute('lang', 'ar')
 ```
 
 ---
 
-## 🔌 إضافة Widget مخصص
+## 🔌 Custom Widgets
 
-### 1. إنشاء الـ Widget Class
+### 1. Create the Widget Class
 
 ```php
 // app/Analytics/Widgets/SalesComparisonWidget.php
@@ -1231,7 +1302,7 @@ class SalesComparisonWidget
 
     public static function label(): string
     {
-        return 'مقارنة المبيعات';
+        return 'Sales Comparison';
     }
 
     public static function defaultConfig(): array
@@ -1246,15 +1317,15 @@ class SalesComparisonWidget
     public static function configSchema(): array
     {
         return [
-            'period_1' => ['type' => 'select', 'label' => 'الفترة الأولى'],
-            'period_2' => ['type' => 'select', 'label' => 'الفترة الثانية'],
-            'metric'   => ['type' => 'string',  'label' => 'المؤشر'],
+            'period_1' => ['type' => 'select', 'label' => 'Period 1'],
+            'period_2' => ['type' => 'select', 'label' => 'Period 2'],
+            'metric'   => ['type' => 'string',  'label' => 'Metric'],
         ];
     }
 }
 ```
 
-### 2. تسجيله في AppServiceProvider
+### 2. Register in AppServiceProvider
 
 ```php
 // app/Providers/AppServiceProvider.php
@@ -1271,7 +1342,7 @@ public function boot(): void
 }
 ```
 
-### 3. Vue Component للـ Widget
+### 3. Vue Component for the Widget
 
 ```vue
 <!-- resources/js/analytics-suite/components/widgets/SalesComparison.vue -->
@@ -1290,7 +1361,7 @@ public function boot(): void
 </template>
 ```
 
-ثم أضف تسجيله في `WidgetRenderer.vue` المنشور في مشروعك.
+Then register it in the published `WidgetRenderer.vue` in your project.
 
 ---
 
@@ -1303,21 +1374,21 @@ ANALYTICS_TENANT_ISOLATION=true
 ANALYTICS_TENANT_COLUMN=tenant_id
 ```
 
-كل سجل في جداول الحزمة سيُربط بـ `tenant_id`. النظام يضيف الفلتر تلقائيًا.
+Every record in package tables will be bound to a `tenant_id`. The system adds the filter automatically.
 
-### إعداد محدد المستأجر
+### Tenant Resolver
 
 ```php
-// في middleware الخاص بك
+// In your middleware
 app()->bind('current_tenant_id', fn () => auth()->user()->tenant_id);
 ```
 
-### Row-Level Security للمستأجرين
+### RLS for Tenant Isolation
 
 ```php
 RlsPolicyModel::create([
     'name'         => 'Tenant Isolation',
-    'model'        => '*',             // يطبق على كل النماذج
+    'model'        => '*',              // applies to all models
     'column'       => 'tenant_id',
     'scope'        => 'tenant',
     'value_source' => 'auth_user',
@@ -1328,31 +1399,31 @@ RlsPolicyModel::create([
 
 ---
 
-## 🧪 الاختبارات
+## 🧪 Testing
 
 ```bash
 cd packages/mostafax/analytics-suite
 
-# تثبيت dependencies
+# Install dependencies
 composer install
 
-# تشغيل جميع الاختبارات
+# Run all tests
 vendor/bin/pest
 
-# تشغيل Unit Tests فقط
+# Run only Unit Tests
 vendor/bin/pest tests/Unit
 
-# تشغيل Feature Tests فقط
+# Run only Feature Tests
 vendor/bin/pest tests/Feature
 
-# مع تغطية الكود
+# With coverage
 vendor/bin/pest --coverage --min=80
 
-# اختبار محدد
+# Run a specific test file
 vendor/bin/pest tests/Unit/Services/DashboardServiceTest.php
 ```
 
-### كتابة اختبار للحزمة
+### Writing a Package Test
 
 ```php
 namespace Tests\Feature;
@@ -1379,14 +1450,14 @@ class MyTest extends TestCase
 
     public function test_something(): void
     {
-        // اختبارك هنا
+        // your test here
     }
 }
 ```
 
 ---
 
-## 🛠 أوامر Artisan
+## 🛠 Artisan Commands
 
 ### `analytics-suite:install`
 
@@ -1394,20 +1465,20 @@ class MyTest extends TestCase
 php artisan analytics-suite:install [options]
 
 Options:
-  --force              استبدال الملفات الموجودة
-  --skip-migrations    تخطي تشغيل الـ migrations
-  --skip-detection     تخطي اكتشاف النماذج
-  --skip-defaults      تخطي توليد اللوحات والوِدجات الافتراضية
+  --force              Overwrite existing files
+  --skip-migrations    Skip running migrations
+  --skip-detection     Skip model detection
+  --skip-defaults      Skip generating default dashboards and widgets
 ```
 
 ```bash
-# تثبيت كامل
+# Full install
 php artisan analytics-suite:install
 
-# تثبيت بدون توليد افتراضي
+# Install without generating defaults
 php artisan analytics-suite:install --skip-defaults
 
-# إعادة التثبيت وتجاوز الملفات الموجودة
+# Re-install, overwriting existing files
 php artisan analytics-suite:install --force
 ```
 
@@ -1417,22 +1488,22 @@ php artisan analytics-suite:install --force
 php artisan analytics-suite:detect-models [options]
 
 Options:
-  --generate-widgets     توليد تعريفات وِدجات تلقائية
-  --generate-dashboards  توليد لوحات افتراضية
+  --generate-widgets     Generate automatic widget definitions
+  --generate-dashboards  Generate default dashboards
 ```
 
 ```bash
-# عرض النماذج المكتشفة فقط
+# Show detected models only
 php artisan analytics-suite:detect-models
 
-# عرض + توليد وِدجات
+# Show + generate widgets
 php artisan analytics-suite:detect-models --generate-widgets
 
-# عرض + توليد وِدجات + لوحات
+# Show + generate widgets + dashboards
 php artisan analytics-suite:detect-models --generate-widgets --generate-dashboards
 ```
 
-الناتج:
+Output:
 ```
 +--------------------+-----------+----------+--------+--------------+-----------+
 | Class              | Name      | Table    | Module | Soft Deletes | Relations |
@@ -1450,24 +1521,24 @@ Detection complete. Found 3 model(s).
 php artisan analytics-suite:sync-permissions [options]
 
 Options:
-  --role=   تعيين كل الصلاحيات لهذا الدور (يتطلب Spatie Permission)
-  --guard=  الـ guard (افتراضي: web)
+  --role=   Assign all permissions to this role (requires Spatie Permission)
+  --guard=  Guard to use (default: web)
 ```
 
 ```bash
-# مزامنة الصلاحيات فقط
+# Sync permissions only
 php artisan analytics-suite:sync-permissions
 
-# مزامنة وتعيين لدور admin
+# Sync and assign to admin role
 php artisan analytics-suite:sync-permissions --role=admin
 
-# مع guard مختلف
+# With a different guard
 php artisan analytics-suite:sync-permissions --role=manager --guard=api
 ```
 
 ---
 
-## 📁 هيكل المجلدات
+## 📁 Folder Structure
 
 ```
 packages/mostafax/analytics-suite/
@@ -1477,13 +1548,13 @@ packages/mostafax/analytics-suite/
 ├── .gitignore
 │
 ├── config/
-│   └── analytics-suite.php          # 150+ إعداد
+│   └── analytics-suite.php          # 150+ configuration keys
 │
 ├── routes/
-│   └── api.php                      # 30+ مسار API
+│   └── api.php                      # 30+ API routes
 │
 ├── database/
-│   └── migrations/                  # 11 migration
+│   └── migrations/                  # 11 migrations
 │
 ├── resources/
 │   ├── css/
@@ -1494,17 +1565,17 @@ packages/mostafax/analytics-suite/
 │       └── components/
 │           ├── analytics/
 │           │   ├── AnalyticsApp.vue         # Root SPA
-│           │   ├── AnalyticsOverview.vue    # نظرة عامة
-│           │   └── ExportHistory.vue        # سجل التصديرات
+│           │   ├── AnalyticsOverview.vue    # Overview
+│           │   └── ExportHistory.vue        # Export history
 │           ├── dashboard/
-│           │   ├── DashboardBuilder.vue     # البنّاء الرئيسي
-│           │   ├── DashboardList.vue        # قائمة اللوحات
-│           │   ├── WidgetPickerDialog.vue   # حوار إضافة وِدجت
-│           │   └── ShareDialog.vue          # مشاركة اللوحة
+│           │   ├── DashboardBuilder.vue     # Main builder
+│           │   ├── DashboardList.vue        # Dashboard list
+│           │   ├── WidgetPickerDialog.vue   # Add widget dialog
+│           │   └── ShareDialog.vue          # Share dashboard
 │           ├── reports/
-│           │   └── ReportBuilder.vue        # بنّاء التقارير
+│           │   └── ReportBuilder.vue        # Report builder
 │           └── widgets/
-│               ├── WidgetRenderer.vue       # موزّع الوِدجات
+│               ├── WidgetRenderer.vue       # Widget dispatcher
 │               ├── KpiCard.vue
 │               ├── StatsCard.vue
 │               ├── DataTable.vue
@@ -1514,13 +1585,13 @@ packages/mostafax/analytics-suite/
 │               └── ProgressWidget.vue
 │
 ├── src/
-│   ├── AnalyticsSuiteManager.php            # نقطة الدخول المركزية
+│   ├── AnalyticsSuiteManager.php            # Central entry point
 │   │
 │   ├── Analytics/
-│   │   └── AnalyticsEngine.php             # محرك التحليلات
+│   │   └── AnalyticsEngine.php             # Analytics engine
 │   │
 │   ├── Cache/
-│   │   └── AnalyticsCacheManager.php       # إدارة Redis Cache
+│   │   └── AnalyticsCacheManager.php       # Redis cache manager
 │   │
 │   ├── Commands/
 │   │   ├── InstallCommand.php
@@ -1531,7 +1602,7 @@ packages/mostafax/analytics-suite/
 │   ├── DTOs/                               # 8 Data Transfer Objects
 │   │
 │   ├── Detection/
-│   │   └── ModelDetectionEngine.php        # اكتشاف النماذج
+│   │   └── ModelDetectionEngine.php        # Model auto-detection
 │   │
 │   ├── Events/                             # 6 Events
 │   ├── Export/                             # PDF, Excel, CSV, JSON
@@ -1580,7 +1651,7 @@ packages/mostafax/analytics-suite/
 
 ---
 
-## ⚙️ مرجع Config كامل
+## ⚙️ Config Reference
 
 ```php
 // config/analytics-suite.php
@@ -1588,15 +1659,15 @@ return [
 
     // ========== Route Configuration ==========
     'routes' => [
-        'prefix'     => 'api/analytics',          // بادئة المسارات
-        'middleware' => ['api', 'auth:sanctum'],   // Middleware افتراضي
+        'prefix'     => 'api/analytics',          // route prefix
+        'middleware' => ['api', 'auth:sanctum'],   // default middleware
         'name'       => 'analytics.',
     ],
 
     // ========== Database ==========
     'database' => [
         'connection' => env('ANALYTICS_DB_CONNECTION', 'mysql'),
-        'prefix'     => 'as_',                    // بادئة الجداول
+        'prefix'     => 'as_',                    // table prefix
     ],
 
     // ========== Cache ==========
@@ -1605,11 +1676,11 @@ return [
         'enabled'  => env('ANALYTICS_CACHE_ENABLED', true),
         'prefix'   => env('ANALYTICS_CACHE_PREFIX', 'analytics_suite'),
         'ttl'      => [
-            'dashboard' => 300,   // 5 دقائق
-            'widget'    => 180,   // 3 دقائق
-            'report'    => 600,   // 10 دقائق
-            'stats'     => 120,   // دقيقتان
-            'schema'    => 3600,  // ساعة
+            'dashboard' => 300,   // 5 minutes
+            'widget'    => 180,   // 3 minutes
+            'report'    => 600,   // 10 minutes
+            'stats'     => 120,   // 2 minutes
+            'schema'    => 3600,  // 1 hour
         ],
     ],
 
@@ -1624,7 +1695,7 @@ return [
         'max_export_rows'      => 100000,
         'max_query_rows'       => 50000,
         'public_share_enabled' => true,
-        'public_share_expiry'  => 7,         // أيام
+        'public_share_expiry'  => 7,         // days
     ],
 
     // ========== Detection Engine ==========
@@ -1648,7 +1719,7 @@ return [
     'widgets' => [
         'default_refresh_rate' => 300,
         'marketplace_enabled'  => true,
-        'registry'             => [],           // Custom widgets
+        'registry'             => [],           // custom widgets
     ],
 
     // ========== Export ==========
@@ -1684,20 +1755,20 @@ return [
 
 ---
 
-## ❓ الأسئلة الشائعة
+## ❓ FAQ
 
-**س: كيف أغير prefix المسارات؟**
+**Q: How do I change the route prefix?**
 ```php
 // config/analytics-suite.php
 'routes' => ['prefix' => 'api/v1/analytics']
 ```
 
-**س: كيف أتعطيل صلاحيات معينة في التطوير؟**
+**Q: How do I disable permissions in development?**
 ```env
 ANALYTICS_ENFORCE_PERMISSIONS=false
 ```
 
-**س: كيف أضيف مسارات الـ Vue لـ vite.config.js؟**
+**Q: How do I add the Vue paths to vite.config.js?**
 ```javascript
 // vite.config.js
 resolve: {
@@ -1707,7 +1778,7 @@ resolve: {
 }
 ```
 
-**س: كيف أُخصص middleware للـ API؟**
+**Q: How do I customize the API middleware?**
 ```php
 // config/analytics-suite.php
 'routes' => [
@@ -1715,8 +1786,8 @@ resolve: {
 ]
 ```
 
-**س: هل يعمل مع Laravel Modules (nwidart/laravel-modules)?**
-نعم. أضف مسار الـ Modules في:
+**Q: Does it work with Laravel Modules (nwidart/laravel-modules)?**
+Yes. Add the Modules path in:
 ```php
 'detection' => [
     'module_paths' => [base_path('Modules')],
@@ -1725,7 +1796,7 @@ resolve: {
 
 ---
 
-## 📄 الترخيص
+## 📄 License
 
 MIT License © 2026 [Mostafa Elbayyar](mailto:mostafa.m.elbiar2@gmail.com)
 
@@ -1733,7 +1804,7 @@ MIT License © 2026 [Mostafa Elbayyar](mailto:mostafa.m.elbiar2@gmail.com)
 
 <div align="center">
 
-**صُنع بـ ❤️ لمجتمع Laravel**
+**Built with ❤️ for the Laravel community**
 
 [⭐ Star on GitHub](https://github.com/mostafax2/Dynamic-Analytics-Studio) · [🐛 Report Bug](https://github.com/mostafax2/Dynamic-Analytics-Studio/issues) · [💡 Request Feature](https://github.com/mostafax2/Dynamic-Analytics-Studio/issues)
 
