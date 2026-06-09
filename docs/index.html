@@ -1,0 +1,1087 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Enterprise Analytics Suite — Complete Documentation</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;900&family=JetBrains+Mono:wght@400;600;700&display=swap');
+
+:root {
+  --bg:#F0F4F8; --bg2:#E8EFF6; --white:#fff;
+  --cyan:#6366f1; --cyan-dim:#4f46e5; --cyan-pale:rgba(99,102,241,.08);
+  --amber:#C46A00; --purple:#7C3AED; --green:#059669; --red:#DC2626;
+  --text:#1A2535; --muted:#5A7089; --border:rgba(99,102,241,.14);
+  --shadow:0 2px 12px rgba(99,102,241,.07);
+  --shadow-lg:0 8px 32px rgba(99,102,241,.13);
+  --r:14px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden;line-height:1.75;font-size:17px}
+body::before{content:'';position:fixed;inset:0;background-image:radial-gradient(circle,rgba(99,102,241,.05) 1px,transparent 1px);background-size:28px 28px;pointer-events:none;z-index:0}
+section,header,footer,nav{position:relative;z-index:1}
+a{color:var(--cyan);text-decoration:none}
+code{font-family:'JetBrains Mono',monospace;font-size:.82em;background:var(--cyan-pale);border:1px solid rgba(99,102,241,.18);border-radius:5px;padding:.1em .4em}
+
+nav{position:sticky;top:0;z-index:200;background:rgba(240,244,248,.93);backdrop-filter:blur(14px);border-bottom:1px solid var(--border);padding:.55rem 2rem;display:flex;align-items:center;gap:1.2rem;flex-wrap:wrap}
+.nav-logo{font-weight:900;font-size:.92rem;margin-right:auto;color:var(--text)}
+.nav-logo span{color:var(--cyan)}
+nav a{color:var(--muted);font-size:.84rem;font-weight:600;transition:color .18s}
+nav a:hover{color:var(--cyan)}
+.nav-badge{background:var(--cyan);color:#fff;padding:.12rem .55rem;border-radius:100px;font-size:.66rem;font-weight:700}
+.lang-btn{background:var(--cyan-pale);border:1px solid rgba(99,102,241,.25);border-radius:8px;padding:.28rem .8rem;font-size:.75rem;font-weight:700;color:var(--cyan);cursor:pointer;text-decoration:none;transition:all .2s}
+.lang-btn:hover{background:rgba(99,102,241,.15)}
+
+.container{max-width:1080px;margin:0 auto;padding:0 2rem}
+section{padding:5.5rem 0}
+.section-label{font-size:.77rem;letter-spacing:.18em;text-transform:uppercase;color:var(--cyan);margin-bottom:.9rem;display:flex;align-items:center;gap:.55rem}
+.section-label::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,var(--cyan-dim),transparent)}
+h2{font-size:clamp(1.85rem,3.5vw,2.55rem);font-weight:800;line-height:1.22;margin-bottom:.65rem}
+h3{font-size:1.15rem;font-weight:700;margin-bottom:.4rem}
+p{color:var(--muted);margin-bottom:.75rem;font-size:1.02rem}
+.card{background:var(--white);border:1px solid var(--border);border-radius:var(--r);padding:1.6rem;box-shadow:var(--shadow);transition:all .25s}
+.card:hover{border-color:rgba(99,102,241,.35);box-shadow:var(--shadow-lg);transform:translateY(-2px)}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:1.4rem}
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:1.3rem}
+.grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:1.2rem}
+@media(max-width:900px){.grid-3{grid-template-columns:1fr 1fr}.grid-4{grid-template-columns:1fr 1fr}}
+@media(max-width:620px){.grid-2,.grid-3,.grid-4{grid-template-columns:1fr}}
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease}
+.reveal.visible{opacity:1;transform:none}
+
+header{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:4rem 2rem;overflow:hidden}
+.hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 80% 55% at 50% 40%,rgba(99,102,241,.07),transparent 70%);pointer-events:none}
+header>*:not(.hero-bg):not(canvas){position:relative;z-index:2}
+.hero-tag{display:inline-flex;align-items:center;gap:.5rem;background:var(--cyan-pale);border:1px solid rgba(99,102,241,.25);border-radius:100px;padding:.32rem 1.1rem;font-size:.76rem;letter-spacing:.1em;text-transform:uppercase;color:var(--cyan);margin-bottom:1.8rem}
+.hero-tag::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--cyan);box-shadow:0 0 8px var(--cyan);animation:pulse 1.6s infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.7)}}
+h1{font-size:clamp(2.3rem,6vw,4.6rem);font-weight:900;line-height:1.12;margin-bottom:1.4rem}
+.g{background:linear-gradient(135deg,var(--cyan),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-sub{font-size:1.08rem;color:var(--muted);max-width:580px;margin:0 auto 2.5rem;font-weight:300}
+.hero-chips{display:flex;flex-wrap:wrap;gap:.55rem;justify-content:center;margin-bottom:2.8rem}
+.chip{background:var(--white);border:1px solid var(--border);border-radius:100px;padding:.28rem .8rem;font-size:.73rem;font-weight:600;color:var(--muted);box-shadow:var(--shadow)}
+.hero-cta{display:flex;gap:.7rem;justify-content:center;flex-wrap:wrap}
+.btn{padding:.7rem 1.6rem;border-radius:10px;font-weight:700;font-size:.88rem;transition:all .2s;display:inline-block}
+.btn-primary{background:var(--cyan);color:#fff}
+.btn-primary:hover{background:var(--cyan-dim);transform:translateY(-2px);box-shadow:0 6px 20px rgba(99,102,241,.28)}
+.btn-secondary{background:var(--white);color:var(--text);border:1px solid var(--border)}
+.btn-secondary:hover{border-color:var(--cyan);color:var(--cyan)}
+
+.pipeline{display:flex;flex-wrap:wrap;gap:0;background:var(--white);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;box-shadow:var(--shadow);margin-top:2rem}
+.pipe-step{flex:1;min-width:110px;padding:1.1rem .9rem;border-right:1px solid var(--border);transition:background .2s}
+.pipe-step:last-child{border-right:none}
+.pipe-step:hover{background:var(--cyan-pale)}
+.pipe-num{font-family:'JetBrains Mono',monospace;font-size:.62rem;font-weight:700;color:var(--cyan);margin-bottom:.25rem;display:block}
+.pipe-name{font-size:.8rem;font-weight:700;margin-bottom:.15rem;display:block}
+.pipe-desc{font-size:.78rem;color:var(--muted);line-height:1.38}
+
+.code-block{background:#1C2333;border:1px solid rgba(99,102,241,.18);border-radius:var(--r);padding:1.3rem 1.5rem;font-family:'JetBrains Mono',monospace;font-size:.84rem;line-height:2;color:#CBD5E1;overflow-x:auto;white-space:pre;direction:ltr;text-align:left}
+.code-tabs{display:flex;gap:.35rem;background:#F8FAFC;border:1px solid var(--border);border-bottom:none;border-radius:var(--r) var(--r) 0 0;padding:.35rem .35rem 0;flex-wrap:wrap}
+.tab-btn{background:none;border:none;color:var(--muted);font-family:'Outfit',sans-serif;font-size:.88rem;font-weight:500;padding:.55rem 1rem;cursor:pointer;border-bottom:2px solid transparent;transition:all .18s}
+.tab-btn.active{color:var(--cyan);border-bottom-color:var(--cyan);font-weight:700}
+.code-panel{display:none}
+.code-panel.active{display:block}
+.code-panel .code-block{border-radius:0 0 var(--r) var(--r);border-top:none}
+.kw{color:#FF79C6}.cls{color:#8BE9FD}.fn{color:#50FA7B}.str{color:#F1FA8C}.cm{color:#6B8299;font-style:italic}.op{color:#BD93F9}.num{color:#FFB86C}.ky{color:#00BFFF}
+.t-g{color:#50FA7B}.t-c{color:#00BFFF}.t-a{color:#FFB86C}.t-m{color:#6B8299}.t-r{color:#FF5555}
+
+.terminal{background:#1C2333;border:1px solid rgba(99,102,241,.2);border-radius:var(--r);overflow:hidden;box-shadow:var(--shadow-lg)}
+.terminal-bar{background:#141C2B;padding:.6rem 1rem;display:flex;align-items:center;gap:.45rem}
+.dot{width:10px;height:10px;border-radius:50%}
+.dot.r{background:#FF5F57}.dot.y{background:#FFBD2E}.dot.g{background:#28CA42}
+.terminal-title{flex:1;text-align:center;font-size:.7rem;color:var(--muted);font-family:'JetBrains Mono',monospace}
+.terminal-body{padding:1.3rem 1.5rem;font-family:'JetBrains Mono',monospace;font-size:.84rem;line-height:2.1;color:#CBD5E1}
+
+.cmd-card{background:var(--white);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;box-shadow:var(--shadow)}
+.cmd-header{background:#0f172a;padding:.8rem 1.2rem;display:flex;align-items:center;gap:.7rem;flex-wrap:wrap}
+.cmd-name{font-family:'JetBrains Mono',monospace;font-size:.83rem;color:#a5b4fc;font-weight:700}
+.cmd-desc{font-size:.78rem;color:#64748b;margin-left:auto}
+.cmd-body{padding:1.3rem 1.5rem}
+.cmd-opt{display:flex;gap:.7rem;align-items:baseline;margin-bottom:.55rem;font-size:.83rem;flex-wrap:wrap}
+.cmd-opt-name{font-family:'JetBrains Mono',monospace;color:var(--cyan);font-weight:700;min-width:200px;flex-shrink:0}
+.cmd-opt-desc{color:var(--muted);font-size:.8rem}
+
+.perm-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:.65rem;margin-top:1.2rem}
+.perm-badge{background:var(--white);border:1px solid var(--border);border-radius:10px;padding:.6rem 1rem;display:flex;align-items:center;gap:.6rem;font-size:.8rem;box-shadow:var(--shadow)}
+.perm-badge .dot-s{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+.perm-badge.report .dot-s{background:var(--cyan)}
+.perm-badge.dash .dot-s{background:var(--purple)}
+.perm-badge.widget .dot-s{background:var(--green)}
+.perm-badge.admin .dot-s{background:var(--amber)}
+
+.cfg-table{width:100%;border-collapse:collapse;font-size:.88rem;margin-top:1rem}
+.cfg-table th{background:#f8fafc;border:1px solid var(--border);padding:.55rem .9rem;text-align:left;font-size:.78rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.cfg-table td{border:1px solid var(--border);padding:.55rem .9rem;vertical-align:top}
+.cfg-table tr:hover td{background:var(--cyan-pale)}
+.cfg-key{font-family:'JetBrains Mono',monospace;color:var(--cyan);font-size:.78rem}
+.cfg-type{font-family:'JetBrains Mono',monospace;color:var(--purple);font-size:.73rem}
+.cfg-default{font-family:'JetBrains Mono',monospace;color:var(--amber);font-size:.73rem}
+
+.metric-card{background:var(--white);border:1px solid var(--border);border-radius:var(--r);padding:1.6rem 1.2rem;text-align:center;box-shadow:var(--shadow);position:relative;overflow:hidden}
+.metric-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--cyan),transparent)}
+.metric-num{font-size:2rem;font-weight:900;font-family:'JetBrains Mono',monospace;color:var(--cyan);display:block;line-height:1;margin-bottom:.25rem}
+.metric-unit{font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:.3rem}
+.metric-desc{font-size:.84rem;color:var(--muted);line-height:1.4}
+
+.widget-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:1rem;margin-top:1.5rem}
+.widget-card{background:var(--white);border:1px solid var(--border);border-radius:var(--r);padding:1.1rem;box-shadow:var(--shadow);transition:all .2s}
+.widget-card:hover{border-color:rgba(99,102,241,.4);box-shadow:var(--shadow-lg);transform:translateY(-2px)}
+.widget-icon{font-size:1.6rem;margin-bottom:.5rem;display:block}
+.widget-name{font-size:.92rem;font-weight:700;margin-bottom:.2rem}
+.widget-desc{font-size:.80rem;color:var(--muted);line-height:1.4}
+
+.api-table{width:100%;border-collapse:collapse;font-size:.88rem;margin-top:1rem}
+.api-table th{background:#f8fafc;border:1px solid var(--border);padding:.55rem .9rem;text-align:left;font-size:.78rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.api-table td{border:1px solid var(--border);padding:.55rem .9rem;vertical-align:middle}
+.api-table tr:hover td{background:var(--cyan-pale)}
+.method{font-family:'JetBrains Mono',monospace;font-size:.72rem;font-weight:700;padding:.18rem .5rem;border-radius:4px;display:inline-block}
+.m-get{background:#dcfce7;color:#166534}
+.m-post{background:#dbeafe;color:#1e40af}
+.m-put{background:#fef9c3;color:#854d0e}
+.m-delete{background:#fee2e2;color:#991b1b}
+
+footer{text-align:center;padding:3.5rem 2rem;background:var(--bg2);border-top:1px solid var(--border);color:var(--muted);font-size:.84rem}
+</style>
+</head>
+<body>
+
+<nav>
+  <span class="nav-logo">📊 <span>Enterprise Analytics</span> Suite</span>
+  <a href="#quickstart">Quick Start</a>
+  <a href="#detection">Detection</a>
+  <a href="#dashboards">Dashboards</a>
+  <a href="#widgets">Widgets</a>
+  <a href="#reports">Reports</a>
+  <a href="#security">Security</a>
+  <a href="#export">Export</a>
+  <a href="#api">API</a>
+  <a href="#config">Config</a>
+  <a href="ar.html" class="lang-btn">🌐 عربي</a>
+  <span class="nav-badge">v1.0</span>
+</nav>
+
+<header>
+  <div class="hero-bg"></div>
+  <canvas id="particles" style="position:absolute;inset:0;pointer-events:none;z-index:0"></canvas>
+
+  <div class="hero-tag">📦 mostafax/enterprise-analytics-suite</div>
+
+  <h1><span class="g">Enterprise Analytics</span><br>Suite for Laravel</h1>
+  <p class="hero-sub">
+    Power BI · Grafana · Metabase · Tableau — built for Laravel 12.
+    Zero-config install, auto model detection, drag-and-drop dashboard builder,
+    15 widget types, enterprise security, and a full Vue 3 SPA.
+  </p>
+
+  <div class="hero-chips">
+    <span class="chip">🤖 Auto Model Detection</span>
+    <span class="chip">📊 Dashboard Builder</span>
+    <span class="chip">📋 Report Builder</span>
+    <span class="chip">🔢 15 Widget Types</span>
+    <span class="chip">🔌 Widget Marketplace</span>
+    <span class="chip">🔒 14 Permissions + RLS</span>
+    <span class="chip">⚡ Redis Cache</span>
+    <span class="chip">📥 PDF / Excel / CSV</span>
+    <span class="chip">⏰ Scheduled Reports</span>
+    <span class="chip">🌍 RTL / Arabic</span>
+    <span class="chip">🏢 Multi-Tenant</span>
+    <span class="chip">🎨 Vue 3 SPA</span>
+  </div>
+
+  <div class="hero-cta">
+    <a href="#quickstart" class="btn btn-primary">Get Started →</a>
+    <a href="#api"        class="btn btn-secondary">API Reference</a>
+    <a href="#widgets"    class="btn btn-secondary">Widget Types</a>
+  </div>
+</header>
+
+<!-- METRICS -->
+<section style="background:var(--bg2);padding:3.5rem 0">
+<div class="container">
+  <div class="grid-4 reveal">
+    <div class="metric-card"><span class="metric-num" data-target="15">0</span><span class="metric-unit">Widget Types</span><div class="metric-desc">KPI · Charts · Table · Gauge · Leaderboard · Progress · Custom</div></div>
+    <div class="metric-card"><span class="metric-num" data-target="14">0</span><span class="metric-unit">Permissions</span><div class="metric-desc">Report · Dashboard · Widget · Admin — full RBAC + RLS</div></div>
+    <div class="metric-card"><span class="metric-num" data-target="4">0</span><span class="metric-unit">Export Formats</span><div class="metric-desc">PDF · Excel · CSV · JSON — RTL &amp; Arabic support</div></div>
+    <div class="metric-card"><span class="metric-num" data-target="11">0</span><span class="metric-unit">DB Tables</span><div class="metric-desc">All <code>as_</code> prefixed — zero collision with host app</div></div>
+  </div>
+</div>
+</section>
+
+<!-- QUICK START -->
+<section id="quickstart">
+<div class="container">
+  <div class="section-label">Quick Start</div>
+  <h2>Up and Running in 60 Seconds</h2>
+
+  <div style="margin-top:2.5rem">
+    <h3 style="margin-bottom:1rem">① Install</h3>
+    <div class="terminal reveal">
+      <div class="terminal-bar"><div class="dot r"></div><div class="dot y"></div><div class="dot g"></div><div class="terminal-title">bash</div></div>
+      <div class="terminal-body">
+<div><span class="t-m">$</span> <span class="t-c">composer require mostafax/enterprise-analytics-suite</span></div>
+<div><span class="t-g">  ✓ Package installed and auto-discovered</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div style="margin-top:2.5rem">
+    <h3 style="margin-bottom:1rem">② Run the Smart Installer</h3>
+    <div class="terminal reveal">
+      <div class="terminal-bar"><div class="dot r"></div><div class="dot y"></div><div class="dot g"></div><div class="terminal-title">php artisan analytics-suite:install</div></div>
+      <div class="terminal-body">
+<div>&nbsp;</div>
+<div>  ╔══════════════════════════════════════════════╗</div>
+<div>  ║   <span class="t-c">Enterprise Analytics Suite  v1.0.0</span>       ║</div>
+<div>  ║   Power BI · Metabase · Grafana · Tableau   ║</div>
+<div>  ╚══════════════════════════════════════════════╝</div>
+<div>&nbsp;</div>
+<div>  <span class="t-c">[ 1/8 ]</span>  Publishing config …       <span class="t-g">✓</span></div>
+<div>  <span class="t-c">[ 2/8 ]</span>  Publishing migrations …   <span class="t-g">✓</span></div>
+<div>  <span class="t-c">[ 3/8 ]</span>  Running migrations …      <span class="t-g">✓  (11 tables created)</span></div>
+<div>  <span class="t-c">[ 4/8 ]</span>  Seeding permissions …     <span class="t-g">✓  (14 permissions)</span></div>
+<div>  <span class="t-c">[ 5/8 ]</span>  Detecting models …        <span class="t-g">✓  (6 models found)</span></div>
+<div>  <span class="t-c">[ 6/8 ]</span>  Generating defaults …     <span class="t-g">✓  (2 dashboards, 8 widgets)</span></div>
+<div>  <span class="t-c">[ 7/8 ]</span>  Publishing Vue assets …   <span class="t-g">✓</span></div>
+<div>  <span class="t-c">[ 8/8 ]</span>  Checking Sanctum …        <span class="t-g">✓</span></div>
+<div>&nbsp;</div>
+<div>  <span class="t-g">✓ Installation complete!</span></div>
+<div>&nbsp;</div>
+<div>  API:       <span class="t-a">http://localhost/api/analytics</span></div>
+<div>  Docs:      <span class="t-a">http://localhost/api/analytics/docs</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div style="margin-top:2.5rem">
+    <h3 style="margin-bottom:1rem">③ Add .env variables</h3>
+    <div class="code-block reveal"><span class="ky">ANALYTICS_CACHE_DRIVER</span>=redis
+<span class="ky">ANALYTICS_CACHE_ENABLED</span>=true
+<span class="ky">ANALYTICS_ENFORCE_PERMISSIONS</span>=true
+<span class="ky">ANALYTICS_RLS_ENABLED</span>=true
+<span class="ky">ANALYTICS_EXPORT_DISK</span>=local
+<span class="ky">ANALYTICS_FROM_EMAIL</span>=noreply@yourdomain.com</div>
+  </div>
+
+  <div style="margin-top:2.5rem">
+    <h3 style="margin-bottom:1rem">④ Start Queue Worker (for async exports)</h3>
+    <div class="terminal reveal">
+      <div class="terminal-bar"><div class="dot r"></div><div class="dot y"></div><div class="dot g"></div></div>
+      <div class="terminal-body">
+<div><span class="t-m">$</span> <span class="t-c">php artisan queue:work --queue=default</span></div>
+<div><span class="t-g">  Worker started. Listening for jobs…</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ARCHITECTURE -->
+<section style="background:var(--bg2)">
+<div class="container">
+  <div class="section-label">Architecture</div>
+  <h2>How it Works</h2>
+  <p>Every widget, report, and analytics query flows through the Dynamic Hybrid Reporting Engine DSL layer.</p>
+
+  <div class="pipeline reveal">
+    <div class="pipe-step"><span class="pipe-num">01</span><span class="pipe-name">Auto Detection</span><div class="pipe-desc">Symfony Finder scans <code>App\Models</code> + <code>Modules/*</code> via Reflection</div></div>
+    <div class="pipe-step"><span class="pipe-num">02</span><span class="pipe-name">Security Layer</span><div class="pipe-desc">14 permissions checked, RLS policies applied on every query</div></div>
+    <div class="pipe-step"><span class="pipe-num">03</span><span class="pipe-name">Cache Check</span><div class="pipe-desc">Redis lookup by <code>prefix:namespace:id</code>. Hit → return early</div></div>
+    <div class="pipe-step"><span class="pipe-num">04</span><span class="pipe-name">DSL Builder</span><div class="pipe-desc">Widget config → DSL array for the Reporting Engine</div></div>
+    <div class="pipe-step"><span class="pipe-num">05</span><span class="pipe-name">ReportEngine::run()</span><div class="pipe-desc">MySQL / MongoDB query execution via <code>dynamic-hybrid-reporting-engine</code></div></div>
+    <div class="pipe-step"><span class="pipe-num">06</span><span class="pipe-name">Cache Store + Events</span><div class="pipe-desc">Result cached, <code>WidgetExecuted</code> event fired</div></div>
+  </div>
+
+  <div style="margin-top:2rem" class="reveal">
+    <div class="code-block" style="line-height:1.7"><span class="cm">// Architecture overview</span>
+┌────────────────────────────────────────────────────────┐
+│              Enterprise Analytics Suite                 │
+│                                                         │
+│  ┌──────────────┐ ┌──────────────┐ ┌──────────────┐   │
+│  │  Dashboard   │ │   Report     │ │   Widget     │   │
+│  │  Builder     │ │   Builder    │ │   Engine     │   │
+│  └──────┬───────┘ └──────┬───────┘ └──────┬───────┘   │
+│         └────────────────┼────────────────┘           │
+│  ┌──────────────────────▼──────────────────────────┐  │
+│  │     Analytics Engine  (Security · Cache · Events)│  │
+│  └──────────────────────┬──────────────────────────┘  │
+│  ┌──────────────────────▼──────────────────────────┐  │
+│  │  Dynamic Hybrid Reporting Engine (DSL Executor)  │  │
+│  └──────────┬─────────────────────┬────────────────┘  │
+│          MySQL               MongoDB / Redis           │
+└────────────────────────────────────────────────────────┘</div>
+  </div>
+</div>
+</section>
+
+<!-- DETECTION ENGINE -->
+<section id="detection">
+<div class="container">
+  <div class="section-label">Detection Engine</div>
+  <h2>Zero-Config Auto Model Discovery</h2>
+  <p>The Detection Engine scans your application for Eloquent models and auto-generates widgets and dashboards.</p>
+
+  <div class="code-tabs reveal" style="margin-top:2rem">
+    <button class="tab-btn active" onclick="showTab('det-cmd',this)">Artisan Command</button>
+    <button class="tab-btn" onclick="showTab('det-php',this)">PHP API</button>
+    <button class="tab-btn" onclick="showTab('det-config',this)">Config</button>
+  </div>
+  <div id="tab-det-cmd" class="code-panel active">
+    <div class="terminal"><div class="terminal-bar"><div class="dot r"></div><div class="dot y"></div><div class="dot g"></div><div class="terminal-title">php artisan analytics-suite:detect-models</div></div>
+    <div class="terminal-body">
+<div>+--------------------+-----------+----------+--------+--------------+-----------+</div>
+<div>| Class              | Name      | Table    | Module | Soft Deletes | Relations |</div>
+<div>+--------------------+-----------+----------+--------+--------------+-----------+</div>
+<div>| <span class="t-c">App\Models\User</span>    | User      | users    | App    | No           | <span class="t-g">3</span>         |</div>
+<div>| <span class="t-c">App\Models\Order</span>   | Order     | orders   | App    | Yes          | <span class="t-g">2</span>         |</div>
+<div>| <span class="t-c">Modules\HR\Models\</span> | Employee  | employees| HR     | Yes          | <span class="t-g">5</span>         |</div>
+<div>+--------------------+-----------+----------+--------+--------------+-----------+</div>
+<div>&nbsp;</div>
+<div>  Detection complete. Found <span class="t-a">3</span> model(s).</div>
+    </div></div>
+  </div>
+  <div id="tab-det-php" class="code-panel"><div class="code-block"><span class="kw">use</span> <span class="cls">Mostafax\AnalyticsSuite\Support\Facades\AnalyticsSuite</span>;
+
+<span class="cm">// Detect all models</span>
+<span class="op">$models</span> = AnalyticsSuite::<span class="fn">detectModels</span>();
+
+<span class="kw">foreach</span> (<span class="op">$models</span> <span class="kw">as</span> <span class="op">$model</span>) {
+    <span class="fn">echo</span> <span class="op">$model</span>->name;              <span class="cm">// "User"</span>
+    <span class="fn">echo</span> <span class="op">$model</span>->table;             <span class="cm">// "users"</span>
+    <span class="fn">echo</span> <span class="op">$model</span>->module;            <span class="cm">// "App"</span>
+    <span class="fn">print_r</span>(<span class="op">$model</span>->relationships); <span class="cm">// [['method'=>'posts','type'=>'hasMany']]</span>
+    <span class="fn">print_r</span>(<span class="op">$model</span>->columns);       <span class="cm">// ['id','name','email','created_at']</span>
+}
+
+<span class="cm">// Get introspection for a single model</span>
+<span class="op">$info</span> = AnalyticsSuite::<span class="fn">detector</span>()-><span class="fn">introspect</span>(\<span class="cls">App\Models\Order</span>::<span class="kw">class</span>);
+
+<span class="cm">// Generate widgets automatically</span>
+<span class="op">$widgets</span> = AnalyticsSuite::<span class="fn">detector</span>()-><span class="fn">generateWidgets</span>(\<span class="cls">App\Models\User</span>::<span class="kw">class</span>);
+<span class="cm">// → [KPI Card (count), Line Chart (growth), Data Table]</span></div></div>
+  <div id="tab-det-config" class="code-panel"><div class="code-block"><span class="cm">// config/analytics-suite.php</span>
+<span class="str">'detection'</span> => [
+    <span class="str">'scan_paths'</span>   => [<span class="fn">app_path</span>(<span class="str">'Models'</span>)],
+    <span class="str">'module_paths'</span> => [<span class="fn">base_path</span>(<span class="str">'Modules'</span>)],
+    <span class="str">'excluded_models'</span>          => [<span class="str">'PersonalAccessToken'</span>],
+    <span class="str">'auto_generate_widgets'</span>    => <span class="kw">true</span>,
+    <span class="str">'auto_generate_dashboards'</span> => <span class="kw">true</span>,
+],</div></div>
+</div>
+</section>
+
+<!-- DASHBOARD BUILDER -->
+<section id="dashboards" style="background:var(--bg2)">
+<div class="container">
+  <div class="section-label">Dashboard Builder</div>
+  <h2>Drag &amp; Drop Dashboards</h2>
+  <p>Create, clone, share, and embed dashboards. GridStack powers the layout — every change persisted in real-time.</p>
+
+  <div class="code-tabs reveal" style="margin-top:2rem">
+    <button class="tab-btn active" onclick="showTab('dash-create',this)">Create</button>
+    <button class="tab-btn" onclick="showTab('dash-layout',this)">Update Layout</button>
+    <button class="tab-btn" onclick="showTab('dash-share',this)">Public Share</button>
+    <button class="tab-btn" onclick="showTab('dash-clone',this)">Clone</button>
+  </div>
+  <div id="tab-dash-create" class="code-panel active"><div class="code-block"><span class="kw">use</span> <span class="cls">Mostafax\AnalyticsSuite\Support\Facades\AnalyticsSuite</span>;
+
+<span class="op">$dashboard</span> = AnalyticsSuite::<span class="fn">dashboards</span>()-><span class="fn">create</span>([
+    <span class="str">'name'</span>        => <span class="str">'Sales Dashboard'</span>,
+    <span class="str">'description'</span> => <span class="str">'Monthly KPIs and revenue charts'</span>,
+    <span class="str">'settings'</span>    => [<span class="str">'theme'</span> => <span class="str">'dark'</span>, <span class="str">'refresh_rate'</span> => <span class="num">60</span>],
+], <span class="fn">auth</span>()-><span class="fn">id</span>());
+
+<span class="fn">echo</span> <span class="op">$dashboard</span>->id;   <span class="cm">// 1</span>
+<span class="fn">echo</span> <span class="op">$dashboard</span>->slug; <span class="cm">// "sales-dashboard"</span></div></div>
+  <div id="tab-dash-layout" class="code-panel"><div class="code-block"><span class="cm">// After a GridStack drag-and-drop event</span>
+AnalyticsSuite::<span class="fn">dashboards</span>()-><span class="fn">updateLayout</span>(<span class="num">1</span>, [
+    [<span class="str">'widget_id'</span> => <span class="num">5</span>, <span class="str">'x'</span> => <span class="num">0</span>, <span class="str">'y'</span> => <span class="num">0</span>, <span class="str">'w'</span> => <span class="num">6</span>, <span class="str">'h'</span> => <span class="num">3</span>],
+    [<span class="str">'widget_id'</span> => <span class="num">6</span>, <span class="str">'x'</span> => <span class="num">6</span>, <span class="str">'y'</span> => <span class="num">0</span>, <span class="str">'w'</span> => <span class="num">6</span>, <span class="str">'h'</span> => <span class="num">3</span>],
+    [<span class="str">'widget_id'</span> => <span class="num">7</span>, <span class="str">'x'</span> => <span class="num">0</span>, <span class="str">'y'</span> => <span class="num">3</span>, <span class="str">'w'</span> => <span class="num">12</span>, <span class="str">'h'</span> => <span class="num">4</span>],
+]);</div></div>
+  <div id="tab-dash-share" class="code-panel"><div class="code-block"><span class="cm">// Generate a public share link (no auth required)</span>
+<span class="op">$dashboard</span> = AnalyticsSuite::<span class="fn">dashboards</span>()-><span class="fn">enablePublicShare</span>(<span class="num">1</span>, expiryDays: <span class="num">30</span>);
+
+<span class="fn">echo</span> <span class="op">$dashboard</span>->publicToken;
+<span class="cm">// → "d8f3e1a2b4c5..." (64-char random token)</span>
+
+<span class="cm">// Public URL (no token required in header)</span>
+<span class="cm">// GET /api/analytics/public/{token}</span>
+
+<span class="cm">// Revoke public share</span>
+AnalyticsSuite::<span class="fn">dashboards</span>()-><span class="fn">disablePublicShare</span>(<span class="num">1</span>);</div></div>
+  <div id="tab-dash-clone" class="code-panel"><div class="code-block"><span class="cm">// Clone a dashboard + all its widgets to a new dashboard</span>
+<span class="op">$clone</span> = AnalyticsSuite::<span class="fn">dashboards</span>()-><span class="fn">clone</span>(<span class="num">1</span>, [
+    <span class="str">'name'</span>     => <span class="str">'Sales Q2 Copy'</span>,
+    <span class="str">'settings'</span> => [<span class="str">'theme'</span> => <span class="str">'light'</span>],
+]);
+
+<span class="cm">// Via API</span>
+<span class="cm">// POST /api/analytics/dashboards/1/clone</span>
+<span class="cm">// { "name": "My Clone" }</span></div></div>
+</div>
+</section>
+
+<!-- WIDGET ENGINE -->
+<section id="widgets">
+<div class="container">
+  <div class="section-label">Widget Engine</div>
+  <h2>15 Widget Types + Marketplace</h2>
+  <p>Every widget executes through the Analytics Engine → DSL → ReportEngine pipeline. Custom widgets register with one line.</p>
+
+  <div class="widget-grid reveal">
+    <div class="widget-card"><span class="widget-icon">🔢</span><div class="widget-name">KPI Card</div><div class="widget-desc">Single metric with trend arrow and comparison</div></div>
+    <div class="widget-card"><span class="widget-icon">📊</span><div class="widget-name">Stats Card</div><div class="widget-desc">Multiple metrics in a compact grid layout</div></div>
+    <div class="widget-card"><span class="widget-icon">📋</span><div class="widget-name">Data Table</div><div class="widget-desc">Paginated, sortable data table with column control</div></div>
+    <div class="widget-card"><span class="widget-icon">📈</span><div class="widget-name">Bar Chart</div><div class="widget-desc">Vertical / horizontal bar chart via ApexCharts</div></div>
+    <div class="widget-card"><span class="widget-icon">📉</span><div class="widget-name">Line Chart</div><div class="widget-desc">Time-series trends with zoom and brush</div></div>
+    <div class="widget-card"><span class="widget-icon">🏔️</span><div class="widget-name">Area Chart</div><div class="widget-desc">Filled area chart for cumulative values</div></div>
+    <div class="widget-card"><span class="widget-icon">🥧</span><div class="widget-name">Pie Chart</div><div class="widget-desc">Distribution / proportion breakdown</div></div>
+    <div class="widget-card"><span class="widget-icon">🍩</span><div class="widget-name">Donut Chart</div><div class="widget-desc">Donut variant with center label</div></div>
+    <div class="widget-card"><span class="widget-icon">⏲️</span><div class="widget-name">Gauge Chart</div><div class="widget-desc">SVG semi-circle, green → amber → red thresholds</div></div>
+    <div class="widget-card"><span class="widget-icon">🔵</span><div class="widget-name">Progress</div><div class="widget-desc">Multi-item progress bars with labels</div></div>
+    <div class="widget-card"><span class="widget-icon">🏆</span><div class="widget-name">Leaderboard</div><div class="widget-desc">Gold / silver / bronze ranking with relative bars</div></div>
+    <div class="widget-card"><span class="widget-icon">⚖️</span><div class="widget-name">Comparison</div><div class="widget-desc">Side-by-side period or group comparison</div></div>
+    <div class="widget-card"><span class="widget-icon">📐</span><div class="widget-name">Trend</div><div class="widget-desc">Sparkline mini-chart with percentage change</div></div>
+    <div class="widget-card"><span class="widget-icon">📡</span><div class="widget-name">Growth</div><div class="widget-desc">Month-over-month growth rate visualization</div></div>
+    <div class="widget-card"><span class="widget-icon">🔌</span><div class="widget-name">Custom</div><div class="widget-desc">Register your own component via the Marketplace</div></div>
+  </div>
+
+  <div style="margin-top:3rem">
+    <h3 style="margin-bottom:1rem">Widget Marketplace — Register Custom Widgets</h3>
+    <div class="code-tabs reveal">
+      <button class="tab-btn active" onclick="showTab('wm-class',this)">Widget Class</button>
+      <button class="tab-btn" onclick="showTab('wm-register',this)">Register</button>
+      <button class="tab-btn" onclick="showTab('wm-create',this)">Create via API</button>
+    </div>
+    <div id="tab-wm-class" class="code-panel active"><div class="code-block"><span class="kw">class</span> <span class="cls">SalesComparisonWidget</span>
+{
+    <span class="kw">const</span> <span class="ky">TYPE</span> = <span class="str">'sales_comparison'</span>;
+
+    <span class="kw">public static function</span> <span class="fn">label</span>(): <span class="kw">string</span>
+    {
+        <span class="kw">return</span> <span class="str">'مقارنة المبيعات'</span>;
+    }
+
+    <span class="kw">public static function</span> <span class="fn">defaultConfig</span>(): <span class="kw">array</span>
+    {
+        <span class="kw">return</span> [
+            <span class="str">'period_1'</span> => <span class="str">'current_month'</span>,
+            <span class="str">'period_2'</span> => <span class="str">'last_month'</span>,
+            <span class="str">'metric'</span>   => <span class="str">'revenue'</span>,
+        ];
+    }
+}</div></div>
+    <div id="tab-wm-register" class="code-panel"><div class="code-block"><span class="cm">// app/Providers/AppServiceProvider.php</span>
+<span class="kw">use</span> <span class="cls">Mostafax\AnalyticsSuite\Support\Facades\AnalyticsSuite</span>;
+
+<span class="kw">public function</span> <span class="fn">boot</span>(): <span class="kw">void</span>
+{
+    AnalyticsSuite::<span class="fn">registerWidget</span>(<span class="cls">SalesComparisonWidget</span>::<span class="kw">class</span>);
+    AnalyticsSuite::<span class="fn">registerWidget</span>(<span class="cls">RevenueGrowthWidget</span>::<span class="kw">class</span>);
+    AnalyticsSuite::<span class="fn">registerWidget</span>(<span class="cls">AttendanceWidget</span>::<span class="kw">class</span>);
+}
+
+<span class="cm">// The new type is now available in:</span>
+<span class="cm">// GET /api/analytics/widget-types</span></div></div>
+    <div id="tab-wm-create" class="code-panel"><div class="code-block">{
+    <span class="str">"type"</span>: <span class="str">"sales_comparison"</span>,
+    <span class="str">"title"</span>: <span class="str">"Q1 vs Q2 Revenue"</span>,
+    <span class="str">"config"</span>: {
+        <span class="str">"period_1"</span>: <span class="str">"2026-Q1"</span>,
+        <span class="str">"period_2"</span>: <span class="str">"2026-Q2"</span>,
+        <span class="str">"metric"</span>: <span class="str">"revenue"</span>
+    },
+    <span class="str">"position"</span>: {<span class="str">"x"</span>: <span class="num">0</span>, <span class="str">"y"</span>: <span class="num">0</span>, <span class="str">"w"</span>: <span class="num">6</span>, <span class="str">"h"</span>: <span class="num">4</span>},
+    <span class="str">"cache_enabled"</span>: <span class="kw">true</span>,
+    <span class="str">"cache_ttl"</span>: <span class="num">300</span>
+}</div></div>
+  </div>
+</div>
+</section>
+
+<!-- REPORT BUILDER -->
+<section id="reports" style="background:var(--bg2)">
+<div class="container">
+  <div class="section-label">Report Builder</div>
+  <h2>Visual DSL Report Editor</h2>
+  <p>Build complex queries without writing SQL. 15 filter operators, 6 aggregation functions, multi-join support.</p>
+
+  <div class="code-tabs reveal" style="margin-top:2rem">
+    <button class="tab-btn active" onclick="showTab('rep-create',this)">Create Template</button>
+    <button class="tab-btn" onclick="showTab('rep-run',this)">Run Report</button>
+    <button class="tab-btn" onclick="showTab('rep-filters',this)">Filter Operators</button>
+    <button class="tab-btn" onclick="showTab('rep-agg',this)">Aggregations</button>
+  </div>
+  <div id="tab-rep-create" class="code-panel active"><div class="code-block"><span class="kw">use</span> <span class="cls">Mostafax\AnalyticsSuite\Infrastructure\Persistence\Models\ReportTemplateModel</span>;
+
+<span class="cls">ReportTemplateModel</span>::<span class="fn">create</span>([
+    <span class="str">'name'</span>         => <span class="str">'Monthly Revenue Report'</span>,
+    <span class="str">'data_source'</span>  => <span class="str">'orders'</span>,
+    <span class="str">'source_type'</span>  => <span class="str">'mysql'</span>,
+    <span class="str">'columns'</span>      => [
+        [<span class="str">'field'</span> => <span class="str">'id'</span>],
+        [<span class="str">'field'</span> => <span class="str">'total'</span>, <span class="str">'alias'</span> => <span class="str">'amount'</span>],
+        [<span class="str">'field'</span> => <span class="str">'created_at'</span>],
+    ],
+    <span class="str">'filters'</span>      => [
+        [<span class="str">'column'</span> => <span class="str">'status'</span>,  <span class="str">'operator'</span> => <span class="str">'eq'</span>,  <span class="str">'value'</span> => <span class="str">'completed'</span>],
+        [<span class="str">'column'</span> => <span class="str">'total'</span>,   <span class="str">'operator'</span> => <span class="str">'gte'</span>, <span class="str">'value'</span> => <span class="num">100</span>],
+    ],
+    <span class="str">'aggregations'</span> => [
+        [<span class="str">'function'</span> => <span class="str">'sum'</span>,   <span class="str">'column'</span> => <span class="str">'total'</span>, <span class="str">'alias'</span> => <span class="str">'revenue'</span>],
+        [<span class="str">'function'</span> => <span class="str">'count'</span>, <span class="str">'column'</span> => <span class="str">'id'</span>,    <span class="str">'alias'</span> => <span class="str">'orders'</span>],
+    ],
+    <span class="str">'group_by'</span>    => [<span class="str">'DATE_FORMAT(created_at, "%Y-%m")'</span>],
+    <span class="str">'order_by'</span>    => [[<span class="str">'column'</span> => <span class="str">'created_at'</span>, <span class="str">'direction'</span> => <span class="str">'desc'</span>]],
+    <span class="str">'is_template'</span> => <span class="kw">true</span>,
+    <span class="str">'category'</span>    => <span class="str">'sales'</span>,
+    <span class="str">'created_by'</span>  => <span class="fn">auth</span>()-><span class="fn">id</span>(),
+]);</div></div>
+  <div id="tab-rep-run" class="code-panel"><div class="code-block"><span class="cm">// Run with runtime filter overrides</span>
+<span class="kw">$result</span> = <span class="fn">app</span>(\<span class="cls">Mostafax\ReportingEngine\Core\Engine\ReportEngine</span>::<span class="kw">class</span>)-><span class="fn">run</span>(
+    <span class="cls">ReportTemplateModel</span>::<span class="fn">find</span>(<span class="num">1</span>)-><span class="fn">toDslDefinition</span>(),
+    <span class="fn">auth</span>()-><span class="fn">user</span>()->roles ?? []
+);
+
+<span class="kw">foreach</span> (<span class="op">$result</span>->rows <span class="kw">as</span> <span class="op">$row</span>) {
+    <span class="fn">echo</span> <span class="op">$row</span>[<span class="str">'revenue'</span>] . <span class="str">' | '</span> . <span class="op">$row</span>[<span class="str">'orders'</span>];
+}
+
+<span class="cm">// Via API — POST /api/analytics/reports/1/run</span>
+<span class="cm">// { "filters": [{"column":"year","operator":"eq","value":2026}] }</span></div></div>
+  <div id="tab-rep-filters" class="code-panel"><div class="code-block"><span class="cm">// 15 filter operators</span>
+<span class="str">'eq'</span>         <span class="cm">// equals</span>
+<span class="str">'neq'</span>        <span class="cm">// not equals</span>
+<span class="str">'gt'</span>         <span class="cm">// greater than</span>
+<span class="str">'gte'</span>        <span class="cm">// greater than or equal</span>
+<span class="str">'lt'</span>         <span class="cm">// less than</span>
+<span class="str">'lte'</span>        <span class="cm">// less than or equal</span>
+<span class="str">'between'</span>    <span class="cm">// BETWEEN value AND value2</span>
+<span class="str">'in'</span>         <span class="cm">// IN (array)</span>
+<span class="str">'not_in'</span>     <span class="cm">// NOT IN (array)</span>
+<span class="str">'like'</span>       <span class="cm">// LIKE '%value%'</span>
+<span class="str">'starts_with'</span><span class="cm">// LIKE 'value%'</span>
+<span class="str">'ends_with'</span>  <span class="cm">// LIKE '%value'</span>
+<span class="str">'contains'</span>   <span class="cm">// LIKE '%value%'</span>
+<span class="str">'null'</span>       <span class="cm">// IS NULL</span>
+<span class="str">'not_null'</span>   <span class="cm">// IS NOT NULL</span></div></div>
+  <div id="tab-rep-agg" class="code-panel"><div class="code-block"><span class="cm">// 6 aggregation functions</span>
+[<span class="str">'function'</span> => <span class="str">'count'</span>,          <span class="str">'column'</span> => <span class="str">'id'</span>,     <span class="str">'alias'</span> => <span class="str">'total'</span>]
+[<span class="str">'function'</span> => <span class="str">'sum'</span>,            <span class="str">'column'</span> => <span class="str">'amount'</span>, <span class="str">'alias'</span> => <span class="str">'revenue'</span>]
+[<span class="str">'function'</span> => <span class="str">'avg'</span>,            <span class="str">'column'</span> => <span class="str">'score'</span>,  <span class="str">'alias'</span> => <span class="str">'avg_score'</span>]
+[<span class="str">'function'</span> => <span class="str">'min'</span>,            <span class="str">'column'</span> => <span class="str">'price'</span>,  <span class="str">'alias'</span> => <span class="str">'min_price'</span>]
+[<span class="str">'function'</span> => <span class="str">'max'</span>,            <span class="str">'column'</span> => <span class="str">'salary'</span>, <span class="str">'alias'</span> => <span class="str">'top_salary'</span>]
+[<span class="str">'function'</span> => <span class="str">'count_distinct'</span>, <span class="str">'column'</span> => <span class="str">'user_id'</span>,<span class="str">'alias'</span> => <span class="str">'unique_users'</span>]</div></div>
+</div>
+</section>
+
+<!-- SECURITY -->
+<section id="security">
+<div class="container">
+  <div class="section-label">Security</div>
+  <h2>Enterprise-Grade Security Layer</h2>
+  <p>14 permissions, Row-Level Security, branch / department / tenant scoping, Sanctum authentication.</p>
+
+  <h3 style="margin-top:2rem;margin-bottom:1rem">14 Permissions</h3>
+  <div class="perm-grid reveal">
+    <div class="perm-badge report"><div class="dot-s"></div><code>view_reports</code></div>
+    <div class="perm-badge report"><div class="dot-s"></div><code>create_reports</code></div>
+    <div class="perm-badge report"><div class="dot-s"></div><code>edit_reports</code></div>
+    <div class="perm-badge report"><div class="dot-s"></div><code>delete_reports</code></div>
+    <div class="perm-badge report"><div class="dot-s"></div><code>export_reports</code></div>
+    <div class="perm-badge report"><div class="dot-s"></div><code>schedule_reports</code></div>
+    <div class="perm-badge dash"><div class="dot-s"></div><code>view_dashboards</code></div>
+    <div class="perm-badge dash"><div class="dot-s"></div><code>create_dashboards</code></div>
+    <div class="perm-badge dash"><div class="dot-s"></div><code>edit_dashboards</code></div>
+    <div class="perm-badge dash"><div class="dot-s"></div><code>delete_dashboards</code></div>
+    <div class="perm-badge widget"><div class="dot-s"></div><code>create_widgets</code></div>
+    <div class="perm-badge widget"><div class="dot-s"></div><code>edit_widgets</code></div>
+    <div class="perm-badge widget"><div class="dot-s"></div><code>delete_widgets</code></div>
+    <div class="perm-badge admin"><div class="dot-s"></div><code>manage_analytics</code></div>
+  </div>
+
+  <div style="margin-top:3rem" class="grid-2 reveal">
+    <div>
+      <h3 style="margin-bottom:1rem">Spatie Permission Integration</h3>
+      <div class="code-block"><span class="t-m">$</span> <span class="t-c">php artisan analytics-suite:sync-permissions --role=admin</span>
+<span class="t-g">  ✓ 14 permissions upserted</span>
+<span class="t-g">  ✓ All permissions assigned to role: admin</span>
+
+<span class="cm">// Or in code:</span>
+<span class="op">$role</span> = <span class="cls">Role</span>::<span class="fn">findByName</span>(<span class="str">'analyst'</span>);
+<span class="kw">foreach</span> (<span class="cls">SecurityManager</span>::<span class="ky">PERMISSIONS</span> <span class="kw">as</span> <span class="op">$perm</span>) {
+    <span class="op">$role</span>-><span class="fn">givePermissionTo</span>(<span class="op">$perm</span>);
+}</div>
+    </div>
+    <div>
+      <h3 style="margin-bottom:1rem">Row-Level Security</h3>
+      <div class="code-block"><span class="cls">RlsPolicyModel</span>::<span class="fn">create</span>([
+    <span class="str">'name'</span>         => <span class="str">'Branch Isolation'</span>,
+    <span class="str">'model'</span>        => \<span class="cls">App\Models\Order</span>::<span class="kw">class</span>,
+    <span class="str">'column'</span>       => <span class="str">'branch_id'</span>,
+    <span class="str">'scope'</span>        => <span class="str">'branch'</span>,
+    <span class="str">'operator'</span>     => <span class="str">'='</span>,
+    <span class="str">'value_source'</span> => <span class="str">'auth_user'</span>,
+    <span class="str">'value_key'</span>    => <span class="str">'branch_id'</span>,
+    <span class="str">'is_active'</span>    => <span class="kw">true</span>,
+]);
+<span class="cm">// Now all queries on Order add:
+// WHERE branch_id = auth()->user()->branch_id</span></div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- EXPORT & SCHEDULING -->
+<section id="export" style="background:var(--bg2)">
+<div class="container">
+  <div class="section-label">Export &amp; Scheduling</div>
+  <h2>Export in 4 Formats + Scheduled Delivery</h2>
+
+  <div class="code-tabs reveal" style="margin-top:2rem">
+    <button class="tab-btn active" onclick="showTab('exp-instant',this)">Instant Export</button>
+    <button class="tab-btn" onclick="showTab('exp-queue',this)">Queue Export</button>
+    <button class="tab-btn" onclick="showTab('exp-schedule',this)">Schedule</button>
+    <button class="tab-btn" onclick="showTab('exp-rtl',this)">RTL / Arabic</button>
+  </div>
+  <div id="tab-exp-instant" class="code-panel active"><div class="code-block"><span class="op">$result</span> = AnalyticsSuite::<span class="fn">exporter</span>()-><span class="fn">exportReport</span>(
+    reportId: <span class="num">1</span>,
+    format:   <span class="str">'pdf'</span>,   <span class="cm">// 'pdf' | 'excel' | 'csv' | 'json'</span>
+    params:   [<span class="str">'title'</span> => <span class="str">'Sales Report'</span>]
+);
+
+<span class="fn">echo</span> <span class="op">$result</span>->downloadUrl; <span class="cm">// signed temporary URL</span>
+<span class="fn">echo</span> <span class="op">$result</span>->rows;        <span class="cm">// 1500</span>
+<span class="fn">echo</span> <span class="op">$result</span>->sizeBytes;   <span class="cm">// 245760</span></div></div>
+  <div id="tab-exp-queue" class="code-panel"><div class="code-block"><span class="cm">// Recommended for large datasets (100k+ rows)</span>
+<span class="op">$jobId</span> = AnalyticsSuite::<span class="fn">exporter</span>()-><span class="fn">queueExport</span>(
+    type:        <span class="str">'report'</span>,
+    id:          <span class="num">1</span>,
+    format:      <span class="str">'excel'</span>,
+    params:      [<span class="str">'title'</span> => <span class="str">'Big Report'</span>],
+    notifyEmail: <span class="str">'boss@company.com'</span>
+);
+
+<span class="cm">// Poll status: GET /api/analytics/exports/status/{$jobId}</span>
+<span class="cm">// {</span>
+<span class="cm">//   "status": "done",</span>
+<span class="cm">//   "filename": "big-report_2026-06-09.xlsx",</span>
+<span class="cm">//   "rows": 100000,</span>
+<span class="cm">//   "completed": "2026-06-09T12:00:45Z"</span>
+<span class="cm">// }</span></div></div>
+  <div id="tab-exp-schedule" class="code-panel"><div class="code-block">AnalyticsSuite::<span class="fn">scheduler</span>()-><span class="fn">schedule</span>([
+    <span class="str">'report_id'</span>        => <span class="num">1</span>,
+    <span class="str">'name'</span>             => <span class="str">'Daily Sales Report'</span>,
+    <span class="str">'frequency'</span>        => <span class="str">'daily'</span>,   <span class="cm">// daily|weekly|monthly|quarterly|yearly</span>
+    <span class="str">'format'</span>           => <span class="str">'pdf'</span>,
+    <span class="str">'delivery_methods'</span> => [<span class="str">'email'</span>, <span class="str">'webhook'</span>],
+    <span class="str">'recipients'</span>       => [<span class="str">'manager@company.com'</span>],
+    <span class="str">'webhook_url'</span>      => <span class="str">'https://app.io/hooks/reports'</span>,
+]);
+
+<span class="cm">// Cron: daily → "0 8 * * *"</span>
+<span class="cm">// The ServiceProvider registers everyMinute() to check due reports</span></div></div>
+  <div id="tab-exp-rtl" class="code-panel"><div class="code-block"><span class="cm">// CSV — BOM prefix for Arabic Excel compatibility</span>
+<span class="cm">// "\xEF\xBB\xBF" prepended automatically when locale = 'ar'</span>
+
+<span class="cm">// Excel — RTL worksheet</span>
+<span class="cm">// $sheet->setRightToLeft(true) applied automatically</span>
+
+<span class="cm">// PDF — RTL HTML template</span>
+<span class="cm">// &lt;table dir="rtl"&gt; with Arabic font support via DomPDF</span>
+
+<span class="op">$result</span> = AnalyticsSuite::<span class="fn">exporter</span>()-><span class="fn">exportReport</span>(<span class="num">1</span>, <span class="str">'excel'</span>, [
+    <span class="str">'title'</span>  => <span class="str">'تقرير المبيعات'</span>,
+    <span class="str">'rtl'</span>    => <span class="kw">true</span>,
+    <span class="str">'locale'</span> => <span class="str">'ar'</span>,
+]);</div></div>
+</div>
+</section>
+
+<!-- API REFERENCE -->
+<section id="api">
+<div class="container">
+  <div class="section-label">API Reference</div>
+  <h2>Complete REST API</h2>
+  <p>All routes require <code>Bearer {token}</code> from Laravel Sanctum. Public dashboard route has no auth.</p>
+
+  <div style="margin-top:2rem">
+    <h3 style="margin-bottom:.8rem">Dashboards</h3>
+    <div class="reveal" style="overflow-x:auto">
+    <table class="api-table">
+      <thead><tr><th>Method</th><th>Endpoint</th><th>Description</th><th>Permission</th></tr></thead>
+      <tbody>
+        <tr><td><span class="method m-get">GET</span></td><td><code>/api/analytics/dashboards</code></td><td>List dashboards</td><td><code>view_dashboards</code></td></tr>
+        <tr><td><span class="method m-post">POST</span></td><td><code>/api/analytics/dashboards</code></td><td>Create dashboard</td><td><code>create_dashboards</code></td></tr>
+        <tr><td><span class="method m-get">GET</span></td><td><code>/api/analytics/dashboards/{id}</code></td><td>Get dashboard</td><td><code>view_dashboards</code></td></tr>
+        <tr><td><span class="method m-put">PUT</span></td><td><code>/api/analytics/dashboards/{id}</code></td><td>Update dashboard</td><td><code>edit_dashboards</code></td></tr>
+        <tr><td><span class="method m-delete">DELETE</span></td><td><code>/api/analytics/dashboards/{id}</code></td><td>Delete dashboard</td><td><code>delete_dashboards</code></td></tr>
+        <tr><td><span class="method m-post">POST</span></td><td><code>/api/analytics/dashboards/{id}/clone</code></td><td>Clone dashboard</td><td><code>create_dashboards</code></td></tr>
+        <tr><td><span class="method m-post">POST</span></td><td><code>/api/analytics/dashboards/{id}/layout</code></td><td>Save layout</td><td><code>edit_dashboards</code></td></tr>
+        <tr><td><span class="method m-post">POST</span></td><td><code>/api/analytics/dashboards/{id}/share</code></td><td>Enable public link</td><td><code>edit_dashboards</code></td></tr>
+        <tr><td><span class="method m-get">GET</span></td><td><code>/api/analytics/public/{token}</code></td><td>View public dashboard</td><td>— No auth —</td></tr>
+      </tbody>
+    </table>
+    </div>
+  </div>
+
+  <div style="margin-top:2rem">
+    <h3 style="margin-bottom:.8rem">Widgets</h3>
+    <div class="reveal" style="overflow-x:auto">
+    <table class="api-table">
+      <thead><tr><th>Method</th><th>Endpoint</th><th>Description</th></tr></thead>
+      <tbody>
+        <tr><td><span class="method m-get">GET</span></td><td><code>.../dashboards/{id}/widgets</code></td><td>List widgets</td></tr>
+        <tr><td><span class="method m-post">POST</span></td><td><code>.../dashboards/{id}/widgets</code></td><td>Add widget</td></tr>
+        <tr><td><span class="method m-put">PUT</span></td><td><code>.../dashboards/{id}/widgets/{wid}</code></td><td>Update widget</td></tr>
+        <tr><td><span class="method m-delete">DELETE</span></td><td><code>.../dashboards/{id}/widgets/{wid}</code></td><td>Remove widget</td></tr>
+        <tr><td><span class="method m-get">GET</span></td><td><code>.../dashboards/{id}/widgets/{wid}/data</code></td><td>Fetch widget data</td></tr>
+        <tr><td><span class="method m-post">POST</span></td><td><code>.../dashboards/{id}/widgets/{wid}/refresh</code></td><td>Invalidate &amp; refresh cache</td></tr>
+        <tr><td><span class="method m-get">GET</span></td><td><code>/api/analytics/widget-types</code></td><td>Available widget types (incl. marketplace)</td></tr>
+      </tbody>
+    </table>
+    </div>
+  </div>
+
+  <div style="margin-top:2rem">
+    <h3 style="margin-bottom:.8rem">Reports · Exports · Schedules</h3>
+    <div class="reveal" style="overflow-x:auto">
+    <table class="api-table">
+      <thead><tr><th>Method</th><th>Endpoint</th><th>Description</th></tr></thead>
+      <tbody>
+        <tr><td><span class="method m-post">POST</span></td><td><code>/api/analytics/reports/{id}/run</code></td><td>Execute report with runtime filters</td></tr>
+        <tr><td><span class="method m-post">POST</span></td><td><code>/api/analytics/reports/{id}/clone</code></td><td>Clone report template</td></tr>
+        <tr><td><span class="method m-get">GET</span></td><td><code>/api/analytics/reports/{id}/export</code></td><td>Export report definition (JSON)</td></tr>
+        <tr><td><span class="method m-post">POST</span></td><td><code>/api/analytics/exports/queue</code></td><td>Queue async export job</td></tr>
+        <tr><td><span class="method m-get">GET</span></td><td><code>/api/analytics/exports/status/{id}</code></td><td>Poll export job status</td></tr>
+        <tr><td><span class="method m-post">POST</span></td><td><code>/api/analytics/schedules</code></td><td>Create scheduled report</td></tr>
+        <tr><td><span class="method m-post">POST</span></td><td><code>/api/analytics/schedules/{id}/pause</code></td><td>Pause scheduled report</td></tr>
+        <tr><td><span class="method m-post">POST</span></td><td><code>/api/analytics/schedules/{id}/resume</code></td><td>Resume scheduled report</td></tr>
+        <tr><td><span class="method m-get">GET</span></td><td><code>/api/analytics/analytics/modules</code></td><td>Detected model modules</td></tr>
+        <tr><td><span class="method m-get">GET</span></td><td><code>/api/analytics/analytics/stats</code></td><td>Model statistics + trends</td></tr>
+      </tbody>
+    </table>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- VUE FRONTEND -->
+<section style="background:var(--bg2)">
+<div class="container">
+  <div class="section-label">Vue 3 Frontend</div>
+  <h2>TypeScript SPA — Pinia + ApexCharts</h2>
+
+  <div class="code-tabs reveal" style="margin-top:2rem">
+    <button class="tab-btn active" onclick="showTab('vue-mount',this)">Mount App</button>
+    <button class="tab-btn" onclick="showTab('vue-store',this)">Pinia Store</button>
+    <button class="tab-btn" onclick="showTab('vue-types',this)">TypeScript Types</button>
+    <button class="tab-btn" onclick="showTab('vue-rtl',this)">Dark / RTL</button>
+  </div>
+  <div id="tab-vue-mount" class="code-panel active"><div class="code-block"><span class="cm">// resources/js/app.js</span>
+<span class="kw">import</span> { createApp }   <span class="kw">from</span> <span class="str">'vue'</span>
+<span class="kw">import</span> { createPinia } <span class="kw">from</span> <span class="str">'pinia'</span>
+<span class="kw">import</span> AnalyticsApp    <span class="kw">from</span> <span class="str">'./analytics-suite/components/analytics/AnalyticsApp.vue'</span>
+
+<span class="kw">const</span> app = <span class="fn">createApp</span>(AnalyticsApp)
+app.<span class="fn">use</span>(<span class="fn">createPinia</span>())
+app.<span class="fn">mount</span>(<span class="str">'#analytics-app'</span>)
+
+<span class="cm">// CDN dependencies (in Blade layout)</span>
+<span class="cm">// &lt;script src="gridstack-all.js"&gt;&lt;/script&gt;</span>
+<span class="cm">// &lt;script src="apexcharts.min.js"&gt;&lt;/script&gt;</span></div></div>
+  <div id="tab-vue-store" class="code-panel"><div class="code-block"><span class="kw">import</span> { useDashboardStore, useReportStore } <span class="kw">from</span> <span class="str">'./store/analytics'</span>
+
+<span class="kw">const</span> dashStore = <span class="fn">useDashboardStore</span>()
+
+<span class="cm">// Fetch all dashboards</span>
+<span class="kw">await</span> dashStore.<span class="fn">fetchAll</span>()
+console.<span class="fn">log</span>(dashStore.items)   <span class="cm">// Dashboard[]</span>
+
+<span class="cm">// Load widget data</span>
+<span class="kw">await</span> dashStore.<span class="fn">loadWidgetData</span>(<span class="num">5</span>)
+console.<span class="fn">log</span>(dashStore.widgetData[<span class="num">5</span>])  <span class="cm">// WidgetData</span>
+
+<span class="cm">// Run a report</span>
+<span class="kw">const</span> reportStore = <span class="fn">useReportStore</span>()
+<span class="kw">const</span> result = <span class="kw">await</span> reportStore.<span class="fn">run</span>(<span class="num">1</span>, { filters: [] })
+console.<span class="fn">log</span>(result.rows)    <span class="cm">// Record[]</span></div></div>
+  <div id="tab-vue-types" class="code-panel"><div class="code-block"><span class="kw">import type</span> {
+    Dashboard, Widget, WidgetType,
+    WidgetConfig, ReportTemplate,
+    FilterCondition, FilterOperator,  <span class="cm">// 15 operators</span>
+    AggregationDef, WidgetData,
+    DetectedModel, ScheduledReport, ExportJob,
+} <span class="kw">from</span> <span class="str">'./analytics-suite/types'</span>
+
+<span class="cm">// WidgetType union — all 15 widget types</span>
+<span class="kw">type</span> WidgetType =
+    <span class="str">'kpi_card'</span> | <span class="str">'stats_card'</span> | <span class="str">'data_table'</span> |
+    <span class="str">'bar_chart'</span> | <span class="str">'line_chart'</span> | <span class="str">'area_chart'</span> |
+    <span class="str">'pie_chart'</span> | <span class="str">'donut_chart'</span> | <span class="str">'gauge_chart'</span> |
+    <span class="str">'progress'</span> | <span class="str">'leaderboard'</span> | <span class="str">'comparison'</span> |
+    <span class="str">'trend'</span> | <span class="str">'growth'</span> | <span class="str">'custom'</span></div></div>
+  <div id="tab-vue-rtl" class="code-panel"><div class="code-block"><span class="cm">// Toggle dark mode</span>
+document.documentElement.classList.<span class="fn">add</span>(<span class="str">'dark'</span>)
+document.documentElement.classList.<span class="fn">remove</span>(<span class="str">'dark'</span>)
+
+<span class="cm">// Toggle RTL (Arabic)</span>
+document.documentElement.<span class="fn">setAttribute</span>(<span class="str">'dir'</span>, <span class="str">'rtl'</span>)
+document.documentElement.<span class="fn">setAttribute</span>(<span class="str">'lang'</span>, <span class="str">'ar'</span>)
+
+<span class="cm">// ApexCharts adapts automatically via dark CSS class</span>
+<span class="cm">// GridStack flex direction flips via RTL CSS overrides</span>
+<span class="cm">// analytics-suite.css handles both dark mode + RTL</span></div></div>
+</div>
+</section>
+
+<!-- COMMANDS -->
+<section>
+<div class="container">
+  <div class="section-label">Artisan Commands</div>
+  <h2>3 Commands — Full Reference</h2>
+
+  <div class="cmd-card reveal" style="margin-top:2rem">
+    <div class="cmd-header">
+      <span class="cmd-name">analytics-suite:install</span>
+      <span class="cmd-desc">Zero-config setup — run once</span>
+    </div>
+    <div class="cmd-body">
+      <p style="margin-bottom:.9rem">Publishes config, migrations, assets. Runs migrations, seeds 14 permissions, detects models, generates default dashboards/widgets, and checks Sanctum.</p>
+      <div style="margin-bottom:1.2rem">
+        <div class="cmd-opt"><span class="cmd-opt-name">--force</span><span class="cmd-opt-desc">Overwrite existing published files</span></div>
+        <div class="cmd-opt"><span class="cmd-opt-name">--skip-migrations</span><span class="cmd-opt-desc">Skip running migrations</span></div>
+        <div class="cmd-opt"><span class="cmd-opt-name">--skip-detection</span><span class="cmd-opt-desc">Skip auto model detection</span></div>
+        <div class="cmd-opt"><span class="cmd-opt-name">--skip-defaults</span><span class="cmd-opt-desc">Skip generating default dashboards</span></div>
+      </div>
+      <div class="code-block"><span class="t-m">$</span> <span class="t-c">php artisan analytics-suite:install</span>
+<span class="t-m">$</span> <span class="t-c">php artisan analytics-suite:install --force --skip-defaults</span></div>
+    </div>
+  </div>
+
+  <div class="cmd-card reveal" style="margin-top:1.5rem">
+    <div class="cmd-header">
+      <span class="cmd-name">analytics-suite:detect-models</span>
+      <span class="cmd-desc">Scan app for Eloquent models</span>
+    </div>
+    <div class="cmd-body">
+      <p style="margin-bottom:.9rem">Discovers all Eloquent models and optionally generates widgets and dashboards for each.</p>
+      <div style="margin-bottom:1.2rem">
+        <div class="cmd-opt"><span class="cmd-opt-name">--generate-widgets</span><span class="cmd-opt-desc">Auto-generate widget configs for each model</span></div>
+        <div class="cmd-opt"><span class="cmd-opt-name">--generate-dashboards</span><span class="cmd-opt-desc">Also create a default dashboard per model</span></div>
+      </div>
+      <div class="code-block"><span class="t-m">$</span> <span class="t-c">php artisan analytics-suite:detect-models</span>
+<span class="t-m">$</span> <span class="t-c">php artisan analytics-suite:detect-models --generate-widgets --generate-dashboards</span></div>
+    </div>
+  </div>
+
+  <div class="cmd-card reveal" style="margin-top:1.5rem">
+    <div class="cmd-header">
+      <span class="cmd-name">analytics-suite:sync-permissions</span>
+      <span class="cmd-desc">Upsert permissions &amp; assign to role</span>
+    </div>
+    <div class="cmd-body">
+      <p style="margin-bottom:.9rem">Creates / updates the 14 analytics permissions in <code>as_permissions</code> table and optionally assigns all to a Spatie role.</p>
+      <div style="margin-bottom:1.2rem">
+        <div class="cmd-opt"><span class="cmd-opt-name">--role=admin</span><span class="cmd-opt-desc">Assign all permissions to this Spatie role</span></div>
+        <div class="cmd-opt"><span class="cmd-opt-name">--guard=api</span><span class="cmd-opt-desc">Guard name (default: web)</span></div>
+      </div>
+      <div class="code-block"><span class="t-m">$</span> <span class="t-c">php artisan analytics-suite:sync-permissions</span>
+<span class="t-m">$</span> <span class="t-c">php artisan analytics-suite:sync-permissions --role=admin --guard=api</span></div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- CONFIG -->
+<section id="config" style="background:var(--bg2)">
+<div class="container">
+  <div class="section-label">Configuration</div>
+  <h2>config/analytics-suite.php — Key Options</h2>
+  <p>Published by <code>analytics-suite:install</code>. Every key maps to an <code>.env</code> variable.</p>
+
+  <div class="reveal" style="overflow-x:auto;margin-top:1.8rem">
+  <table class="cfg-table">
+    <thead><tr><th>Key</th><th>Type</th><th>Default</th><th>ENV</th><th>Description</th></tr></thead>
+    <tbody>
+      <tr><td class="cfg-key">routes.prefix</td><td class="cfg-type">string</td><td class="cfg-default">'api/analytics'</td><td>—</td><td>URL prefix for all routes</td></tr>
+      <tr><td class="cfg-key">routes.middleware</td><td class="cfg-type">array</td><td class="cfg-default">['api','auth:sanctum']</td><td>—</td><td>Middleware stack for protected routes</td></tr>
+      <tr><td class="cfg-key">cache.driver</td><td class="cfg-type">string</td><td class="cfg-default">'redis'</td><td><code>ANALYTICS_CACHE_DRIVER</code></td><td>Cache store (redis | file | array)</td></tr>
+      <tr><td class="cfg-key">cache.ttl.dashboard</td><td class="cfg-type">int</td><td class="cfg-default">300</td><td>—</td><td>Dashboard cache TTL in seconds</td></tr>
+      <tr><td class="cfg-key">cache.ttl.widget</td><td class="cfg-type">int</td><td class="cfg-default">180</td><td>—</td><td>Widget data cache TTL</td></tr>
+      <tr><td class="cfg-key">cache.ttl.report</td><td class="cfg-type">int</td><td class="cfg-default">600</td><td>—</td><td>Report result cache TTL</td></tr>
+      <tr><td class="cfg-key">security.enforce_permissions</td><td class="cfg-type">bool</td><td class="cfg-default">true</td><td><code>ANALYTICS_ENFORCE_PERMISSIONS</code></td><td>Disable for development</td></tr>
+      <tr><td class="cfg-key">security.row_level_security</td><td class="cfg-type">bool</td><td class="cfg-default">true</td><td><code>ANALYTICS_RLS_ENABLED</code></td><td>Apply RLS policies on queries</td></tr>
+      <tr><td class="cfg-key">security.tenant_isolation</td><td class="cfg-type">bool</td><td class="cfg-default">false</td><td><code>ANALYTICS_TENANT_ISOLATION</code></td><td>Filter all tables by tenant_id</td></tr>
+      <tr><td class="cfg-key">security.max_export_rows</td><td class="cfg-type">int</td><td class="cfg-default">100000</td><td><code>ANALYTICS_MAX_EXPORT_ROWS</code></td><td>Row limit per export job</td></tr>
+      <tr><td class="cfg-key">detection.scan_paths</td><td class="cfg-type">array</td><td class="cfg-default">[app_path('Models')]</td><td>—</td><td>Directories to scan for models</td></tr>
+      <tr><td class="cfg-key">export.disk</td><td class="cfg-type">string</td><td class="cfg-default">'local'</td><td><code>ANALYTICS_EXPORT_DISK</code></td><td>Storage disk for exports</td></tr>
+      <tr><td class="cfg-key">export.formats</td><td class="cfg-type">array</td><td class="cfg-default">['pdf','excel','csv','json']</td><td>—</td><td>Enabled export formats</td></tr>
+      <tr><td class="cfg-key">export.rtl</td><td class="cfg-type">bool</td><td class="cfg-default">false</td><td>—</td><td>RTL layout for PDF/Excel exports</td></tr>
+      <tr><td class="cfg-key">scheduling.enabled</td><td class="cfg-type">bool</td><td class="cfg-default">true</td><td>—</td><td>Enable scheduled report delivery</td></tr>
+      <tr><td class="cfg-key">scheduling.from_email</td><td class="cfg-type">string</td><td class="cfg-default">—</td><td><code>ANALYTICS_FROM_EMAIL</code></td><td>Sender email for scheduled reports</td></tr>
+      <tr><td class="cfg-key">ui.theme</td><td class="cfg-type">string</td><td class="cfg-default">'light'</td><td>—</td><td>light | dark | auto</td></tr>
+      <tr><td class="cfg-key">ui.rtl</td><td class="cfg-type">bool</td><td class="cfg-default">false</td><td>—</td><td>Enable RTL layout by default</td></tr>
+    </tbody>
+  </table>
+  </div>
+</div>
+</section>
+
+<!-- TESTING -->
+<section>
+<div class="container">
+  <div class="section-label">Testing</div>
+  <h2>Full Test Suite — Pest + Orchestra Testbench</h2>
+
+  <div class="code-tabs reveal" style="margin-top:2rem">
+    <button class="tab-btn active" onclick="showTab('tst-run',this)">Run Tests</button>
+    <button class="tab-btn" onclick="showTab('tst-write',this)">Write Tests</button>
+  </div>
+  <div id="tab-tst-run" class="code-panel active">
+    <div class="terminal"><div class="terminal-bar"><div class="dot r"></div><div class="dot y"></div><div class="dot g"></div><div class="terminal-title">bash</div></div>
+    <div class="terminal-body">
+<div><span class="t-m">$</span> <span class="t-c">cd packages/mostafax/analytics-suite</span></div>
+<div><span class="t-m">$</span> <span class="t-c">vendor/bin/pest</span></div>
+<div>&nbsp;</div>
+<div>  <span class="t-g">✓</span> DashboardServiceTest → find returns from cache</div>
+<div>  <span class="t-g">✓</span> DashboardServiceTest → create fires event and invalidates list</div>
+<div>  <span class="t-g">✓</span> DashboardServiceTest → delete invalidates cache</div>
+<div>  <span class="t-g">✓</span> ModelDetectionEngineTest → detectModels returns iterable</div>
+<div>  <span class="t-g">✓</span> ModelDetectionEngineTest → generateWidgets returns one or more</div>
+<div>  <span class="t-g">✓</span> DashboardApiTest → index returns 200 with JSON structure</div>
+<div>  <span class="t-g">✓</span> DashboardApiTest → store creates and returns 201</div>
+<div>  <span class="t-g">✓</span> InstallCommandTest → install command succeeds</div>
+<div>&nbsp;</div>
+<div>  Tests: <span class="t-g">8 passed</span></div>
+<div>&nbsp;</div>
+<div><span class="t-m">$</span> <span class="t-c">vendor/bin/pest --coverage --min=80</span></div>
+    </div></div>
+  </div>
+  <div id="tab-tst-write" class="code-panel"><div class="code-block"><span class="kw">use</span> <span class="cls">Mostafax\AnalyticsSuite\Providers\AnalyticsSuiteServiceProvider</span>;
+<span class="kw">use</span> <span class="cls">Orchestra\Testbench\TestCase</span>;
+
+<span class="kw">class</span> <span class="cls">MyFeatureTest</span> <span class="kw">extends</span> <span class="cls">TestCase</span>
+{
+    <span class="kw">protected function</span> <span class="fn">getPackageProviders</span>(<span class="op">$app</span>): <span class="kw">array</span>
+    {
+        <span class="kw">return</span> [<span class="cls">AnalyticsSuiteServiceProvider</span>::<span class="kw">class</span>];
+    }
+
+    <span class="kw">protected function</span> <span class="fn">getEnvironmentSetUp</span>(<span class="op">$app</span>): <span class="kw">void</span>
+    {
+        <span class="op">$app</span>[<span class="str">'config'</span>]-><span class="fn">set</span>(<span class="str">'database.default'</span>, <span class="str">'sqlite'</span>);
+        <span class="op">$app</span>[<span class="str">'config'</span>]-><span class="fn">set</span>(<span class="str">'analytics-suite.security.enforce_permissions'</span>, <span class="kw">false</span>);
+    }
+
+    <span class="kw">public function</span> <span class="fn">test_dashboard_api_returns_200</span>(): <span class="kw">void</span>
+    {
+        <span class="op">$this</span>-><span class="fn">getJson</span>(<span class="str">'/api/analytics/dashboards'</span>)
+             -><span class="fn">assertOk</span>()
+             -><span class="fn">assertJsonStructure</span>([<span class="str">'data'</span>, <span class="str">'meta'</span>]);
+    }
+}</div></div>
+</div>
+</section>
+
+<footer>
+  <div style="font-size:2rem;margin-bottom:.7rem">📊</div>
+  <p style="color:var(--text);font-size:1rem;font-weight:800;margin-bottom:.25rem">Enterprise Analytics Suite</p>
+  <p>Laravel Package — PHP 8.3+ — Laravel 11 / 12 — Vue 3</p>
+  <div style="display:flex;flex-wrap:wrap;gap:.5rem;justify-content:center;margin-top:1rem">
+    <span style="background:var(--white);border:1px solid var(--border);border-radius:100px;padding:.22rem .7rem;font-size:.72rem;font-weight:600;color:var(--cyan)">✓ Zero-config Install</span>
+    <span style="background:var(--white);border:1px solid var(--border);border-radius:100px;padding:.22rem .7rem;font-size:.72rem;font-weight:600;color:var(--amber)">✓ Auto Model Detection</span>
+    <span style="background:var(--white);border:1px solid var(--border);border-radius:100px;padding:.22rem .7rem;font-size:.72rem;font-weight:600;color:var(--purple)">✓ 15 Widget Types</span>
+    <span style="background:var(--white);border:1px solid var(--border);border-radius:100px;padding:.22rem .7rem;font-size:.72rem;font-weight:600;color:var(--green)">✓ Redis Cache</span>
+    <span style="background:var(--white);border:1px solid var(--border);border-radius:100px;padding:.22rem .7rem;font-size:.72rem;font-weight:600;color:var(--cyan)">✓ RTL / Arabic</span>
+    <span style="background:var(--white);border:1px solid var(--border);border-radius:100px;padding:.22rem .7rem;font-size:.72rem;font-weight:600;color:var(--amber)">✓ Enterprise Security</span>
+    <span style="background:var(--white);border:1px solid var(--border);border-radius:100px;padding:.22rem .7rem;font-size:.72rem;font-weight:600;color:var(--purple)">✓ Vue 3 SPA</span>
+    <span style="background:var(--white);border:1px solid var(--border);border-radius:100px;padding:.22rem .7rem;font-size:.72rem;font-weight:600;color:var(--green)">✓ Multi-Tenant Ready</span>
+  </div>
+  <p style="margin-top:1.4rem;font-size:.78rem">MIT © <a href="mailto:mostafa.m.elbiar2@gmail.com">Mostafa Elbayyar</a> · <a href="https://github.com/mostafax2/Dynamic-Analytics-Studio">GitHub</a></p>
+</footer>
+
+<script>
+(function () {
+  const c = document.getElementById('particles');
+  if (!c) { return; }
+  const ctx = c.getContext('2d');
+  let W, H, pts = [];
+  function resize() { W = c.width = c.offsetWidth; H = c.height = c.offsetHeight; }
+  resize();
+  new ResizeObserver(resize).observe(c);
+  for (let i = 0; i < 50; i++) {
+    pts.push({
+      x: Math.random() * 2000, y: Math.random() * 1000,
+      vx: (Math.random() - .5) * .22, vy: (Math.random() - .5) * .22,
+      r: Math.random() * 1.3 + .4,
+      hue: Math.random() < .6 ? 237 : 270,
+      a: Math.random() * .3 + .07,
+    });
+  }
+  function draw() {
+    ctx.clearRect(0, 0, W, H);
+    pts.forEach(function (p) {
+      p.x += p.vx; p.y += p.vy;
+      if (p.x < 0 || p.x > W) { p.vx *= -1; }
+      if (p.y < 0 || p.y > H) { p.vy *= -1; }
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+      ctx.fillStyle = 'hsla(' + p.hue + ',75%,65%,' + p.a + ')';
+      ctx.fill();
+    });
+    for (let i = 0; i < pts.length; i++) {
+      for (let j = i + 1; j < pts.length; j++) {
+        const d = Math.hypot(pts[i].x - pts[j].x, pts[i].y - pts[j].y);
+        if (d < 100) {
+          ctx.beginPath();
+          ctx.moveTo(pts[i].x, pts[i].y);
+          ctx.lineTo(pts[j].x, pts[j].y);
+          ctx.strokeStyle = 'rgba(99,102,241,' + ((1 - d / 100) * .07) + ')';
+          ctx.lineWidth = .5;
+          ctx.stroke();
+        }
+      }
+    }
+    requestAnimationFrame(draw);
+  }
+  draw();
+}());
+
+function showTab(id, btn) {
+  let el = btn.closest('.code-tabs').nextElementSibling;
+  while (el) {
+    if (el.classList && el.classList.contains('code-panel')) { el.classList.remove('active'); }
+    el = el.nextElementSibling;
+  }
+  document.getElementById('tab-' + id).classList.add('active');
+  btn.closest('.code-tabs').querySelectorAll('.tab-btn').forEach(function (b) { b.classList.remove('active'); });
+  btn.classList.add('active');
+}
+
+const ro = new IntersectionObserver(function (entries) {
+  entries.forEach(function (x) { if (x.isIntersecting) { x.target.classList.add('visible'); } });
+}, { threshold: .07 });
+document.querySelectorAll('.reveal').forEach(function (el) { ro.observe(el); });
+
+const co = new IntersectionObserver(function (entries) {
+  entries.forEach(function (x) {
+    if (!x.isIntersecting) { return; }
+    const el = x.target;
+    const target = +el.dataset.target;
+    const t0 = performance.now();
+    function step(now) {
+      const p = Math.min((now - t0) / 1400, 1);
+      const ease = 1 - Math.pow(1 - p, 3);
+      el.textContent = Math.round(target * ease);
+      if (p < 1) { requestAnimationFrame(step); }
+    }
+    requestAnimationFrame(step);
+    co.unobserve(el);
+  });
+}, { threshold: .5 });
+document.querySelectorAll('.metric-num[data-target]').forEach(function (el) { co.observe(el); });
+</script>
+</body>
+</html>

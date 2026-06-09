@@ -1,0 +1,1156 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Enterprise Analytics Suite — توثيق شامل بالعربية</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&family=JetBrains+Mono:wght@400;700&display=swap');
+
+:root {
+  --bg:#F0F4F8; --bg2:#E8EFF6; --white:#fff;
+  --cyan:#6366f1; --cyan-dim:#4f46e5; --cyan-pale:rgba(99,102,241,.08);
+  --amber:#C46A00; --purple:#7C3AED; --green:#059669; --red:#DC2626;
+  --text:#1A2535; --muted:#5A7089; --border:rgba(99,102,241,.14);
+  --shadow:0 2px 12px rgba(99,102,241,.07);
+  --shadow-lg:0 8px 32px rgba(99,102,241,.13);
+  --r:14px;
+}
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Cairo',sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden;line-height:1.85;font-size:17px}
+body::before{content:'';position:fixed;inset:0;background-image:radial-gradient(circle,rgba(99,102,241,.05) 1px,transparent 1px);background-size:28px 28px;pointer-events:none;z-index:0}
+section,header,footer,nav{position:relative;z-index:1}
+a{color:var(--cyan);text-decoration:none}
+code{font-family:'JetBrains Mono',monospace;font-size:.82em;background:var(--cyan-pale);border:1px solid rgba(99,102,241,.18);border-radius:5px;padding:.1em .4em;direction:ltr;display:inline-block}
+
+/* NAV */
+nav{position:sticky;top:0;z-index:200;background:rgba(240,244,248,.93);backdrop-filter:blur(14px);border-bottom:1px solid var(--border);padding:.55rem 2rem;display:flex;align-items:center;gap:1.2rem;flex-wrap:wrap}
+.nav-logo{font-weight:900;font-size:.92rem;margin-left:auto;color:var(--text)}
+.nav-logo span{color:var(--cyan)}
+nav a{color:var(--muted);font-size:.88rem;font-weight:600;transition:color .18s}
+nav a:hover{color:var(--cyan)}
+.nav-badge{background:var(--cyan);color:#fff;padding:.12rem .55rem;border-radius:100px;font-size:.66rem;font-weight:700}
+.lang-btn{background:var(--cyan-pale);border:1px solid rgba(99,102,241,.25);border-radius:8px;padding:.28rem .8rem;font-size:.75rem;font-weight:700;color:var(--cyan);cursor:pointer;text-decoration:none;transition:all .2s}
+.lang-btn:hover{background:rgba(99,102,241,.15)}
+
+/* LAYOUT */
+.container{max-width:1080px;margin:0 auto;padding:0 2rem}
+section{padding:5.5rem 0}
+.section-label{font-size:.79rem;letter-spacing:.12em;text-transform:uppercase;color:var(--cyan);margin-bottom:.9rem;display:flex;align-items:center;gap:.55rem}
+.section-label::before{content:'';flex:1;height:1px;background:linear-gradient(270deg,var(--cyan-dim),transparent)}
+h2{font-size:clamp(1.85rem,3.5vw,2.55rem);font-weight:900;line-height:1.22;margin-bottom:.65rem}
+h3{font-size:1.15rem;font-weight:700;margin-bottom:.4rem}
+p{color:var(--muted);margin-bottom:.75rem;font-size:1.02rem}
+.card{background:var(--white);border:1px solid var(--border);border-radius:var(--r);padding:1.6rem;box-shadow:var(--shadow);transition:all .25s}
+.card:hover{border-color:rgba(99,102,241,.35);box-shadow:var(--shadow-lg);transform:translateY(-2px)}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:1.4rem}
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:1.3rem}
+.grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:1.2rem}
+@media(max-width:900px){.grid-3{grid-template-columns:1fr 1fr}.grid-4{grid-template-columns:1fr 1fr}}
+@media(max-width:620px){.grid-2,.grid-3,.grid-4{grid-template-columns:1fr}}
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease}
+.reveal.visible{opacity:1;transform:none}
+
+/* HERO */
+header{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:4rem 2rem;overflow:hidden}
+.hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 80% 55% at 50% 40%,rgba(99,102,241,.07),transparent 70%);pointer-events:none}
+header>*:not(.hero-bg):not(canvas){position:relative;z-index:2}
+.hero-tag{display:inline-flex;align-items:center;gap:.5rem;background:var(--cyan-pale);border:1px solid rgba(99,102,241,.25);border-radius:100px;padding:.32rem 1.1rem;font-size:.76rem;letter-spacing:.08em;color:var(--cyan);margin-bottom:1.8rem;direction:ltr}
+.hero-tag::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--cyan);box-shadow:0 0 8px var(--cyan);animation:pulse 1.6s infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.7)}}
+h1{font-size:clamp(2.2rem,5.5vw,4.4rem);font-weight:900;line-height:1.15;margin-bottom:1.4rem}
+.g{background:linear-gradient(135deg,var(--cyan),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-sub{font-size:1.08rem;color:var(--muted);max-width:580px;margin:0 auto 2.5rem;font-weight:300}
+.hero-chips{display:flex;flex-wrap:wrap;gap:.55rem;justify-content:center;margin-bottom:2.8rem}
+.chip{background:var(--white);border:1px solid var(--border);border-radius:100px;padding:.28rem .8rem;font-size:.75rem;font-weight:600;color:var(--muted);box-shadow:var(--shadow)}
+.hero-cta{display:flex;gap:.7rem;justify-content:center;flex-wrap:wrap}
+.btn{padding:.7rem 1.6rem;border-radius:10px;font-weight:700;font-size:.9rem;transition:all .2s;display:inline-block}
+.btn-primary{background:var(--cyan);color:#fff}
+.btn-primary:hover{background:var(--cyan-dim);transform:translateY(-2px);box-shadow:0 6px 20px rgba(99,102,241,.28)}
+.btn-secondary{background:var(--white);color:var(--text);border:1px solid var(--border)}
+.btn-secondary:hover{border-color:var(--cyan);color:var(--cyan)}
+
+/* PIPELINE */
+.pipeline{display:flex;flex-wrap:wrap;gap:0;background:var(--white);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;box-shadow:var(--shadow);margin-top:2rem;direction:ltr}
+.pipe-step{flex:1;min-width:110px;padding:1.1rem .9rem;border-left:1px solid var(--border);transition:background .2s;text-align:center}
+.pipe-step:last-child{border-left:none}
+.pipe-step:hover{background:var(--cyan-pale)}
+.pipe-num{font-family:'JetBrains Mono',monospace;font-size:.62rem;font-weight:700;color:var(--cyan);margin-bottom:.25rem;display:block}
+.pipe-name{font-size:.8rem;font-weight:700;margin-bottom:.15rem;display:block}
+.pipe-desc{font-size:.78rem;color:var(--muted);line-height:1.4}
+
+/* CODE */
+.code-block{background:#1C2333;border:1px solid rgba(99,102,241,.18);border-radius:var(--r);padding:1.3rem 1.5rem;font-family:'JetBrains Mono',monospace;font-size:.84rem;line-height:2;color:#CBD5E1;overflow-x:auto;white-space:pre;direction:ltr;text-align:left}
+.code-tabs{display:flex;gap:.35rem;background:#F8FAFC;border:1px solid var(--border);border-bottom:none;border-radius:var(--r) var(--r) 0 0;padding:.35rem .35rem 0;flex-wrap:wrap}
+.tab-btn{background:none;border:none;color:var(--muted);font-family:'Cairo',sans-serif;font-size:.9rem;font-weight:500;padding:.55rem 1rem;cursor:pointer;border-bottom:2px solid transparent;transition:all .18s}
+.tab-btn.active{color:var(--cyan);border-bottom-color:var(--cyan);font-weight:700}
+.code-panel{display:none}
+.code-panel.active{display:block}
+.code-panel .code-block{border-radius:0 0 var(--r) var(--r);border-top:none}
+.kw{color:#FF79C6}.cls{color:#8BE9FD}.fn{color:#50FA7B}.str{color:#F1FA8C}.cm{color:#6B8299;font-style:italic}.op{color:#BD93F9}.num{color:#FFB86C}.ky{color:#00BFFF}
+.t-g{color:#50FA7B}.t-c{color:#00BFFF}.t-a{color:#FFB86C}.t-m{color:#6B8299}.t-r{color:#FF5555}
+
+/* TERMINAL */
+.terminal{background:#1C2333;border:1px solid rgba(99,102,241,.2);border-radius:var(--r);overflow:hidden;box-shadow:var(--shadow-lg)}
+.terminal-bar{background:#141C2B;padding:.6rem 1rem;display:flex;align-items:center;gap:.45rem;direction:ltr}
+.dot{width:10px;height:10px;border-radius:50%}
+.dot.r{background:#FF5F57}.dot.y{background:#FFBD2E}.dot.g{background:#28CA42}
+.terminal-title{flex:1;text-align:center;font-size:.7rem;color:var(--muted);font-family:'JetBrains Mono',monospace}
+.terminal-body{padding:1.3rem 1.5rem;font-family:'JetBrains Mono',monospace;font-size:.84rem;line-height:2.1;color:#CBD5E1;direction:ltr;text-align:left}
+
+/* COMMAND CARDS */
+.cmd-card{background:var(--white);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;box-shadow:var(--shadow)}
+.cmd-header{background:#0f172a;padding:.8rem 1.2rem;display:flex;align-items:center;gap:.7rem;flex-wrap:wrap;direction:ltr}
+.cmd-name{font-family:'JetBrains Mono',monospace;font-size:.83rem;color:#a5b4fc;font-weight:700}
+.cmd-desc{font-size:.82rem;color:#94a3b8;margin-right:auto;font-family:'Cairo',sans-serif}
+.cmd-body{padding:1.3rem 1.5rem}
+.cmd-opt{display:flex;gap:.7rem;align-items:baseline;margin-bottom:.55rem;font-size:.85rem;flex-wrap:wrap}
+.cmd-opt-name{font-family:'JetBrains Mono',monospace;color:var(--cyan);font-weight:700;min-width:220px;flex-shrink:0;direction:ltr}
+.cmd-opt-desc{color:var(--muted);font-size:.83rem}
+
+/* PERMISSIONS */
+.perm-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:.65rem;margin-top:1.2rem}
+.perm-badge{background:var(--white);border:1px solid var(--border);border-radius:10px;padding:.6rem 1rem;display:flex;align-items:center;gap:.6rem;font-size:.8rem;box-shadow:var(--shadow)}
+.perm-badge .dot-s{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+.perm-badge.report .dot-s{background:var(--cyan)}
+.perm-badge.dash .dot-s{background:var(--purple)}
+.perm-badge.widget .dot-s{background:var(--green)}
+.perm-badge.admin .dot-s{background:var(--amber)}
+
+/* WIDGET GRID */
+.widget-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:1rem;margin-top:1.5rem}
+.widget-card{background:var(--white);border:1px solid var(--border);border-radius:var(--r);padding:1.1rem;box-shadow:var(--shadow);transition:all .2s}
+.widget-card:hover{border-color:rgba(99,102,241,.4);box-shadow:var(--shadow-lg);transform:translateY(-2px)}
+.widget-icon{font-size:1.6rem;margin-bottom:.5rem;display:block}
+.widget-name{font-size:.95rem;font-weight:700;margin-bottom:.2rem}
+.widget-desc{font-size:.82rem;color:var(--muted);line-height:1.42}
+
+/* API TABLE */
+.api-table{width:100%;border-collapse:collapse;font-size:.88rem;margin-top:1rem}
+.api-table th{background:#f8fafc;border:1px solid var(--border);padding:.55rem .9rem;text-align:right;font-size:.78rem;letter-spacing:.04em;color:var(--muted)}
+.api-table td{border:1px solid var(--border);padding:.55rem .9rem;vertical-align:middle}
+.api-table tr:hover td{background:var(--cyan-pale)}
+.method{font-family:'JetBrains Mono',monospace;font-size:.72rem;font-weight:700;padding:.18rem .5rem;border-radius:4px;display:inline-block}
+.m-get{background:#dcfce7;color:#166534}
+.m-post{background:#dbeafe;color:#1e40af}
+.m-put{background:#fef9c3;color:#854d0e}
+.m-delete{background:#fee2e2;color:#991b1b}
+
+/* CFG TABLE */
+.cfg-table{width:100%;border-collapse:collapse;font-size:.88rem;margin-top:1rem}
+.cfg-table th{background:#f8fafc;border:1px solid var(--border);padding:.55rem .9rem;text-align:right;font-size:.78rem;letter-spacing:.04em;color:var(--muted)}
+.cfg-table td{border:1px solid var(--border);padding:.55rem .9rem;vertical-align:top}
+.cfg-table tr:hover td{background:var(--cyan-pale)}
+.cfg-key{font-family:'JetBrains Mono',monospace;color:var(--cyan);font-size:.78rem;direction:ltr;display:inline-block}
+.cfg-type{font-family:'JetBrains Mono',monospace;color:var(--purple);font-size:.73rem}
+.cfg-default{font-family:'JetBrains Mono',monospace;color:var(--amber);font-size:.73rem}
+
+/* METRICS */
+.metric-card{background:var(--white);border:1px solid var(--border);border-radius:var(--r);padding:1.6rem 1.2rem;text-align:center;box-shadow:var(--shadow);position:relative;overflow:hidden}
+.metric-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--cyan),transparent)}
+.metric-num{font-size:2rem;font-weight:900;font-family:'JetBrains Mono',monospace;color:var(--cyan);display:block;line-height:1;margin-bottom:.25rem}
+.metric-unit{font-size:.72rem;letter-spacing:.06em;color:var(--muted);display:block;margin-bottom:.3rem}
+.metric-desc{font-size:.86rem;color:var(--muted);line-height:1.4}
+
+/* INFO BOXES */
+.info-box{background:var(--cyan-pale);border:1px solid rgba(99,102,241,.2);border-radius:var(--r);padding:1.2rem 1.4rem;margin:1.2rem 0;font-size:.88rem;color:var(--text)}
+.warn-box{background:rgba(196,106,0,.07);border:1px solid rgba(196,106,0,.2);border-radius:var(--r);padding:1.2rem 1.4rem;margin:1.2rem 0;font-size:.88rem;color:var(--text)}
+
+footer{text-align:center;padding:3.5rem 2rem;background:var(--bg2);border-top:1px solid var(--border);color:var(--muted);font-size:.84rem}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="lang-btn">🌐 English</a>
+  <a href="#quickstart">البداية السريعة</a>
+  <a href="#detection">الاكتشاف</a>
+  <a href="#dashboards">اللوحات</a>
+  <a href="#widgets">الوِدجات</a>
+  <a href="#reports">التقارير</a>
+  <a href="#security">الأمان</a>
+  <a href="#export">التصدير</a>
+  <a href="#api">الـ API</a>
+  <span class="nav-logo">📊 <span>Enterprise Analytics</span> Suite</span>
+  <span class="nav-badge">v1.0</span>
+</nav>
+
+<header>
+  <div class="hero-bg"></div>
+  <canvas id="particles" style="position:absolute;inset:0;pointer-events:none;z-index:0"></canvas>
+
+  <div class="hero-tag">📦 mostafax/enterprise-analytics-suite</div>
+
+  <h1><span class="g">منصة التحليلات</span><br>للمشاريع Enterprise</h1>
+  <p class="hero-sub">
+    Power BI · Grafana · Metabase · Tableau — مُصمَّم لـ Laravel 12.
+    تثبيت بأمر واحد، اكتشاف تلقائي للنماذج، لوحات drag &amp; drop،
+    15 نوع وِدجت، أمان Enterprise، وواجهة Vue 3 كاملة.
+  </p>
+
+  <div class="hero-chips">
+    <span class="chip">🤖 اكتشاف تلقائي للنماذج</span>
+    <span class="chip">📊 Dashboard Builder</span>
+    <span class="chip">📋 Report Builder</span>
+    <span class="chip">🔢 15 نوع وِدجت</span>
+    <span class="chip">🔌 Widget Marketplace</span>
+    <span class="chip">🔒 14 صلاحية + RLS</span>
+    <span class="chip">⚡ Redis Cache</span>
+    <span class="chip">📥 PDF / Excel / CSV</span>
+    <span class="chip">⏰ جدولة التقارير</span>
+    <span class="chip">🌍 RTL / عربي</span>
+    <span class="chip">🏢 Multi-Tenant</span>
+    <span class="chip">🎨 Vue 3 SPA</span>
+  </div>
+
+  <div class="hero-cta">
+    <a href="#quickstart" class="btn btn-primary">ابدأ الآن ←</a>
+    <a href="#api"        class="btn btn-secondary">مرجع الـ API</a>
+    <a href="#widgets"    class="btn btn-secondary">أنواع الوِدجات</a>
+  </div>
+</header>
+
+<!-- METRICS -->
+<section style="background:var(--bg2);padding:3.5rem 0">
+<div class="container">
+  <div class="grid-4 reveal">
+    <div class="metric-card"><span class="metric-num" data-target="15">0</span><span class="metric-unit">نوع وِدجت</span><div class="metric-desc">KPI · مخططات · جداول · مقاييس · ترتيب · تقدم · مخصص</div></div>
+    <div class="metric-card"><span class="metric-num" data-target="14">0</span><span class="metric-unit">صلاحية</span><div class="metric-desc">تقارير · لوحات · وِدجات · إدارة — RBAC كامل + RLS</div></div>
+    <div class="metric-card"><span class="metric-num" data-target="4">0</span><span class="metric-unit">صيغة تصدير</span><div class="metric-desc">PDF · Excel · CSV · JSON — دعم RTL والعربية</div></div>
+    <div class="metric-card"><span class="metric-num" data-target="11">0</span><span class="metric-unit">جدول قاعدة بيانات</span><div class="metric-desc">جميعها بالبادئة <code>as_</code> — لا تعارض مع التطبيق</div></div>
+  </div>
+</div>
+</section>
+
+<!-- REQUIREMENTS -->
+<section>
+<div class="container">
+  <div class="section-label">المتطلبات</div>
+  <h2>متطلبات التشغيل</h2>
+
+  <div class="grid-2 reveal" style="margin-top:1.5rem">
+    <div class="card">
+      <h3 style="margin-bottom:1rem">✅ إلزامية</h3>
+      <table class="cfg-table">
+        <thead><tr><th>الحزمة</th><th>الإصدار</th></tr></thead>
+        <tbody>
+          <tr><td>PHP</td><td class="cfg-default">^8.3</td></tr>
+          <tr><td>Laravel</td><td class="cfg-default">^11.0 أو ^12.0</td></tr>
+          <tr><td>Redis</td><td class="cfg-default">أي إصدار حديث</td></tr>
+          <tr><td><code>dynamic-hybrid-reporting-engine</code></td><td class="cfg-default">^1.0</td></tr>
+          <tr><td><code>laravel/sanctum</code></td><td class="cfg-default">^4.0</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="card">
+      <h3 style="margin-bottom:1rem">⚙️ اختيارية</h3>
+      <table class="cfg-table">
+        <thead><tr><th>الحزمة</th><th>الغرض</th></tr></thead>
+        <tbody>
+          <tr><td><code>phpoffice/phpspreadsheet</code></td><td>تصدير Excel</td></tr>
+          <tr><td><code>barryvdh/laravel-dompdf</code></td><td>تصدير PDF</td></tr>
+          <tr><td><code>spatie/laravel-permission</code></td><td>إدارة الأدوار</td></tr>
+          <tr><td><code>mongodb/laravel-mongodb</code></td><td>مصدر بيانات MongoDB</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- QUICK START -->
+<section id="quickstart" style="background:var(--bg2)">
+<div class="container">
+  <div class="section-label">البداية السريعة</div>
+  <h2>ابدأ في 60 ثانية</h2>
+
+  <div style="margin-top:2rem">
+    <h3 style="margin-bottom:1rem">① تثبيت الحزمة</h3>
+    <div class="terminal reveal">
+      <div class="terminal-bar"><div class="dot r"></div><div class="dot y"></div><div class="dot g"></div><div class="terminal-title">bash</div></div>
+      <div class="terminal-body">
+<div><span class="t-m">$</span> <span class="t-c">composer require mostafax/enterprise-analytics-suite</span></div>
+<div><span class="t-g">  ✓ تم التثبيت والاكتشاف التلقائي للحزمة</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div style="margin-top:2.5rem">
+    <h3 style="margin-bottom:1rem">② تشغيل المثبِّت الذكي</h3>
+    <p>أمر واحد يقوم بكل شيء: نشر الإعدادات، تشغيل الـ migrations، اكتشاف النماذج، توليد اللوحات الافتراضية.</p>
+    <div class="terminal reveal">
+      <div class="terminal-bar"><div class="dot r"></div><div class="dot y"></div><div class="dot g"></div><div class="terminal-title">php artisan analytics-suite:install</div></div>
+      <div class="terminal-body">
+<div>&nbsp;</div>
+<div>  ╔══════════════════════════════════════════════╗</div>
+<div>  ║   <span class="t-c">Enterprise Analytics Suite  v1.0.0</span>       ║</div>
+<div>  ║   Power BI · Metabase · Grafana · Tableau   ║</div>
+<div>  ╚══════════════════════════════════════════════╝</div>
+<div>&nbsp;</div>
+<div>  <span class="t-c">[ 1/8 ]</span>  نشر ملف الإعداد …          <span class="t-g">✓</span></div>
+<div>  <span class="t-c">[ 2/8 ]</span>  نشر الـ migrations …        <span class="t-g">✓</span></div>
+<div>  <span class="t-c">[ 3/8 ]</span>  تشغيل الـ migrations …      <span class="t-g">✓  (11 جدول)</span></div>
+<div>  <span class="t-c">[ 4/8 ]</span>  إنشاء الصلاحيات …          <span class="t-g">✓  (14 صلاحية)</span></div>
+<div>  <span class="t-c">[ 5/8 ]</span>  اكتشاف النماذج …           <span class="t-g">✓  (6 نماذج)</span></div>
+<div>  <span class="t-c">[ 6/8 ]</span>  توليد اللوحات الافتراضية … <span class="t-g">✓  (2 لوحة، 8 وِدجات)</span></div>
+<div>  <span class="t-c">[ 7/8 ]</span>  نشر ملفات Vue …            <span class="t-g">✓</span></div>
+<div>  <span class="t-c">[ 8/8 ]</span>  التحقق من Sanctum …        <span class="t-g">✓</span></div>
+<div>&nbsp;</div>
+<div>  <span class="t-g">✓ اكتمل التثبيت!</span></div>
+<div>&nbsp;</div>
+<div>  API:   <span class="t-a">http://localhost/api/analytics</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div style="margin-top:2.5rem">
+    <h3 style="margin-bottom:1rem">③ إضافة متغيرات .env</h3>
+    <div class="code-block reveal"><span class="ky">ANALYTICS_CACHE_DRIVER</span>=redis
+<span class="ky">ANALYTICS_CACHE_ENABLED</span>=true
+<span class="ky">ANALYTICS_ENFORCE_PERMISSIONS</span>=true
+<span class="ky">ANALYTICS_RLS_ENABLED</span>=true
+<span class="ky">ANALYTICS_EXPORT_DISK</span>=local
+<span class="ky">ANALYTICS_FROM_EMAIL</span>=noreply@yourdomain.com
+<span class="ky">ANALYTICS_RTL</span>=true
+<span class="ky">ANALYTICS_LOCALE</span>=ar</div>
+  </div>
+
+  <div style="margin-top:2.5rem">
+    <h3 style="margin-bottom:1rem">④ تشغيل Queue Worker</h3>
+    <p>مطلوب للتصدير غير المتزامن وتسليم التقارير المجدولة.</p>
+    <div class="terminal reveal">
+      <div class="terminal-bar"><div class="dot r"></div><div class="dot y"></div><div class="dot g"></div></div>
+      <div class="terminal-body">
+<div><span class="t-m">$</span> <span class="t-c">php artisan queue:work --queue=default</span></div>
+<div><span class="t-g">  الـ Worker يعمل ويستمع للمهام…</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="info-box reveal" style="margin-top:2rem">
+    💡 <strong>تثبيت بدون قاعدة بيانات MongoDB؟</strong> لا مشكلة — الحزمة تعمل بالكامل مع MySQL فقط. MongoDB اختياري كمصدر بيانات إضافي.
+  </div>
+</div>
+</section>
+
+<!-- ARCHITECTURE -->
+<section>
+<div class="container">
+  <div class="section-label">المعمارية</div>
+  <h2>كيف تعمل الحزمة؟</h2>
+  <p>كل وِدجت وتقرير يمر عبر محرك DSL الخاص بـ Dynamic Hybrid Reporting Engine.</p>
+
+  <div class="pipeline reveal">
+    <div class="pipe-step"><span class="pipe-num">01</span><span class="pipe-name">Auto Detection</span><div class="pipe-desc">Symfony Finder يفحص النماذج + Reflection</div></div>
+    <div class="pipe-step"><span class="pipe-num">02</span><span class="pipe-name">Security Layer</span><div class="pipe-desc">14 صلاحية + RLS + Sanctum</div></div>
+    <div class="pipe-step"><span class="pipe-num">03</span><span class="pipe-name">Cache Check</span><div class="pipe-desc">بحث Redis — نتيجة؟ إرجاع مباشر</div></div>
+    <div class="pipe-step"><span class="pipe-num">04</span><span class="pipe-name">DSL Builder</span><div class="pipe-desc">config الوِدجت → مصفوفة DSL</div></div>
+    <div class="pipe-step"><span class="pipe-num">05</span><span class="pipe-name">ReportEngine::run()</span><div class="pipe-desc">MySQL / MongoDB عبر الحزمة الأساسية</div></div>
+    <div class="pipe-step"><span class="pipe-num">06</span><span class="pipe-name">Cache + Events</span><div class="pipe-desc">تخزين النتيجة + إطلاق الحدث</div></div>
+  </div>
+</div>
+</section>
+
+<!-- DETECTION ENGINE -->
+<section id="detection" style="background:var(--bg2)">
+<div class="container">
+  <div class="section-label">محرك الاكتشاف</div>
+  <h2>اكتشاف تلقائي بدون إعداد</h2>
+  <p>المحرك يفحص جميع نماذج Eloquent في تطبيقك ويولّد وِدجات ولوحات افتراضية بشكل تلقائي.</p>
+
+  <div class="code-tabs reveal" style="margin-top:2rem">
+    <button class="tab-btn active" onclick="showTab('det-cmd',this)">أمر Artisan</button>
+    <button class="tab-btn" onclick="showTab('det-php',this)">PHP API</button>
+    <button class="tab-btn" onclick="showTab('det-config',this)">الإعداد</button>
+  </div>
+  <div id="tab-det-cmd" class="code-panel active">
+    <div class="terminal"><div class="terminal-bar"><div class="dot r"></div><div class="dot y"></div><div class="dot g"></div><div class="terminal-title">php artisan analytics-suite:detect-models</div></div>
+    <div class="terminal-body">
+<div>+--------------------+-----------+----------+--------+--------------+-----------+</div>
+<div>| Class              | Name      | Table    | Module | Soft Deletes | Relations |</div>
+<div>+--------------------+-----------+----------+--------+--------------+-----------+</div>
+<div>| <span class="t-c">App\Models\User</span>    | User      | users    | App    | No           | <span class="t-g">3</span>         |</div>
+<div>| <span class="t-c">App\Models\Order</span>   | Order     | orders   | App    | Yes          | <span class="t-g">2</span>         |</div>
+<div>| <span class="t-c">Modules\HR\Employee</span>| Employee  | employees| HR     | Yes          | <span class="t-g">5</span>         |</div>
+<div>+--------------------+-----------+----------+--------+--------------+-----------+</div>
+<div>&nbsp;</div>
+<div>  <span class="t-g">اكتمل الاكتشاف. تم العثور على 3 نموذج.</span></div>
+    </div></div>
+  </div>
+  <div id="tab-det-php" class="code-panel"><div class="code-block"><span class="kw">use</span> <span class="cls">Mostafax\AnalyticsSuite\Support\Facades\AnalyticsSuite</span>;
+
+<span class="cm">// اكتشاف جميع النماذج</span>
+<span class="op">$models</span> = AnalyticsSuite::<span class="fn">detectModels</span>();
+
+<span class="kw">foreach</span> (<span class="op">$models</span> <span class="kw">as</span> <span class="op">$model</span>) {
+    <span class="fn">echo</span> <span class="op">$model</span>->name;              <span class="cm">// "User"</span>
+    <span class="fn">echo</span> <span class="op">$model</span>->table;             <span class="cm">// "users"</span>
+    <span class="fn">echo</span> <span class="op">$model</span>->module;            <span class="cm">// "App" أو "HR"</span>
+    <span class="fn">print_r</span>(<span class="op">$model</span>->relationships); <span class="cm">// العلاقات</span>
+    <span class="fn">print_r</span>(<span class="op">$model</span>->columns);       <span class="cm">// الأعمدة</span>
+}
+
+<span class="cm">// توليد وِدجات تلقائية</span>
+<span class="op">$widgets</span> = AnalyticsSuite::<span class="fn">detector</span>()-><span class="fn">generateWidgets</span>(\<span class="cls">App\Models\User</span>::<span class="kw">class</span>);
+<span class="cm">// → [KPI Card (العدد), Line Chart (النمو), Data Table]</span></div></div>
+  <div id="tab-det-config" class="code-panel"><div class="code-block"><span class="cm">// config/analytics-suite.php</span>
+<span class="str">'detection'</span> => [
+    <span class="cm">// مسارات البحث عن النماذج</span>
+    <span class="str">'scan_paths'</span>   => [<span class="fn">app_path</span>(<span class="str">'Models'</span>)],
+
+    <span class="cm">// مسار مجلد الـ Modules (nwidart/laravel-modules)</span>
+    <span class="str">'module_paths'</span> => [<span class="fn">base_path</span>(<span class="str">'Modules'</span>)],
+
+    <span class="cm">// استثناء نماذج معينة</span>
+    <span class="str">'excluded_models'</span> => [<span class="str">'PersonalAccessToken'</span>],
+
+    <span class="cm">// توليد وِدجات تلقائياً عند الاكتشاف</span>
+    <span class="str">'auto_generate_widgets'</span>    => <span class="kw">true</span>,
+    <span class="str">'auto_generate_dashboards'</span> => <span class="kw">true</span>,
+],</div></div>
+</div>
+</section>
+
+<!-- DASHBOARDS -->
+<section id="dashboards">
+<div class="container">
+  <div class="section-label">لوحات التحكم</div>
+  <h2>Dashboard Builder — Drag &amp; Drop</h2>
+  <p>إنشاء ونسخ ومشاركة اللوحات. GridStack يدير التخطيط وكل تغيير يُحفظ فوراً.</p>
+
+  <div class="code-tabs reveal" style="margin-top:2rem">
+    <button class="tab-btn active" onclick="showTab('dash-create',this)">إنشاء لوحة</button>
+    <button class="tab-btn" onclick="showTab('dash-layout',this)">تحديث التخطيط</button>
+    <button class="tab-btn" onclick="showTab('dash-share',this)">المشاركة العامة</button>
+    <button class="tab-btn" onclick="showTab('dash-api',this)">API Endpoints</button>
+  </div>
+  <div id="tab-dash-create" class="code-panel active"><div class="code-block"><span class="kw">use</span> <span class="cls">Mostafax\AnalyticsSuite\Support\Facades\AnalyticsSuite</span>;
+
+<span class="op">$dashboard</span> = AnalyticsSuite::<span class="fn">dashboards</span>()-><span class="fn">create</span>([
+    <span class="str">'name'</span>        => <span class="str">'لوحة المبيعات'</span>,
+    <span class="str">'description'</span> => <span class="str">'مؤشرات المبيعات الشهرية'</span>,
+    <span class="str">'settings'</span>    => [
+        <span class="str">'theme'</span>        => <span class="str">'dark'</span>,
+        <span class="str">'refresh_rate'</span> => <span class="num">60</span>,  <span class="cm">// ثانية</span>
+    ],
+], <span class="fn">auth</span>()-><span class="fn">id</span>());
+
+<span class="fn">echo</span> <span class="op">$dashboard</span>->id;   <span class="cm">// 1</span>
+<span class="fn">echo</span> <span class="op">$dashboard</span>->slug; <span class="cm">// "لوحة-المبيعات"</span></div></div>
+  <div id="tab-dash-layout" class="code-panel"><div class="code-block"><span class="cm">// بعد حدث drag-and-drop من GridStack</span>
+AnalyticsSuite::<span class="fn">dashboards</span>()-><span class="fn">updateLayout</span>(<span class="num">1</span>, [
+    [<span class="str">'widget_id'</span> => <span class="num">5</span>, <span class="str">'x'</span> => <span class="num">0</span>, <span class="str">'y'</span> => <span class="num">0</span>, <span class="str">'w'</span> => <span class="num">6</span>, <span class="str">'h'</span> => <span class="num">3</span>],
+    [<span class="str">'widget_id'</span> => <span class="num">6</span>, <span class="str">'x'</span> => <span class="num">6</span>, <span class="str">'y'</span> => <span class="num">0</span>, <span class="str">'w'</span> => <span class="num">6</span>, <span class="str">'h'</span> => <span class="num">3</span>],
+    [<span class="str">'widget_id'</span> => <span class="num">7</span>, <span class="str">'x'</span> => <span class="num">0</span>, <span class="str">'y'</span> => <span class="num">3</span>, <span class="str">'w'</span> => <span class="num">12</span>, <span class="str">'h'</span> => <span class="num">4</span>],
+]);
+
+<span class="cm">// نسخ لوحة كاملة مع كل وِدجاتها</span>
+<span class="op">$clone</span> = AnalyticsSuite::<span class="fn">dashboards</span>()-><span class="fn">clone</span>(<span class="num">1</span>, [
+    <span class="str">'name'</span> => <span class="str">'لوحة المبيعات — نسخة Q2'</span>,
+]);</div></div>
+  <div id="tab-dash-share" class="code-panel"><div class="code-block"><span class="cm">// تفعيل رابط مشاركة عام (بدون تسجيل دخول)</span>
+<span class="op">$dashboard</span> = AnalyticsSuite::<span class="fn">dashboards</span>()-><span class="fn">enablePublicShare</span>(
+    id: <span class="num">1</span>,
+    expiryDays: <span class="num">30</span>
+);
+
+<span class="fn">echo</span> <span class="op">$dashboard</span>->publicToken;
+<span class="cm">// → "d8f3e1a2b4c5..." (64 حرف عشوائي)</span>
+
+<span class="cm">// الوصول العام: GET /api/analytics/public/{token}</span>
+<span class="cm">// لا يتطلب Authorization header</span>
+
+<span class="cm">// إلغاء المشاركة</span>
+AnalyticsSuite::<span class="fn">dashboards</span>()-><span class="fn">disablePublicShare</span>(<span class="num">1</span>);</div></div>
+  <div id="tab-dash-api" class="code-panel">
+    <div style="overflow-x:auto">
+    <table class="api-table">
+      <thead><tr><th>Method</th><th>Endpoint</th><th>الوصف</th><th>الصلاحية</th></tr></thead>
+      <tbody>
+        <tr><td><span class="method m-get">GET</span></td><td><code>/api/analytics/dashboards</code></td><td>قائمة اللوحات</td><td><code>view_dashboards</code></td></tr>
+        <tr><td><span class="method m-post">POST</span></td><td><code>/api/analytics/dashboards</code></td><td>إنشاء لوحة</td><td><code>create_dashboards</code></td></tr>
+        <tr><td><span class="method m-put">PUT</span></td><td><code>/api/analytics/dashboards/{id}</code></td><td>تحديث لوحة</td><td><code>edit_dashboards</code></td></tr>
+        <tr><td><span class="method m-delete">DELETE</span></td><td><code>/api/analytics/dashboards/{id}</code></td><td>حذف لوحة</td><td><code>delete_dashboards</code></td></tr>
+        <tr><td><span class="method m-post">POST</span></td><td><code>/api/analytics/dashboards/{id}/clone</code></td><td>نسخ لوحة</td><td><code>create_dashboards</code></td></tr>
+        <tr><td><span class="method m-post">POST</span></td><td><code>/api/analytics/dashboards/{id}/layout</code></td><td>حفظ التخطيط</td><td><code>edit_dashboards</code></td></tr>
+        <tr><td><span class="method m-post">POST</span></td><td><code>/api/analytics/dashboards/{id}/share</code></td><td>تفعيل رابط عام</td><td><code>edit_dashboards</code></td></tr>
+        <tr><td><span class="method m-get">GET</span></td><td><code>/api/analytics/public/{token}</code></td><td>لوحة عامة</td><td>— بدون auth —</td></tr>
+      </tbody>
+    </table>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- WIDGET ENGINE -->
+<section id="widgets" style="background:var(--bg2)">
+<div class="container">
+  <div class="section-label">محرك الوِدجات</div>
+  <h2>15 نوع وِدجت + Widget Marketplace</h2>
+  <p>كل وِدجت يُنفَّذ عبر Analytics Engine → DSL → ReportEngine. إضافة وِدجت مخصص بسطر واحد.</p>
+
+  <div class="widget-grid reveal">
+    <div class="widget-card"><span class="widget-icon">🔢</span><div class="widget-name">KPI Card</div><div class="widget-desc">مؤشر رئيسي واحد مع سهم الاتجاه</div></div>
+    <div class="widget-card"><span class="widget-icon">📊</span><div class="widget-name">Stats Card</div><div class="widget-desc">مؤشرات متعددة في بطاقة واحدة</div></div>
+    <div class="widget-card"><span class="widget-icon">📋</span><div class="widget-name">Data Table</div><div class="widget-desc">جدول بيانات مع فرز وترقيم</div></div>
+    <div class="widget-card"><span class="widget-icon">📈</span><div class="widget-name">Bar Chart</div><div class="widget-desc">مخطط أعمدة عمودي / أفقي</div></div>
+    <div class="widget-card"><span class="widget-icon">📉</span><div class="widget-name">Line Chart</div><div class="widget-desc">مخطط خطي للسلاسل الزمنية</div></div>
+    <div class="widget-card"><span class="widget-icon">🏔️</span><div class="widget-name">Area Chart</div><div class="widget-desc">مخطط مساحة للقيم التراكمية</div></div>
+    <div class="widget-card"><span class="widget-icon">🥧</span><div class="widget-name">Pie Chart</div><div class="widget-desc">مخطط دائري للتوزيع</div></div>
+    <div class="widget-card"><span class="widget-icon">🍩</span><div class="widget-name">Donut Chart</div><div class="widget-desc">مخطط حلقي مع تسمية مركزية</div></div>
+    <div class="widget-card"><span class="widget-icon">⏲️</span><div class="widget-name">Gauge Chart</div><div class="widget-desc">مقياس SVG أخضر → أصفر → أحمر</div></div>
+    <div class="widget-card"><span class="widget-icon">🔵</span><div class="widget-name">Progress</div><div class="widget-desc">أشرطة تقدم متعددة مع تسميات</div></div>
+    <div class="widget-card"><span class="widget-icon">🏆</span><div class="widget-name">Leaderboard</div><div class="widget-desc">ترتيب ذهب / فضة / برونز</div></div>
+    <div class="widget-card"><span class="widget-icon">⚖️</span><div class="widget-name">Comparison</div><div class="widget-desc">مقارنة جانبية بين فترتين</div></div>
+    <div class="widget-card"><span class="widget-icon">📐</span><div class="widget-name">Trend</div><div class="widget-desc">Sparkline مع نسبة التغيير</div></div>
+    <div class="widget-card"><span class="widget-icon">📡</span><div class="widget-name">Growth</div><div class="widget-desc">معدل النمو شهر بشهر</div></div>
+    <div class="widget-card"><span class="widget-icon">🔌</span><div class="widget-name">Custom</div><div class="widget-desc">سجّل مكوّنك الخاص عبر Marketplace</div></div>
+  </div>
+
+  <div style="margin-top:3rem">
+    <h3 style="margin-bottom:1rem">Widget Marketplace — إضافة وِدجت مخصص</h3>
+    <div class="code-tabs reveal">
+      <button class="tab-btn active" onclick="showTab('wm-class',this)">كلاس الوِدجت</button>
+      <button class="tab-btn" onclick="showTab('wm-register',this)">التسجيل</button>
+      <button class="tab-btn" onclick="showTab('wm-create',this)">إنشاء عبر API</button>
+    </div>
+    <div id="tab-wm-class" class="code-panel active"><div class="code-block"><span class="cm">// app/Analytics/Widgets/SalesComparisonWidget.php</span>
+<span class="kw">class</span> <span class="cls">SalesComparisonWidget</span>
+{
+    <span class="kw">const</span> <span class="ky">TYPE</span> = <span class="str">'sales_comparison'</span>;
+
+    <span class="kw">public static function</span> <span class="fn">label</span>(): <span class="kw">string</span>
+    {
+        <span class="kw">return</span> <span class="str">'مقارنة المبيعات'</span>;
+    }
+
+    <span class="kw">public static function</span> <span class="fn">defaultConfig</span>(): <span class="kw">array</span>
+    {
+        <span class="kw">return</span> [
+            <span class="str">'period_1'</span> => <span class="str">'current_month'</span>,
+            <span class="str">'period_2'</span> => <span class="str">'last_month'</span>,
+            <span class="str">'metric'</span>   => <span class="str">'revenue'</span>,
+        ];
+    }
+}</div></div>
+    <div id="tab-wm-register" class="code-panel"><div class="code-block"><span class="cm">// app/Providers/AppServiceProvider.php</span>
+<span class="kw">use</span> <span class="cls">Mostafax\AnalyticsSuite\Support\Facades\AnalyticsSuite</span>;
+
+<span class="kw">public function</span> <span class="fn">boot</span>(): <span class="kw">void</span>
+{
+    AnalyticsSuite::<span class="fn">registerWidget</span>(<span class="cls">SalesComparisonWidget</span>::<span class="kw">class</span>);
+    AnalyticsSuite::<span class="fn">registerWidget</span>(<span class="cls">AttendanceWidget</span>::<span class="kw">class</span>);
+    AnalyticsSuite::<span class="fn">registerWidget</span>(<span class="cls">BranchRevenueWidget</span>::<span class="kw">class</span>);
+}
+
+<span class="cm">// النوع الجديد يظهر في:
+// GET /api/analytics/widget-types</span></div></div>
+    <div id="tab-wm-create" class="code-panel"><div class="code-block">{
+    <span class="str">"type"</span>: <span class="str">"sales_comparison"</span>,
+    <span class="str">"title"</span>: <span class="str">"مقارنة الربع الأول والثاني"</span>,
+    <span class="str">"config"</span>: {
+        <span class="str">"period_1"</span>: <span class="str">"2026-Q1"</span>,
+        <span class="str">"period_2"</span>: <span class="str">"2026-Q2"</span>,
+        <span class="str">"metric"</span>: <span class="str">"revenue"</span>
+    },
+    <span class="str">"position"</span>: {<span class="str">"x"</span>: <span class="num">0</span>, <span class="str">"y"</span>: <span class="num">0</span>, <span class="str">"w"</span>: <span class="num">6</span>, <span class="str">"h"</span>: <span class="num">4</span>},
+    <span class="str">"cache_enabled"</span>: <span class="kw">true</span>,
+    <span class="str">"cache_ttl"</span>: <span class="num">300</span>
+}</div></div>
+  </div>
+</div>
+</section>
+
+<!-- REPORT BUILDER -->
+<section id="reports">
+<div class="container">
+  <div class="section-label">بنّاء التقارير</div>
+  <h2>بنّاء تقارير بصري — بدون SQL</h2>
+  <p>بنّاء استعلامات معقدة بدون كتابة SQL. 15 مشغّل فلترة، 6 دوال تجميع، دعم الـ Join.</p>
+
+  <div class="code-tabs reveal" style="margin-top:2rem">
+    <button class="tab-btn active" onclick="showTab('rep-create',this)">إنشاء تقرير</button>
+    <button class="tab-btn" onclick="showTab('rep-filters',this)">مشغّلات الفلترة</button>
+    <button class="tab-btn" onclick="showTab('rep-agg',this)">التجميع</button>
+    <button class="tab-btn" onclick="showTab('rep-run',this)">تشغيل التقرير</button>
+  </div>
+  <div id="tab-rep-create" class="code-panel active"><div class="code-block"><span class="kw">use</span> <span class="cls">Mostafax\AnalyticsSuite\Infrastructure\Persistence\Models\ReportTemplateModel</span>;
+
+<span class="cls">ReportTemplateModel</span>::<span class="fn">create</span>([
+    <span class="str">'name'</span>         => <span class="str">'تقرير الإيرادات الشهرية'</span>,
+    <span class="str">'data_source'</span>  => <span class="str">'orders'</span>,
+    <span class="str">'source_type'</span>  => <span class="str">'mysql'</span>,
+    <span class="str">'columns'</span>      => [
+        [<span class="str">'field'</span> => <span class="str">'id'</span>],
+        [<span class="str">'field'</span> => <span class="str">'total'</span>, <span class="str">'alias'</span> => <span class="str">'amount'</span>],
+    ],
+    <span class="str">'filters'</span>      => [
+        [<span class="str">'column'</span> => <span class="str">'status'</span>,  <span class="str">'operator'</span> => <span class="str">'eq'</span>,  <span class="str">'value'</span> => <span class="str">'completed'</span>],
+        [<span class="str">'column'</span> => <span class="str">'total'</span>,   <span class="str">'operator'</span> => <span class="str">'gte'</span>, <span class="str">'value'</span> => <span class="num">100</span>],
+    ],
+    <span class="str">'aggregations'</span> => [
+        [<span class="str">'function'</span> => <span class="str">'sum'</span>,   <span class="str">'column'</span> => <span class="str">'total'</span>, <span class="str">'alias'</span> => <span class="str">'revenue'</span>],
+        [<span class="str">'function'</span> => <span class="str">'count'</span>, <span class="str">'column'</span> => <span class="str">'id'</span>,    <span class="str">'alias'</span> => <span class="str">'orders'</span>],
+    ],
+    <span class="str">'group_by'</span>    => [<span class="str">'DATE_FORMAT(created_at, "%Y-%m")'</span>],
+    <span class="str">'order_by'</span>    => [[<span class="str">'column'</span> => <span class="str">'created_at'</span>, <span class="str">'direction'</span> => <span class="str">'desc'</span>]],
+    <span class="str">'is_template'</span> => <span class="kw">true</span>,
+    <span class="str">'category'</span>    => <span class="str">'sales'</span>,
+    <span class="str">'created_by'</span>  => <span class="fn">auth</span>()-><span class="fn">id</span>(),
+]);</div></div>
+  <div id="tab-rep-filters" class="code-panel"><div class="code-block"><span class="cm">// 15 مشغّل فلترة متاح</span>
+<span class="str">'eq'</span>          <span class="cm">// يساوي</span>
+<span class="str">'neq'</span>         <span class="cm">// لا يساوي</span>
+<span class="str">'gt'</span>          <span class="cm">// أكبر من</span>
+<span class="str">'gte'</span>         <span class="cm">// أكبر من أو يساوي</span>
+<span class="str">'lt'</span>          <span class="cm">// أصغر من</span>
+<span class="str">'lte'</span>         <span class="cm">// أصغر من أو يساوي</span>
+<span class="str">'between'</span>     <span class="cm">// بين قيمتين</span>
+<span class="str">'in'</span>          <span class="cm">// ضمن قائمة</span>
+<span class="str">'not_in'</span>      <span class="cm">// خارج قائمة</span>
+<span class="str">'like'</span>        <span class="cm">// LIKE '%value%'</span>
+<span class="str">'starts_with'</span> <span class="cm">// يبدأ بـ</span>
+<span class="str">'ends_with'</span>   <span class="cm">// ينتهي بـ</span>
+<span class="str">'contains'</span>    <span class="cm">// يحتوي على</span>
+<span class="str">'null'</span>        <span class="cm">// IS NULL</span>
+<span class="str">'not_null'</span>    <span class="cm">// IS NOT NULL</span></div></div>
+  <div id="tab-rep-agg" class="code-panel"><div class="code-block"><span class="cm">// 6 دوال تجميع</span>
+[<span class="str">'function'</span> => <span class="str">'count'</span>,          <span class="str">'column'</span> => <span class="str">'id'</span>,     <span class="str">'alias'</span> => <span class="str">'total'</span>]
+[<span class="str">'function'</span> => <span class="str">'sum'</span>,            <span class="str">'column'</span> => <span class="str">'amount'</span>, <span class="str">'alias'</span> => <span class="str">'revenue'</span>]
+[<span class="str">'function'</span> => <span class="str">'avg'</span>,            <span class="str">'column'</span> => <span class="str">'score'</span>,  <span class="str">'alias'</span> => <span class="str">'avg_score'</span>]
+[<span class="str">'function'</span> => <span class="str">'min'</span>,            <span class="str">'column'</span> => <span class="str">'price'</span>,  <span class="str">'alias'</span> => <span class="str">'min_price'</span>]
+[<span class="str">'function'</span> => <span class="str">'max'</span>,            <span class="str">'column'</span> => <span class="str">'salary'</span>, <span class="str">'alias'</span> => <span class="str">'top_salary'</span>]
+[<span class="str">'function'</span> => <span class="str">'count_distinct'</span>, <span class="str">'column'</span> => <span class="str">'user_id'</span>,<span class="str">'alias'</span> => <span class="str">'unique_users'</span>]</div></div>
+  <div id="tab-rep-run" class="code-panel"><div class="code-block"><span class="cm">// تشغيل مع فلاتر إضافية وقت التنفيذ</span>
+<span class="op">$result</span> = <span class="fn">app</span>(\<span class="cls">Mostafax\ReportingEngine\Core\Engine\ReportEngine</span>::<span class="kw">class</span>)-><span class="fn">run</span>(
+    <span class="cls">ReportTemplateModel</span>::<span class="fn">find</span>(<span class="num">1</span>)-><span class="fn">toDslDefinition</span>(),
+    <span class="fn">auth</span>()-><span class="fn">user</span>()->roles ?? []
+);
+
+<span class="kw">foreach</span> (<span class="op">$result</span>->rows <span class="kw">as</span> <span class="op">$row</span>) {
+    <span class="fn">echo</span> <span class="op">$row</span>[<span class="str">'revenue'</span>] . <span class="str">' | '</span> . <span class="op">$row</span>[<span class="str">'orders'</span>];
+}
+
+<span class="cm">// عبر API: POST /api/analytics/reports/1/run
+// { "filters": [{"column":"year","operator":"eq","value":2026}] }</span></div></div>
+</div>
+</section>
+
+<!-- SECURITY -->
+<section id="security" style="background:var(--bg2)">
+<div class="container">
+  <div class="section-label">نظام الأمان</div>
+  <h2>أمان على مستوى Enterprise</h2>
+  <p>14 صلاحية، Row-Level Security، عزل الفروع / الأقسام / المستأجرين، Laravel Sanctum.</p>
+
+  <h3 style="margin-top:2rem;margin-bottom:1rem">الصلاحيات الـ 14</h3>
+  <div class="perm-grid reveal">
+    <div class="perm-badge report"><div class="dot-s"></div><code>view_reports</code> — عرض التقارير</div>
+    <div class="perm-badge report"><div class="dot-s"></div><code>create_reports</code> — إنشاء</div>
+    <div class="perm-badge report"><div class="dot-s"></div><code>edit_reports</code> — تعديل</div>
+    <div class="perm-badge report"><div class="dot-s"></div><code>delete_reports</code> — حذف</div>
+    <div class="perm-badge report"><div class="dot-s"></div><code>export_reports</code> — تصدير</div>
+    <div class="perm-badge report"><div class="dot-s"></div><code>schedule_reports</code> — جدولة</div>
+    <div class="perm-badge dash"><div class="dot-s"></div><code>view_dashboards</code> — عرض</div>
+    <div class="perm-badge dash"><div class="dot-s"></div><code>create_dashboards</code> — إنشاء</div>
+    <div class="perm-badge dash"><div class="dot-s"></div><code>edit_dashboards</code> — تعديل</div>
+    <div class="perm-badge dash"><div class="dot-s"></div><code>delete_dashboards</code> — حذف</div>
+    <div class="perm-badge widget"><div class="dot-s"></div><code>create_widgets</code> — إضافة وِدجت</div>
+    <div class="perm-badge widget"><div class="dot-s"></div><code>edit_widgets</code> — تعديل</div>
+    <div class="perm-badge widget"><div class="dot-s"></div><code>delete_widgets</code> — حذف</div>
+    <div class="perm-badge admin"><div class="dot-s"></div><code>manage_analytics</code> — مسؤول كامل</div>
+  </div>
+
+  <div class="grid-2 reveal" style="margin-top:2.5rem">
+    <div>
+      <h3 style="margin-bottom:1rem">ربط مع Spatie Permission</h3>
+      <div class="terminal">
+        <div class="terminal-bar"><div class="dot r"></div><div class="dot y"></div><div class="dot g"></div></div>
+        <div class="terminal-body">
+<div><span class="t-m">$</span> <span class="t-c">php artisan analytics-suite:sync-permissions --role=admin</span></div>
+<div><span class="t-g">  ✓ 14 صلاحية تم إنشاؤها</span></div>
+<div><span class="t-g">  ✓ جميع الصلاحيات أُسنِدت للدور: admin</span></div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <h3 style="margin-bottom:1rem">Row-Level Security</h3>
+      <div class="code-block"><span class="cls">RlsPolicyModel</span>::<span class="fn">create</span>([
+    <span class="str">'name'</span>         => <span class="str">'عزل الفروع'</span>,
+    <span class="str">'model'</span>        => \<span class="cls">App\Models\Order</span>::<span class="kw">class</span>,
+    <span class="str">'column'</span>       => <span class="str">'branch_id'</span>,
+    <span class="str">'value_source'</span> => <span class="str">'auth_user'</span>,
+    <span class="str">'value_key'</span>    => <span class="str">'branch_id'</span>,
+    <span class="str">'is_active'</span>    => <span class="kw">true</span>,
+]);
+<span class="cm">// الآن: WHERE branch_id = auth()->user()->branch_id
+// يُضاف تلقائياً على كل استعلامات Orders</span></div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- EXPORT & SCHEDULING -->
+<section id="export">
+<div class="container">
+  <div class="section-label">التصدير والجدولة</div>
+  <h2>تصدير بـ 4 صيغ + جدولة زمنية</h2>
+
+  <div class="code-tabs reveal" style="margin-top:2rem">
+    <button class="tab-btn active" onclick="showTab('exp-instant',this)">تصدير فوري</button>
+    <button class="tab-btn" onclick="showTab('exp-queue',this)">تصدير Queue</button>
+    <button class="tab-btn" onclick="showTab('exp-schedule',this)">الجدولة</button>
+    <button class="tab-btn" onclick="showTab('exp-rtl',this)">دعم العربية</button>
+  </div>
+  <div id="tab-exp-instant" class="code-panel active"><div class="code-block"><span class="cm">// تصدير فوري — مناسب للتقارير الصغيرة (< 10,000 سطر)</span>
+<span class="op">$result</span> = AnalyticsSuite::<span class="fn">exporter</span>()-><span class="fn">exportReport</span>(
+    reportId: <span class="num">1</span>,
+    format:   <span class="str">'pdf'</span>,   <span class="cm">// pdf | excel | csv | json</span>
+    params:   [
+        <span class="str">'title'</span>  => <span class="str">'تقرير المبيعات'</span>,
+        <span class="str">'rtl'</span>    => <span class="kw">true</span>,
+        <span class="str">'locale'</span> => <span class="str">'ar'</span>,
+    ]
+);
+
+<span class="fn">echo</span> <span class="op">$result</span>->downloadUrl; <span class="cm">// رابط تنزيل مؤقت</span>
+<span class="fn">echo</span> <span class="op">$result</span>->rows;        <span class="cm">// 1500</span>
+<span class="fn">echo</span> <span class="op">$result</span>->sizeBytes;   <span class="cm">// 245760</span></div></div>
+  <div id="tab-exp-queue" class="code-panel"><div class="code-block"><span class="cm">// تصدير غير متزامن — موصى به للبيانات الكبيرة</span>
+<span class="op">$jobId</span> = AnalyticsSuite::<span class="fn">exporter</span>()-><span class="fn">queueExport</span>(
+    type:        <span class="str">'report'</span>,
+    id:          <span class="num">1</span>,
+    format:      <span class="str">'excel'</span>,
+    params:      [<span class="str">'title'</span> => <span class="str">'تقرير كبير'</span>, <span class="str">'rtl'</span> => <span class="kw">true</span>],
+    notifyEmail: <span class="str">'manager@company.com'</span>
+);
+
+<span class="cm">// تتبع الحالة: GET /api/analytics/exports/status/{$jobId}
+// {
+//   "status": "done",
+//   "filename": "sales_2026-06-09.xlsx",
+//   "rows": 50000,
+//   "completed": "2026-06-09T12:00:45Z"
+// }</span></div></div>
+  <div id="tab-exp-schedule" class="code-panel"><div class="code-block"><span class="cm">// إنشاء تقرير مجدول</span>
+AnalyticsSuite::<span class="fn">scheduler</span>()-><span class="fn">schedule</span>([
+    <span class="str">'report_id'</span>        => <span class="num">1</span>,
+    <span class="str">'name'</span>             => <span class="str">'تقرير المبيعات اليومي'</span>,
+    <span class="str">'frequency'</span>        => <span class="str">'daily'</span>,   <span class="cm">// daily|weekly|monthly|quarterly|yearly</span>
+    <span class="str">'format'</span>           => <span class="str">'pdf'</span>,
+    <span class="str">'delivery_methods'</span> => [<span class="str">'email'</span>],
+    <span class="str">'recipients'</span>       => [<span class="str">'manager@company.com'</span>, <span class="str">'cfo@company.com'</span>],
+    <span class="str">'params'</span>           => [<span class="str">'rtl'</span> => <span class="kw">true</span>, <span class="str">'locale'</span> => <span class="str">'ar'</span>],
+]);
+
+<span class="cm">// التردد → Cron Expression
+// daily       → "0 8 * * *"
+// weekly      → "0 8 * * 1"
+// monthly     → "0 8 1 * *"
+// quarterly   → "0 8 1 1,4,7,10 *"
+// yearly      → "0 8 1 1 *"</span></div></div>
+  <div id="tab-exp-rtl" class="code-panel"><div class="code-block"><span class="cm">// CSV — BOM prefix لدعم Excel العربي</span>
+<span class="cm">// "\xEF\xBB\xBF" يُضاف تلقائياً عند locale = 'ar'</span>
+
+<span class="cm">// Excel — ورقة RTL</span>
+<span class="cm">// $sheet->setRightToLeft(true) تُطبَّق تلقائياً</span>
+
+<span class="cm">// PDF — HTML من اليمين لليسار</span>
+<span class="cm">// &lt;table dir="rtl"&gt; مع دعم الخط العربي عبر DomPDF</span>
+
+<span class="cm">// JSON — بدون ترميز Unicode</span>
+<span class="cm">// JSON_UNESCAPED_UNICODE مُفعَّل تلقائياً</span>
+
+<span class="op">$result</span> = AnalyticsSuite::<span class="fn">exporter</span>()-><span class="fn">exportReport</span>(<span class="num">1</span>, <span class="str">'excel'</span>, [
+    <span class="str">'title'</span>  => <span class="str">'تقرير مالي شهري'</span>,
+    <span class="str">'rtl'</span>    => <span class="kw">true</span>,
+    <span class="str">'locale'</span> => <span class="str">'ar'</span>,
+]);</div></div>
+</div>
+</section>
+
+<!-- API REFERENCE -->
+<section id="api" style="background:var(--bg2)">
+<div class="container">
+  <div class="section-label">مرجع الـ API</div>
+  <h2>جميع نقاط الـ REST API</h2>
+  <p>جميع المسارات تتطلب <code>Authorization: Bearer {token}</code> من Laravel Sanctum. مسار اللوحة العامة لا يتطلب Auth.</p>
+
+  <div style="margin-top:2rem">
+    <h3 style="margin-bottom:.8rem">اللوحات والوِدجات</h3>
+    <div class="reveal" style="overflow-x:auto">
+    <table class="api-table">
+      <thead><tr><th>Method</th><th>Endpoint</th><th>الوصف</th><th>الصلاحية</th></tr></thead>
+      <tbody>
+        <tr><td><span class="method m-get">GET</span></td><td><code>/api/analytics/dashboards</code></td><td>قائمة اللوحات</td><td><code>view_dashboards</code></td></tr>
+        <tr><td><span class="method m-post">POST</span></td><td><code>/api/analytics/dashboards</code></td><td>إنشاء لوحة</td><td><code>create_dashboards</code></td></tr>
+        <tr><td><span class="method m-put">PUT</span></td><td><code>/api/analytics/dashboards/{id}</code></td><td>تحديث لوحة</td><td><code>edit_dashboards</code></td></tr>
+        <tr><td><span class="method m-delete">DELETE</span></td><td><code>/api/analytics/dashboards/{id}</code></td><td>حذف لوحة</td><td><code>delete_dashboards</code></td></tr>
+        <tr><td><span class="method m-post">POST</span></td><td><code>/api/analytics/dashboards/{id}/clone</code></td><td>نسخ لوحة</td><td><code>create_dashboards</code></td></tr>
+        <tr><td><span class="method m-post">POST</span></td><td><code>/api/analytics/dashboards/{id}/layout</code></td><td>حفظ التخطيط</td><td><code>edit_dashboards</code></td></tr>
+        <tr><td><span class="method m-post">POST</span></td><td><code>/api/analytics/dashboards/{id}/share</code></td><td>تفعيل رابط عام</td><td><code>edit_dashboards</code></td></tr>
+        <tr><td><span class="method m-get">GET</span></td><td><code>/api/analytics/public/{token}</code></td><td>عرض عام — بدون auth</td><td>—</td></tr>
+        <tr><td><span class="method m-get">GET</span></td><td><code>.../dashboards/{id}/widgets/{wid}/data</code></td><td>جلب بيانات وِدجت</td><td><code>view_dashboards</code></td></tr>
+        <tr><td><span class="method m-post">POST</span></td><td><code>.../dashboards/{id}/widgets/{wid}/refresh</code></td><td>تحديث كاش الوِدجت</td><td><code>view_dashboards</code></td></tr>
+        <tr><td><span class="method m-get">GET</span></td><td><code>/api/analytics/widget-types</code></td><td>أنواع الوِدجات المتاحة</td><td>—</td></tr>
+      </tbody>
+    </table>
+    </div>
+  </div>
+
+  <div style="margin-top:2rem">
+    <h3 style="margin-bottom:.8rem">التقارير · التصدير · الجدولة</h3>
+    <div class="reveal" style="overflow-x:auto">
+    <table class="api-table">
+      <thead><tr><th>Method</th><th>Endpoint</th><th>الوصف</th></tr></thead>
+      <tbody>
+        <tr><td><span class="method m-get">GET</span></td><td><code>/api/analytics/reports</code></td><td>قائمة التقارير</td></tr>
+        <tr><td><span class="method m-post">POST</span></td><td><code>/api/analytics/reports</code></td><td>إنشاء تقرير</td></tr>
+        <tr><td><span class="method m-post">POST</span></td><td><code>/api/analytics/reports/{id}/run</code></td><td>تشغيل تقرير مع فلاتر ديناميكية</td></tr>
+        <tr><td><span class="method m-post">POST</span></td><td><code>/api/analytics/reports/{id}/clone</code></td><td>نسخ قالب تقرير</td></tr>
+        <tr><td><span class="method m-post">POST</span></td><td><code>/api/analytics/exports/queue</code></td><td>إضافة مهمة تصدير للـ Queue</td></tr>
+        <tr><td><span class="method m-get">GET</span></td><td><code>/api/analytics/exports/status/{id}</code></td><td>تتبع حالة مهمة التصدير</td></tr>
+        <tr><td><span class="method m-get">GET</span></td><td><code>/api/analytics/exports/history</code></td><td>سجل التصديرات</td></tr>
+        <tr><td><span class="method m-post">POST</span></td><td><code>/api/analytics/schedules</code></td><td>إنشاء تقرير مجدول</td></tr>
+        <tr><td><span class="method m-post">POST</span></td><td><code>/api/analytics/schedules/{id}/pause</code></td><td>إيقاف مؤقت</td></tr>
+        <tr><td><span class="method m-post">POST</span></td><td><code>/api/analytics/schedules/{id}/resume</code></td><td>استئناف</td></tr>
+        <tr><td><span class="method m-get">GET</span></td><td><code>/api/analytics/analytics/modules</code></td><td>النماذج المكتشفة</td></tr>
+        <tr><td><span class="method m-get">GET</span></td><td><code>/api/analytics/analytics/stats</code></td><td>إحصاءات نموذج + اتجاهات</td></tr>
+        <tr><td><span class="method m-post">POST</span></td><td><code>/api/analytics/analytics/cache/invalidate</code></td><td>إبطال كاش</td></tr>
+      </tbody>
+    </table>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- COMMANDS -->
+<section>
+<div class="container">
+  <div class="section-label">أوامر Artisan</div>
+  <h2>3 أوامر — مرجع كامل</h2>
+
+  <div class="cmd-card reveal" style="margin-top:2rem">
+    <div class="cmd-header">
+      <span class="cmd-name">analytics-suite:install</span>
+      <span class="cmd-desc">إعداد الحزمة — يُشغَّل مرة واحدة</span>
+    </div>
+    <div class="cmd-body">
+      <p style="margin-bottom:.9rem">ينشر الإعداد والـ migrations والـ assets. يشغّل الـ migrations، يُنشئ 14 صلاحية، يكتشف النماذج، ويولّد اللوحات والوِدجات الافتراضية.</p>
+      <div style="margin-bottom:1.2rem">
+        <div class="cmd-opt"><span class="cmd-opt-name">--force</span><span class="cmd-opt-desc">استبدال الملفات الموجودة</span></div>
+        <div class="cmd-opt"><span class="cmd-opt-name">--skip-migrations</span><span class="cmd-opt-desc">تخطي الـ migrations</span></div>
+        <div class="cmd-opt"><span class="cmd-opt-name">--skip-detection</span><span class="cmd-opt-desc">تخطي اكتشاف النماذج</span></div>
+        <div class="cmd-opt"><span class="cmd-opt-name">--skip-defaults</span><span class="cmd-opt-desc">تخطي توليد اللوحات الافتراضية</span></div>
+      </div>
+      <div class="code-block"><span class="t-m">$</span> <span class="t-c">php artisan analytics-suite:install</span>
+<span class="t-m">$</span> <span class="t-c">php artisan analytics-suite:install --force --skip-defaults</span></div>
+    </div>
+  </div>
+
+  <div class="cmd-card reveal" style="margin-top:1.5rem">
+    <div class="cmd-header">
+      <span class="cmd-name">analytics-suite:detect-models</span>
+      <span class="cmd-desc">اكتشاف نماذج Eloquent</span>
+    </div>
+    <div class="cmd-body">
+      <p style="margin-bottom:.9rem">يكتشف جميع نماذج Eloquent ويعرضها في جدول مع تفاصيل كاملة. يمكنه توليد وِدجات ولوحات تلقائياً.</p>
+      <div style="margin-bottom:1.2rem">
+        <div class="cmd-opt"><span class="cmd-opt-name">--generate-widgets</span><span class="cmd-opt-desc">توليد تعريفات وِدجات لكل نموذج</span></div>
+        <div class="cmd-opt"><span class="cmd-opt-name">--generate-dashboards</span><span class="cmd-opt-desc">إنشاء لوحة افتراضية لكل نموذج</span></div>
+      </div>
+      <div class="code-block"><span class="t-m">$</span> <span class="t-c">php artisan analytics-suite:detect-models</span>
+<span class="t-m">$</span> <span class="t-c">php artisan analytics-suite:detect-models --generate-widgets --generate-dashboards</span></div>
+    </div>
+  </div>
+
+  <div class="cmd-card reveal" style="margin-top:1.5rem">
+    <div class="cmd-header">
+      <span class="cmd-name">analytics-suite:sync-permissions</span>
+      <span class="cmd-desc">مزامنة الصلاحيات مع Spatie</span>
+    </div>
+    <div class="cmd-body">
+      <p style="margin-bottom:.9rem">ينشئ / يحدّث الصلاحيات الـ 14 في جدول <code>as_permissions</code> ويسندها لدور Spatie.</p>
+      <div style="margin-bottom:1.2rem">
+        <div class="cmd-opt"><span class="cmd-opt-name">--role=admin</span><span class="cmd-opt-desc">تعيين جميع الصلاحيات لهذا الدور</span></div>
+        <div class="cmd-opt"><span class="cmd-opt-name">--guard=api</span><span class="cmd-opt-desc">الـ Guard (افتراضي: web)</span></div>
+      </div>
+      <div class="code-block"><span class="t-m">$</span> <span class="t-c">php artisan analytics-suite:sync-permissions</span>
+<span class="t-m">$</span> <span class="t-c">php artisan analytics-suite:sync-permissions --role=admin --guard=api</span></div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- VUE FRONTEND -->
+<section style="background:var(--bg2)">
+<div class="container">
+  <div class="section-label">الواجهة الأمامية</div>
+  <h2>Vue 3 SPA — TypeScript + Pinia + ApexCharts</h2>
+
+  <div class="code-tabs reveal" style="margin-top:2rem">
+    <button class="tab-btn active" onclick="showTab('vue-mount',this)">تثبيت التطبيق</button>
+    <button class="tab-btn" onclick="showTab('vue-store',this)">Pinia Store</button>
+    <button class="tab-btn" onclick="showTab('vue-rtl',this)">Dark Mode / RTL</button>
+  </div>
+  <div id="tab-vue-mount" class="code-panel active"><div class="code-block"><span class="cm">// resources/js/app.js</span>
+<span class="kw">import</span> { createApp }   <span class="kw">from</span> <span class="str">'vue'</span>
+<span class="kw">import</span> { createPinia } <span class="kw">from</span> <span class="str">'pinia'</span>
+<span class="kw">import</span> AnalyticsApp    <span class="kw">from</span> <span class="str">'./analytics-suite/components/analytics/AnalyticsApp.vue'</span>
+
+<span class="kw">const</span> app = <span class="fn">createApp</span>(AnalyticsApp)
+app.<span class="fn">use</span>(<span class="fn">createPinia</span>())
+app.<span class="fn">mount</span>(<span class="str">'#analytics-app'</span>)
+
+<span class="cm">/* في قالب Blade */</span>
+<span class="cm">// &lt;html lang="ar" dir="rtl"&gt;</span>
+<span class="cm">// &lt;script src="gridstack-all.js"&gt;&lt;/script&gt;</span>
+<span class="cm">// &lt;script src="apexcharts.min.js"&gt;&lt;/script&gt;</span>
+<span class="cm">// &lt;div id="analytics-app"&gt;&lt;/div&gt;</span></div></div>
+  <div id="tab-vue-store" class="code-panel"><div class="code-block"><span class="kw">import</span> { useDashboardStore, useReportStore, useAnalyticsStore }
+    <span class="kw">from</span> <span class="str">'./analytics-suite/store/analytics'</span>
+
+<span class="kw">const</span> dashStore     = <span class="fn">useDashboardStore</span>()
+<span class="kw">const</span> reportStore   = <span class="fn">useReportStore</span>()
+<span class="kw">const</span> analyticsStore = <span class="fn">useAnalyticsStore</span>()
+
+<span class="cm">// جلب اللوحات</span>
+<span class="kw">await</span> dashStore.<span class="fn">fetchAll</span>()
+console.<span class="fn">log</span>(dashStore.items)   <span class="cm">// Dashboard[]</span>
+
+<span class="cm">// تحميل بيانات وِدجت</span>
+<span class="kw">await</span> dashStore.<span class="fn">loadWidgetData</span>(<span class="num">5</span>)
+
+<span class="cm">// تشغيل تقرير</span>
+<span class="kw">const</span> result = <span class="kw">await</span> reportStore.<span class="fn">run</span>(<span class="num">1</span>, { filters: [] })
+
+<span class="cm">// النماذج المكتشفة</span>
+<span class="kw">await</span> analyticsStore.<span class="fn">fetchModules</span>()
+console.<span class="fn">log</span>(analyticsStore.modules) <span class="cm">// DetectedModel[]</span></div></div>
+  <div id="tab-vue-rtl" class="code-panel"><div class="code-block"><span class="cm">// تفعيل الوضع الداكن</span>
+document.documentElement.classList.<span class="fn">add</span>(<span class="str">'dark'</span>)
+
+<span class="cm">// تفعيل RTL (العربية)</span>
+document.documentElement.<span class="fn">setAttribute</span>(<span class="str">'dir'</span>,  <span class="str">'rtl'</span>)
+document.documentElement.<span class="fn">setAttribute</span>(<span class="str">'lang'</span>, <span class="str">'ar'</span>)
+
+<span class="cm">// ApexCharts يتكيف تلقائياً مع كلاس 'dark'
+// GridStack يعكس اتجاه flex في RTL عبر analytics-suite.css
+// جميع المكوّنات Vue 3 تدعم RTL بالكامل</span></div></div>
+</div>
+</section>
+
+<!-- MULTI-TENANCY -->
+<section>
+<div class="container">
+  <div class="section-label">Multi-Tenancy</div>
+  <h2>دعم المستأجرين المتعددين</h2>
+
+  <div class="grid-2 reveal" style="margin-top:1.5rem">
+    <div class="card">
+      <h3 style="margin-bottom:1rem">Single Database</h3>
+      <p>كل السجلات في قاعدة بيانات واحدة مع عمود <code>tenant_id</code>. الفلتر يُضاف تلقائياً.</p>
+      <div class="code-block">ANALYTICS_TENANT_ISOLATION=true
+ANALYTICS_TENANT_COLUMN=tenant_id</div>
+    </div>
+    <div class="card">
+      <h3 style="margin-bottom:1rem">RLS للمستأجرين</h3>
+      <div class="code-block"><span class="cls">RlsPolicyModel</span>::<span class="fn">create</span>([
+    <span class="str">'name'</span>         => <span class="str">'عزل المستأجرين'</span>,
+    <span class="str">'model'</span>        => <span class="str">'*'</span>,  <span class="cm">// كل النماذج</span>
+    <span class="str">'column'</span>       => <span class="str">'tenant_id'</span>,
+    <span class="str">'value_source'</span> => <span class="str">'auth_user'</span>,
+    <span class="str">'value_key'</span>    => <span class="str">'tenant_id'</span>,
+    <span class="str">'is_active'</span>    => <span class="kw">true</span>,
+]);</div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- TESTING -->
+<section style="background:var(--bg2)">
+<div class="container">
+  <div class="section-label">الاختبارات</div>
+  <h2>تشغيل الاختبارات</h2>
+
+  <div class="code-tabs reveal" style="margin-top:2rem">
+    <button class="tab-btn active" onclick="showTab('tst-run',this)">تشغيل</button>
+    <button class="tab-btn" onclick="showTab('tst-write',this)">كتابة اختبار</button>
+  </div>
+  <div id="tab-tst-run" class="code-panel active">
+    <div class="terminal"><div class="terminal-bar"><div class="dot r"></div><div class="dot y"></div><div class="dot g"></div><div class="terminal-title">bash</div></div>
+    <div class="terminal-body">
+<div><span class="t-m">$</span> <span class="t-c">cd packages/mostafax/analytics-suite</span></div>
+<div><span class="t-m">$</span> <span class="t-c">vendor/bin/pest</span></div>
+<div>&nbsp;</div>
+<div>  <span class="t-g">✓</span> DashboardServiceTest → يجد من الكاش</div>
+<div>  <span class="t-g">✓</span> DashboardServiceTest → الإنشاء يطلق حدثاً ويبطل الكاش</div>
+<div>  <span class="t-g">✓</span> ModelDetectionEngineTest → يكتشف النماذج</div>
+<div>  <span class="t-g">✓</span> DashboardApiTest → GET /dashboards يرجع 200</div>
+<div>  <span class="t-g">✓</span> InstallCommandTest → أمر التثبيت ينجح</div>
+<div>&nbsp;</div>
+<div>  Tests: <span class="t-g">8 passed</span></div>
+<div>&nbsp;</div>
+<div><span class="t-m">$</span> <span class="t-c">vendor/bin/pest --coverage --min=80</span></div>
+    </div></div>
+  </div>
+  <div id="tab-tst-write" class="code-panel"><div class="code-block"><span class="kw">use</span> <span class="cls">Mostafax\AnalyticsSuite\Providers\AnalyticsSuiteServiceProvider</span>;
+<span class="kw">use</span> <span class="cls">Orchestra\Testbench\TestCase</span>;
+
+<span class="kw">class</span> <span class="cls">MyFeatureTest</span> <span class="kw">extends</span> <span class="cls">TestCase</span>
+{
+    <span class="kw">protected function</span> <span class="fn">getPackageProviders</span>(<span class="op">$app</span>): <span class="kw">array</span>
+    {
+        <span class="kw">return</span> [<span class="cls">AnalyticsSuiteServiceProvider</span>::<span class="kw">class</span>];
+    }
+
+    <span class="kw">protected function</span> <span class="fn">getEnvironmentSetUp</span>(<span class="op">$app</span>): <span class="kw">void</span>
+    {
+        <span class="op">$app</span>[<span class="str">'config'</span>]-><span class="fn">set</span>(<span class="str">'database.default'</span>, <span class="str">'sqlite'</span>);
+        <span class="cm">// تعطيل الصلاحيات في الاختبارات</span>
+        <span class="op">$app</span>[<span class="str">'config'</span>]-><span class="fn">set</span>(<span class="str">'analytics-suite.security.enforce_permissions'</span>, <span class="kw">false</span>);
+    }
+
+    <span class="kw">public function</span> <span class="fn">test_dashboard_api_returns_200</span>(): <span class="kw">void</span>
+    {
+        <span class="op">$this</span>-><span class="fn">getJson</span>(<span class="str">'/api/analytics/dashboards'</span>)
+             -><span class="fn">assertOk</span>()
+             -><span class="fn">assertJsonStructure</span>([<span class="str">'data'</span>, <span class="str">'meta'</span>]);
+    }
+}</div></div>
+</div>
+</section>
+
+<!-- FAQ -->
+<section>
+<div class="container">
+  <div class="section-label">أسئلة شائعة</div>
+  <h2>FAQ</h2>
+
+  <div class="grid-2 reveal" style="margin-top:1.5rem;gap:1.2rem">
+    <div class="card">
+      <h3 style="margin-bottom:.5rem">كيف أغير prefix المسارات؟</h3>
+      <div class="code-block"><span class="str">'routes'</span> => [<span class="str">'prefix'</span> => <span class="str">'api/v1/analytics'</span>]</div>
+    </div>
+    <div class="card">
+      <h3 style="margin-bottom:.5rem">كيف أعطّل الصلاحيات في التطوير؟</h3>
+      <div class="code-block">ANALYTICS_ENFORCE_PERMISSIONS=false</div>
+    </div>
+    <div class="card">
+      <h3 style="margin-bottom:.5rem">هل يدعم nwidart/laravel-modules؟</h3>
+      <p style="font-size:.85rem;margin-bottom:.5rem">نعم. أضف مسار الـ Modules في الإعداد:</p>
+      <div class="code-block"><span class="str">'detection'</span> => [
+  <span class="str">'module_paths'</span> => [<span class="fn">base_path</span>(<span class="str">'Modules'</span>)],
+]</div>
+    </div>
+    <div class="card">
+      <h3 style="margin-bottom:.5rem">هل يعمل بدون MongoDB؟</h3>
+      <p style="font-size:.85rem">نعم. MongoDB اختياري. الحزمة تعمل بالكامل مع MySQL فقط. MongoDB يُفعَّل كمصدر بيانات إضافي عند الحاجة.</p>
+    </div>
+  </div>
+</div>
+</section>
+
+<footer>
+  <div style="font-size:2rem;margin-bottom:.7rem">📊</div>
+  <p style="color:var(--text);font-size:1rem;font-weight:800;margin-bottom:.25rem">Enterprise Analytics Suite</p>
+  <p>حزمة Laravel — PHP 8.3+ — Laravel 11 / 12 — Vue 3</p>
+  <div style="display:flex;flex-wrap:wrap;gap:.5rem;justify-content:center;margin-top:1rem">
+    <span style="background:var(--white);border:1px solid var(--border);border-radius:100px;padding:.22rem .7rem;font-size:.72rem;font-weight:600;color:var(--cyan)">✓ تثبيت بأمر واحد</span>
+    <span style="background:var(--white);border:1px solid var(--border);border-radius:100px;padding:.22rem .7rem;font-size:.72rem;font-weight:600;color:var(--amber)">✓ اكتشاف تلقائي</span>
+    <span style="background:var(--white);border:1px solid var(--border);border-radius:100px;padding:.22rem .7rem;font-size:.72rem;font-weight:600;color:var(--purple)">✓ 15 نوع وِدجت</span>
+    <span style="background:var(--white);border:1px solid var(--border);border-radius:100px;padding:.22rem .7rem;font-size:.72rem;font-weight:600;color:var(--green)">✓ Redis Cache</span>
+    <span style="background:var(--white);border:1px solid var(--border);border-radius:100px;padding:.22rem .7rem;font-size:.72rem;font-weight:600;color:var(--cyan)">✓ RTL / عربي</span>
+    <span style="background:var(--white);border:1px solid var(--border);border-radius:100px;padding:.22rem .7rem;font-size:.72rem;font-weight:600;color:var(--amber)">✓ أمان Enterprise</span>
+    <span style="background:var(--white);border:1px solid var(--border);border-radius:100px;padding:.22rem .7rem;font-size:.72rem;font-weight:600;color:var(--purple)">✓ Vue 3 SPA</span>
+    <span style="background:var(--white);border:1px solid var(--border);border-radius:100px;padding:.22rem .7rem;font-size:.72rem;font-weight:600;color:var(--green)">✓ Multi-Tenant</span>
+  </div>
+  <p style="margin-top:1.4rem;font-size:.78rem">MIT © <a href="mailto:mostafa.m.elbiar2@gmail.com">Mostafa Elbayyar</a> · <a href="https://github.com/mostafax2/Dynamic-Analytics-Studio">GitHub</a></p>
+</footer>
+
+<script>
+(function () {
+  const c = document.getElementById('particles');
+  if (!c) { return; }
+  const ctx = c.getContext('2d');
+  let W, H, pts = [];
+  function resize() { W = c.width = c.offsetWidth; H = c.height = c.offsetHeight; }
+  resize();
+  new ResizeObserver(resize).observe(c);
+  for (let i = 0; i < 50; i++) {
+    pts.push({
+      x: Math.random() * 2000, y: Math.random() * 1000,
+      vx: (Math.random() - .5) * .22, vy: (Math.random() - .5) * .22,
+      r: Math.random() * 1.3 + .4,
+      hue: Math.random() < .6 ? 237 : 270,
+      a: Math.random() * .3 + .07,
+    });
+  }
+  function draw() {
+    ctx.clearRect(0, 0, W, H);
+    pts.forEach(function (p) {
+      p.x += p.vx; p.y += p.vy;
+      if (p.x < 0 || p.x > W) { p.vx *= -1; }
+      if (p.y < 0 || p.y > H) { p.vy *= -1; }
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+      ctx.fillStyle = 'hsla(' + p.hue + ',75%,65%,' + p.a + ')';
+      ctx.fill();
+    });
+    for (let i = 0; i < pts.length; i++) {
+      for (let j = i + 1; j < pts.length; j++) {
+        const d = Math.hypot(pts[i].x - pts[j].x, pts[i].y - pts[j].y);
+        if (d < 100) {
+          ctx.beginPath();
+          ctx.moveTo(pts[i].x, pts[i].y);
+          ctx.lineTo(pts[j].x, pts[j].y);
+          ctx.strokeStyle = 'rgba(99,102,241,' + ((1 - d / 100) * .07) + ')';
+          ctx.lineWidth = .5;
+          ctx.stroke();
+        }
+      }
+    }
+    requestAnimationFrame(draw);
+  }
+  draw();
+}());
+
+function showTab(id, btn) {
+  let el = btn.closest('.code-tabs').nextElementSibling;
+  while (el) {
+    if (el.classList && el.classList.contains('code-panel')) { el.classList.remove('active'); }
+    el = el.nextElementSibling;
+  }
+  document.getElementById('tab-' + id).classList.add('active');
+  btn.closest('.code-tabs').querySelectorAll('.tab-btn').forEach(function (b) { b.classList.remove('active'); });
+  btn.classList.add('active');
+}
+
+const ro = new IntersectionObserver(function (entries) {
+  entries.forEach(function (x) { if (x.isIntersecting) { x.target.classList.add('visible'); } });
+}, { threshold: .07 });
+document.querySelectorAll('.reveal').forEach(function (el) { ro.observe(el); });
+
+const co = new IntersectionObserver(function (entries) {
+  entries.forEach(function (x) {
+    if (!x.isIntersecting) { return; }
+    const el = x.target;
+    const target = +el.dataset.target;
+    const t0 = performance.now();
+    function step(now) {
+      const p = Math.min((now - t0) / 1400, 1);
+      const ease = 1 - Math.pow(1 - p, 3);
+      el.textContent = Math.round(target * ease);
+      if (p < 1) { requestAnimationFrame(step); }
+    }
+    requestAnimationFrame(step);
+    co.unobserve(el);
+  });
+}, { threshold: .5 });
+document.querySelectorAll('.metric-num[data-target]').forEach(function (el) { co.observe(el); });
+</script>
+</body>
+</html>
