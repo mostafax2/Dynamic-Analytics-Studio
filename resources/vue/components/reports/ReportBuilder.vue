@@ -273,12 +273,14 @@ async function runReport() {
   runResult.value = null
   try {
     const payload = {
-      source:        form.value.data_source,
-      source_type:   form.value.source_type,
-      select:        form.value.columns,
-      filters:       form.value.filters,
+      source:        form.value.source_type || 'mysql',
+      table:         form.value.data_source,
+      fields:        form.value.columns,
+      filters:       form.value.filters?.length
+                       ? { operator: 'AND', conditions: form.value.filters.map((f: Record<string,string>) => ({ field: f.column, operator: f.operator, value: f.value })) }
+                       : undefined,
       aggregations:  form.value.aggregations,
-      group_by:      groupByInput.value.split(',').map(s => s.trim()).filter(Boolean),
+      group_by:      groupByInput.value.split(',').map((s: string) => s.trim()).filter(Boolean),
       order_by:      orderByInput.value ? [{ column: orderByInput.value.replace(' DESC','').replace(' ASC','').trim(), direction: orderByInput.value.includes('DESC') ? 'desc' : 'asc' }] : [],
     }
 

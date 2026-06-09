@@ -27,15 +27,26 @@ final class AnalyticsCacheManager
             return $callback();
         }
 
-        $key   = $this->key("dashboard:{$id}");
-        $ttl   = config('analytics-suite.cache.ttl.dashboard', 300);
-        $raw   = $this->store->get($key);
+        $key = $this->key("dashboard:{$id}");
+        $ttl = config('analytics-suite.cache.ttl.dashboard', 300);
+        $raw = $this->store->get($key);
 
-        // Stored as array (safe for all cache drivers)
+        // New format: plain array — safe to reconstruct
         if (is_array($raw)) {
-            return DashboardDTO::fromArray($raw);
+            try {
+                return DashboardDTO::fromArray($raw);
+            } catch (\Throwable) {
+                $this->store->forget($key);
+            }
         }
 
+        // Legacy format: fully-hydrated object stored by an older version of this code
+        if ($raw instanceof DashboardDTO) {
+            $this->store->put($key, $raw->toArray(), $ttl);
+            return $raw;
+        }
+
+        // Stale serialized object (__PHP_Incomplete_Class), null, or any other value — rebuild
         $dto = $callback();
         $this->store->put($key, $dto->toArray(), $ttl);
         return $dto;
@@ -47,16 +58,33 @@ final class AnalyticsCacheManager
             return $callback();
         }
 
-        $key  = $this->key("user:{$userId}:dashboards");
-        $ttl  = config('analytics-suite.cache.ttl.dashboard', 300);
-        $raw  = $this->store->get($key);
+        $key = $this->key("user:{$userId}:dashboards");
+        $ttl = config('analytics-suite.cache.ttl.dashboard', 300);
+        $raw = $this->store->get($key);
 
         if (is_array($raw)) {
-            return collect($raw)->map(fn (array $d) => DashboardDTO::fromArray($d));
+            try {
+                // Each item must be a plain array — guard against legacy object entries
+                return collect($raw)->map(function (mixed $d) {
+                    if ($d instanceof DashboardDTO) {
+                        return $d;
+                    }
+                    if (is_array($d)) {
+                        return DashboardDTO::fromArray($d);
+                    }
+                    throw new \UnexpectedValueException('Stale cache entry');
+                });
+            } catch (\Throwable) {
+                $this->store->forget($key);
+            }
         }
 
         $list = $callback();
-        $this->store->put($key, $list->map(fn (DashboardDTO $d) => $d->toArray())->values()->all(), $ttl);
+        $this->store->put(
+            $key,
+            $list->map(fn (DashboardDTO $d) => $d->toArray())->values()->all(),
+            $ttl
+        );
         return $list;
     }
 

@@ -124,7 +124,7 @@ final class ReportBuilderController extends Controller
         $dsl = $request->validate([
             'source'       => 'nullable|string',
             'table'        => 'required|string',
-            'columns'      => 'nullable|array',
+            'fields'       => 'nullable|array',
             'filters'      => 'nullable|array',
             'group_by'     => 'nullable|array',
             'order_by'     => 'nullable|array',
@@ -133,7 +133,7 @@ final class ReportBuilderController extends Controller
             'pagination'   => 'nullable|array',
         ]);
 
-        $dsl['source']     ??= 'mysql';
+        $dsl['source']     = $dsl['source'] ?: 'mysql';
         $dsl['pagination'] ??= ['page' => 1, 'per_page' => 25];
 
         $result = $this->engine->run($dsl, []);
