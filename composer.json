@@ -1,0 +1,88 @@
+{
+    "name": "mostafax/enterprise-analytics-suite",
+    "description": "Enterprise Analytics Suite — Dynamic Report Builder, Dashboard Builder, Analytics Platform & Widget Management System powered by the Dynamic Hybrid Reporting Engine",
+    "type": "library",
+    "license": "MIT",
+    "keywords": [
+        "laravel",
+        "analytics",
+        "dashboard",
+        "reporting",
+        "bi",
+        "powerbi",
+        "grafana",
+        "metabase",
+        "tableau",
+        "widgets",
+        "saas",
+        "multi-tenant",
+        "enterprise"
+    ],
+    "homepage": "https://github.com/mostafax2/Dynamic-Analytics-Studio",
+    "authors": [
+        {
+            "name": "Mostafa Elbayyar",
+            "email": "mostafa.m.elbiar2@gmail.com",
+            "role": "Principal Architect"
+        }
+    ],
+    "require": {
+        "php": "^8.3",
+        "illuminate/support": "^11.0|^12.0",
+        "illuminate/database": "^11.0|^12.0",
+        "illuminate/cache": "^11.0|^12.0",
+        "illuminate/queue": "^11.0|^12.0",
+        "illuminate/http": "^11.0|^12.0",
+        "illuminate/validation": "^11.0|^12.0",
+        "illuminate/contracts": "^11.0|^12.0",
+        "illuminate/events": "^11.0|^12.0",
+        "illuminate/console": "^11.0|^12.0",
+        "illuminate/bus": "^11.0|^12.0",
+        "illuminate/mail": "^11.0|^12.0",
+        "illuminate/notifications": "^11.0|^12.0",
+        "laravel/sanctum": "^4.0",
+        "mostafax/dynamic-hybrid-reporting-engine": "^1.0"
+    },
+    "require-dev": {
+        "orchestra/testbench": "^9.0|^10.0",
+        "pestphp/pest": "^3.0",
+        "pestphp/pest-plugin-laravel": "^3.0",
+        "mockery/mockery": "^1.6"
+    },
+    "suggest": {
+        "mongodb/laravel-mongodb": "Required for MongoDB analytics layer (^4.0|^5.0)",
+        "phpoffice/phpspreadsheet": "Required for Excel export (^2.0|^3.0)",
+        "barryvdh/laravel-dompdf": "Required for PDF export (^3.0)",
+        "league/csv": "Required for optimised CSV export (^9.0)",
+        "spatie/laravel-permission": "Recommended for role-based access control (^6.0)"
+    },
+    "autoload": {
+        "psr-4": {
+            "Mostafax\\AnalyticsSuite\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Mostafax\\AnalyticsSuite\\Tests\\": "tests/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Mostafax\\AnalyticsSuite\\Providers\\AnalyticsSuiteServiceProvider"
+            ],
+            "aliases": {
+                "AnalyticsSuite": "Mostafax\\AnalyticsSuite\\Support\\Facades\\AnalyticsSuite"
+            }
+        }
+    },
+    "scripts": {
+        "test": "vendor/bin/pest",
+        "analyse": "vendor/bin/phpstan analyse src --level=8"
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
