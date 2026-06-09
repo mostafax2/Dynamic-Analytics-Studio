@@ -22,7 +22,7 @@ final class DashboardDTO
         public readonly bool          $isDefault,
         public readonly Collection    $widgets,
         public readonly array         $permissions,
-        public readonly ?int|string   $tenantId,
+        public readonly int|string|null   $tenantId,
         public readonly string        $createdAt,
         public readonly string        $updatedAt,
     ) {}

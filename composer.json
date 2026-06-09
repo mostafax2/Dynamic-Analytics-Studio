@@ -1,6 +1,7 @@
 {
     "name": "mostafax/enterprise-analytics-suite",
     "description": "Enterprise Analytics Suite — Dynamic Report Builder, Dashboard Builder, Analytics Platform & Widget Management System powered by the Dynamic Hybrid Reporting Engine",
+    "version": "1.0.0",
     "type": "library",
     "license": "MIT",
     "keywords": [
@@ -28,23 +29,23 @@
     ],
     "require": {
         "php": "^8.3",
-        "illuminate/support": "^11.0|^12.0",
-        "illuminate/database": "^11.0|^12.0",
-        "illuminate/cache": "^11.0|^12.0",
-        "illuminate/queue": "^11.0|^12.0",
-        "illuminate/http": "^11.0|^12.0",
-        "illuminate/validation": "^11.0|^12.0",
-        "illuminate/contracts": "^11.0|^12.0",
-        "illuminate/events": "^11.0|^12.0",
-        "illuminate/console": "^11.0|^12.0",
-        "illuminate/bus": "^11.0|^12.0",
-        "illuminate/mail": "^11.0|^12.0",
-        "illuminate/notifications": "^11.0|^12.0",
+        "illuminate/support": "^11.0|^12.0|^13.0",
+        "illuminate/database": "^11.0|^12.0|^13.0",
+        "illuminate/cache": "^11.0|^12.0|^13.0",
+        "illuminate/queue": "^11.0|^12.0|^13.0",
+        "illuminate/http": "^11.0|^12.0|^13.0",
+        "illuminate/validation": "^11.0|^12.0|^13.0",
+        "illuminate/contracts": "^11.0|^12.0|^13.0",
+        "illuminate/events": "^11.0|^12.0|^13.0",
+        "illuminate/console": "^11.0|^12.0|^13.0",
+        "illuminate/bus": "^11.0|^12.0|^13.0",
+        "illuminate/mail": "^11.0|^12.0|^13.0",
+        "illuminate/notifications": "^11.0|^12.0|^13.0",
         "laravel/sanctum": "^4.0",
-        "mostafax/dynamic-hybrid-reporting-engine": "^1.0"
+        "mostafax/dynamic-hybrid-reporting-engine": "^1.0|@dev"
     },
     "require-dev": {
-        "orchestra/testbench": "^9.0|^10.0",
+        "orchestra/testbench": "^9.0|^10.0|^11.0",
         "pestphp/pest": "^3.0",
         "pestphp/pest-plugin-laravel": "^3.0",
         "mockery/mockery": "^1.6"

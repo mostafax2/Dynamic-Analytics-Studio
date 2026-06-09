@@ -18,10 +18,10 @@ final class WidgetDTO
         public readonly int         $refreshInterval,
         public readonly bool        $cacheEnabled,
         public readonly int         $cacheTtl,
-        public readonly ?int|string $reportId,
+        public readonly int|string|null $reportId,
         public readonly array       $reportParams,
         public readonly int|string  $createdBy,
-        public readonly ?int|string $tenantId,
+        public readonly int|string|null $tenantId,
         public readonly string      $createdAt,
         public readonly string      $updatedAt,
     ) {}

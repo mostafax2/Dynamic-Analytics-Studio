@@ -195,6 +195,7 @@ function toggleTheme() {
 </script>
 
 <style scoped>
+@reference "tailwindcss";
 .as-btn-primary  { @apply inline-flex items-center px-4 py-2 bg-indigo-600 text-white rounded-lg text-sm font-medium hover:bg-indigo-700 transition-colors disabled:opacity-50; }
 .as-btn-secondary{ @apply inline-flex items-center px-4 py-2 bg-white dark:bg-slate-700 border border-slate-200 dark:border-slate-600 text-slate-700 dark:text-slate-200 rounded-lg text-sm font-medium hover:bg-slate-50 transition-colors; }
 .as-btn-success  { @apply inline-flex items-center px-4 py-2 bg-emerald-600 text-white rounded-lg text-sm font-medium hover:bg-emerald-700 transition-colors disabled:opacity-50; }

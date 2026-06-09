@@ -120,5 +120,6 @@ const themeClass = computed(() =>
 </script>
 
 <style scoped>
+@reference "tailwindcss";
 .as-widget-btn { @apply p-1 rounded hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-400 hover:text-slate-600 transition-colors; }
 </style>

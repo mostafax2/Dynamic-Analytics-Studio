@@ -33,10 +33,14 @@ final class SecurityManager implements SecurityManagerInterface
         $this->enforce = (bool) config('analytics-suite.security.enforce_permissions', true);
     }
 
-    public function can(Authenticatable $user, string $permission): bool
+    public function can(?Authenticatable $user, string $permission): bool
     {
         if (!$this->enforce) {
             return true;
+        }
+
+        if ($user === null) {
+            return false;
         }
 
         // Super-admin bypass
@@ -53,7 +57,7 @@ final class SecurityManager implements SecurityManagerInterface
         return $this->checkDirectPermission($user, $permission);
     }
 
-    public function canAny(Authenticatable $user, array $permissions): bool
+    public function canAny(?Authenticatable $user, array $permissions): bool
     {
         foreach ($permissions as $permission) {
             if ($this->can($user, $permission)) {
@@ -63,7 +67,7 @@ final class SecurityManager implements SecurityManagerInterface
         return false;
     }
 
-    public function canAll(Authenticatable $user, array $permissions): bool
+    public function canAll(?Authenticatable $user, array $permissions): bool
     {
         foreach ($permissions as $permission) {
             if (!$this->can($user, $permission)) {
@@ -103,7 +107,7 @@ final class SecurityManager implements SecurityManagerInterface
         return $query;
     }
 
-    public function authorizeOr403(Authenticatable $user, string $permission): void
+    public function authorizeOr403(?Authenticatable $user, string $permission): void
     {
         if (!$this->can($user, $permission)) {
             throw new HttpResponseException(

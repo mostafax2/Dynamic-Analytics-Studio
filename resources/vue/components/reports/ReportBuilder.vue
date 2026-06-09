@@ -332,6 +332,7 @@ async function queueExport(format: string) {
 </script>
 
 <style scoped>
+@reference "tailwindcss";
 .as-label    { @apply block text-xs font-semibold text-slate-600 dark:text-slate-400 mb-1 uppercase tracking-wide; }
 .as-input    { @apply w-full px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-700 text-slate-800 dark:text-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500; }
 .as-input-sm { @apply px-2 py-1 rounded-md border border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-700 text-slate-800 dark:text-white text-xs focus:outline-none focus:ring-1 focus:ring-indigo-500; }
