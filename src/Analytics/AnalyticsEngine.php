@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Mostafax\AnalyticsSuite\Analytics;
 
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\DB;
 use Mostafax\AnalyticsSuite\Cache\AnalyticsCacheManager;
 use Mostafax\AnalyticsSuite\Contracts\AnalyticsEngineInterface;
 use Mostafax\AnalyticsSuite\Contracts\DetectionEngineInterface;
@@ -110,7 +111,7 @@ final class AnalyticsEngine implements AnalyticsEngineInterface
             'table'   => $table,
         ];
 
-        $trends = $this->computeTrends($table, $config);
+        $trends = $this->computeTrends($table);
 
         $ms      = (microtime(true) - $start) * 1000;
         $dto     = new AnalyticsResultDTO(
@@ -185,7 +186,12 @@ final class AnalyticsEngine implements AnalyticsEngineInterface
         }
 
         if (!empty($config['group_by'])) {
-            $dsl['group_by'] = (array) $config['group_by'];
+            $groupBy = array_values(array_filter(
+                array_map(fn (string $col) => $this->normalizeGroupByColumn($col), (array) $config['group_by'])
+            ));
+            if (!empty($groupBy)) {
+                $dsl['group_by'] = $groupBy;
+            }
         }
 
         if (!empty($config['filters'])) {
@@ -219,10 +225,28 @@ final class AnalyticsEngine implements AnalyticsEngineInterface
         };
     }
 
-    private function computeTrends(string $table, array $config): array
+    private function normalizeGroupByColumn(string $expr): string
+    {
+        // Strip ' AS alias' suffix
+        $expr = trim((string) preg_replace('/\s+as\s+\w+$/i', '', trim($expr)));
+
+        // Already a safe plain identifier
+        if (preg_match('/^[a-zA-Z_][a-zA-Z0-9_.]*$/', $expr)) {
+            return $expr;
+        }
+
+        // SQL expression like DATE_FORMAT(created_at, ...) — extract first column arg
+        if (preg_match('/\(\s*([a-zA-Z_][a-zA-Z0-9_.]*)\s*[,)]/i', $expr, $m)) {
+            return $m[1];
+        }
+
+        return '';
+    }
+
+    private function computeTrends(string $table): array
     {
         try {
-            $results = \DB::table($table)
+            $results = DB::table($table)
                 ->selectRaw('DATE_FORMAT(created_at, "%Y-%m") as period, COUNT(*) as count')
                 ->whereNotNull('created_at')
                 ->groupBy('period')
